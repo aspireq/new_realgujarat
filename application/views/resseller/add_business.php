@@ -5,6 +5,9 @@
     </head>
     <body>
         <?php echo $header; ?>
+        
+        <div class="loaderwrap"><div class="loader"></div></div>
+       
         <section>
             <div class="container">
                 <div class="row">
