@@ -373,6 +373,8 @@ class Auth_admin extends CI_Controller {
     }
 
     function add_business() {
+        $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
+        $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
         $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         $this->data = $this->include_files();
         $this->load->view('admin/add_business', $this->data);

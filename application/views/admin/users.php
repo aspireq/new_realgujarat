@@ -161,7 +161,7 @@
             <script>
                                         $(function () {
                                             $('#payment_added').click(function () {
-                                                swal("", "Payment Added Successfully!");
+                                                swal("", "Payment information saved Successfully!");
                                             });
                                             $('#payment_failed').click(function () {
                                                 swal("", "Something went wrong! Please try again later..");
@@ -439,6 +439,7 @@
                 }
                 function edit_payment(id) {
                     $('#payment_history').modal('hide');
+                    $('body').addClass('modal-open');
                     $.ajax({
                         url: "<?php echo base_url(); ?>auth/get_record/",
                         type: "POST",
@@ -456,8 +457,8 @@
                             $('#nettamount').val(data.netamount);
                             $('#final_amount').val(data.netamount);
                             $('#payment_description').val(data.description);
-                            $('select[id="payment_mode"]').find('option:contains(' + data.payment_method + ')').attr("selected", true);                            
-                            if (data.tax !== '0') {                                
+                            $('select[id="payment_mode"]').find('option:contains(' + data.payment_method + ')').attr("selected", true);
+                            if (data.tax !== '0') {
                                 $('select[id="tax_method"]').find('option:contains(' + data.tax + ')').attr("selected", true);
                             }
                             $('#payment_mode').trigger("change");
@@ -467,9 +468,13 @@
                                 $('#bank_transaction_id').val(data.bank_transaction_id);
                             } else if (data.transaction_id !== null) {
                                 $('#transaction_id').val(data.transaction_id);
-                            }                           
+                            }
                             $('#edit_id').val(data.id);
                             $('#responsive-modal').modal('show');
+                            if ($('#responsive-modal').css('display') == 'none') {
+                               // alert(true);
+                                $('body').addClass('modal-open');
+                            }                            
                         }
                     });
                 }
@@ -481,6 +486,6 @@
 //                        }
 //                });
             </script>
-                
+
     </body>
 </html>
