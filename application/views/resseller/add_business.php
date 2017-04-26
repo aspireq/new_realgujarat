@@ -593,9 +593,12 @@
                                                                 $(document).on('ready', function () {
                                                                     var total_earning = 0;
                                                                     var business_id = $('#edit_id').val();
-                                                                    if (business_id !== "") {
+                                                                    if (business_id == "") {
                                                                         var divobj = document.getElementById('totalPrice');
                                                                         divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
+                                                                        divobj.style.display = 'block';
+                                                                    }else {
+                                                                        var divobj = document.getElementById('totalPrice');                                                                        
                                                                         divobj.style.display = 'none';
                                                                     }
                                                                     $('#add_busines').click(function () {

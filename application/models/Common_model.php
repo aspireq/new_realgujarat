@@ -50,7 +50,7 @@ class Common_model extends CI_Model {
         if ($limit != null || $start != null) {
             $this->db->limit($limit, $start);
         }
-        $this->db->where('businesses.is_approved', 0);
+        //$this->db->where('businesses.is_approved', 0);
         $this->db->where('businesses.user_id', $user_id);
         $this->db->order_by('businesses.created_date desc');
         $query = $this->db->get('businesses');

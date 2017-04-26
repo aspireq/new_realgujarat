@@ -21,17 +21,16 @@
                                     ?>
                                     <div class="row adlist">
                                         <div class="col-md-2 col-sm-3 col-xs-12">
-                                            <img src="<?php echo base_url(); ?>include_files/logo/<?php echo ($data->logo != "" && (file_exists(FCPATH . 'include_files/logo/' . $data->logo))) ? $data->logo : 'noimage.jpg' ?>" alt="" class="img-responsive img-thumbnail" />
-                                            <p class="pending-text"><?php echo ($data->is_approved == 1) ? 'Approved' : 'Pending'; ?></p>
-<!--                                            <p class="approved-text"><?php echo ($data->is_approved == 1) ? 'Approved' : 'Pending'; ?></p>-->
+                                            <img src="<?php echo base_url(); ?>include_files/logo/<?php echo ($data->logo != "" && (file_exists(FCPATH . 'include_files/logo/' . $data->logo))) ? $data->logo : 'noimage.jpg' ?>" alt="" class="img-responsive img-thumbnail" />                                            
+                                            <?php echo ($data->is_approved == 1) ? '<p class="pending-text">Pending</p>' : '<p class="approved-text">Approved</p>'; ?>                                            
                                         </div>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <h4><?php echo $data->name; ?></h4>
                                             <ul class="list">
                                                 <li><i class="fa fa-map-marker"></i> <?php echo $data->address; ?></li>
-                                                <li><i class="fa fa-phone"></i> <?php echo $data->landline_no; ?></li>
-                                                <li><i class="fa fa-star"></i> Rating</li>
-                                                </ul>
+                                                <li><i class="fa fa-phone"></i> <?php echo $data->mobile_code . $data->mobile_no; ?></li>
+        <!--                                                <li><i class="fa fa-star"></i> Rating</li>-->
+                                            </ul>
                                         </div>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>                                            
@@ -45,22 +44,6 @@
                                 <img src="<?php echo base_url(); ?>include_files/norecordfound.png" class="img-responsive" />
                             <?php }
                             ?>
-                            <!--                            <div class="row adlist">
-                                                            <div class="col-md-2 col-sm-3 col-xs-12">
-                                                                <img src="images/adidas.jpg" alt="" class="img-responsive" />
-                                                            </div>
-                                                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                                                <h4>Company Name</h4>
-                                                                <ul class="list">
-                                                                    <li><i class="fa fa-map-marker"></i> Company Address</li>
-                                                                    <li><i class="fa fa-phone"></i> Phone</li>
-                                                                    <li><i class="fa fa-star"></i> Rating</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-2 col-sm-3 col-xs-12">
-                                                                <a href="submitad.html"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>
-                                                            </div>
-                                                        </div>-->
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
