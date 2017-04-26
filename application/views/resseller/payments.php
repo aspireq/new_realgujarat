@@ -24,9 +24,9 @@
                                             <th>Payment Mode</th>
                                             <th>Transaction Id</th>
                                             <th>Cheque No.</th>
-                                            <th align='right'>Amount</th>
-                                            <th align='right'>Tax</th>
-                                            <th align='right'>Net Amount</th>
+                                            <th class="text-right">Amount</th>
+                                            <th class="text-right">Tax</th>
+                                            <th class="text-right">Net Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -36,9 +36,9 @@
                                                 <td><?php echo $data->payment_method; ?></td>
                                                 <td><?php echo ($data->transaction_id != "") ? $data->transaction_id : $data->bank_transaction_id; ?></td>
                                                 <td><?php echo $data->chequeno; ?></td>
-                                                <td align='right'><?php echo $data->amount; ?></td>
-                                                <td align='right'><?php echo ($data->tax != null) ? $data->tax.'%' : '' ; ?></td>
-                                                <td align='right'><?php echo $data->netamount; ?></td>
+                                                <td class="text-right"><?php echo $data->amount; ?></td>
+                                                <td class="text-right"><?php echo ($data->tax != null) ? $data->tax.'%' : '' ; ?></td>
+                                                <td class="text-right"><?php echo $data->netamount; ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

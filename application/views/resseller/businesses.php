@@ -21,7 +21,9 @@
                                     ?>
                                     <div class="row adlist">
                                         <div class="col-md-2 col-sm-3 col-xs-12">
-                                            <img src="<?php echo base_url(); ?>include_files/logo/<?php echo ($data->logo != "" && (file_exists(FCPATH . 'include_files/logo/' . $data->logo))) ? $data->logo : 'noimage.jpg' ?>" alt="" class="img-responsive" />
+                                            <img src="<?php echo base_url(); ?>include_files/logo/<?php echo ($data->logo != "" && (file_exists(FCPATH . 'include_files/logo/' . $data->logo))) ? $data->logo : 'noimage.jpg' ?>" alt="" class="img-responsive img-thumbnail" />
+                                            <p class="pending-text"><?php echo ($data->is_approved == 1) ? 'Approved' : 'Pending'; ?></p>
+<!--                                            <p class="approved-text"><?php echo ($data->is_approved == 1) ? 'Approved' : 'Pending'; ?></p>-->
                                         </div>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <h4><?php echo $data->name; ?></h4>
@@ -29,8 +31,7 @@
                                                 <li><i class="fa fa-map-marker"></i> <?php echo $data->address; ?></li>
                                                 <li><i class="fa fa-phone"></i> <?php echo $data->landline_no; ?></li>
                                                 <li><i class="fa fa-star"></i> Rating</li>
-                                                <li><?php echo ($data->is_approved == 1) ? '<i class="fa fa-circle-thin"></i> Approved' : '<i class="fa fa-stop-circle"></i> Pending'; ?></li>
-                                            </ul>
+                                                </ul>
                                         </div>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>                                            

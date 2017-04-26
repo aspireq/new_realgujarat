@@ -1681,6 +1681,12 @@ form h3{
 .adlist ul{
     margin-top: 8px
 }
+.adlist h4{
+    width: 100%;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space:nowrap
+}
 /*step form*/
 .stepwizard-step p {
     margin-top: 10px;
@@ -1797,3 +1803,28 @@ h4.form-title{
     border-right: 0;
     padding: 6px;
  }
+.pending-text{
+    padding: 2px;
+    text-align: center;
+    background: #f9eda1;
+    width:100%;
+    border: 1px solid #ead86b;
+    font-size: 12px;
+    margin: 2px auto;
+}
+.approved-text{
+    padding: 2px;
+    text-align: center;
+    background: #0fc198;
+    border: 1px solid #099568;
+    width: 100%;
+    font-size: 12px;
+    margin: 2px auto;
+    color: #fff;
+}
+.btn-edit{
+   padding: 2px 14px;
+}
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #ffefef;
+}
