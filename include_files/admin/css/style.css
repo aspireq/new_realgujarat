@@ -16188,3 +16188,12 @@ h4.form-title{
     margin: 2px 1px;
     float: left;
 }
+.codeinput {
+    padding: 0;
+    width: 22%;
+    border: 0;
+}
+.codeinput .form-control {
+    border-right: 0;
+    padding: 6px;
+}
