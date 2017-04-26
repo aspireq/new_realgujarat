@@ -6,7 +6,7 @@
     <body>
         <?php echo $header; ?>
         
-        <div class="loaderwrap"><div class="loader"></div></div>
+        <div class="loaderwrap hidden"><div class="loader"></div></div>
        
         <section>
             <div class="container">
@@ -14,7 +14,10 @@
                     <?php echo $sidebar; ?>
                     <div class="col-md-9 col-sm-8 col-xs-12 p-r-0">
                         <div class="form-container">
-                            <h3><i class="fa fa-cube"></i>&nbsp;&nbsp;Add New AD</h3>
+                            <h3>
+                                <i class="fa fa-cube"></i>&nbsp;&nbsp;Add New AD
+                                <div id="totalPrice"></div> 
+                            </h3>
                             <hr class="form-hr" />
                             <?php if ($message != "") { ?>
                                 <div class="alert alert-success alert-dismissable">
@@ -22,9 +25,9 @@
                                     <?php echo $message; ?>
                                 </div>
                             <?php } ?>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
+<!--                            <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div id="totalPrice"></div>                                
-                            </div>
+                            </div>-->
                             <div class="stepwizard col-md-12 col-sm-12 col-xs-12">
                                 <div class="stepwizard-row setup-panel">
                                     <div class="stepwizard-step">
@@ -132,19 +135,30 @@
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-phone"></i>
+                                                </div>
+                                                <div class="input-group-addon codeinput">
+                                                    <input type="text" placeholder="Code" class="form-control">
+                                                </div>
                                                 <input type="text" class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_no'] != "") ? $businessinfo['landline_no'] : '' ?>" >
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                                <div class="input-group-addon codeinput">
+                                                    <input type="text" placeholder="Code" class="form-control">
+                                                </div>
                                                 <input type="text" class="form-control" placeholder="Mobile No." required name="mobile_no" id="mobile_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_no'] != "") ? $businessinfo['mobile_no'] : '' ?>" onblur="calculateTotal()">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                                <div class="input-group-addon codeinput">
+                                                    <input type="text" placeholder="Code" class="form-control">
+                                                </div>
                                                 <input type="text" class="form-control" placeholder="Other No." name="other_no" id="other_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['other_no'] != "") ? $businessinfo['other_no'] : '' ?>">
                                             </div>
                                         </div>
