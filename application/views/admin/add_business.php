@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-times-rectangle-o"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                                 <input class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="" type="text">
                                             </div>
                                         </div>
@@ -178,14 +178,14 @@
                                             <h4 class="form-title">Services You Provide :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <div class="bootstrap-tagsinput"><input placeholder="" type="text"></div><select multiple="" data-role="tagsinput" class="form-control" name="services[]" id="services" style="display: none;">
+                                            <select multiple="" data-role="tagsinput" class="form-control" name="services[]" id="services" style="display: none;">
                                             </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Other Locations :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <div class="bootstrap-tagsinput"><input placeholder="" type="text"></div><select multiple="" data-role="tagsinput" class="form-control" name="other_locations[]" id="other_locations" style="display: none;">
+                                            <select multiple="" data-role="tagsinput" class="form-control" name="other_locations[]" id="other_locations" style="display: none;">
                                             </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -1943,16 +1943,20 @@
                                             <h4 class="form-title">Payment Modes Accepted By You :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <select class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="Select Payment Mode" style="width: 100%" name="payment_mode[]" id="payment_mode" tabindex="-1" aria-hidden="true">
-
-                                                <option value="Cash">Cash</option>
-                                                <option value="Visa Card">Visa Card</option>
-                                                <option value="Master Card">Master Card</option>
-                                                <option value="Debit Card">Debit Card</option>
-                                                <option value="Money Order">Money Order</option>
-                                                <option value="Financing Available">Financing Available</option>
-                                                <option value="Cheque">Cheque</option>
-                                            </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Select Payment Mode" style="width: 100px;" type="search"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                            <select class="form-control select2" multiple="multiple" data-placeholder="Select Payment Mode" style="width: 100%" name="payment_mode[]" id="payment_mode">
+                                                <?php
+                                                if (!empty($businessinfo) && $businessinfo['payment_methods'] != "") {
+                                                    $payment_methods = explode(',', $businessinfo['payment_methods']);
+                                                }
+                                                ?>   
+                                                <option value="Cash" <?php echo (!empty($businessinfo) && in_array('Cash', $payment_methods)) ? 'selected' : '' ?>>Cash</option>
+                                                <option value="Visa Card" <?php echo (!empty($businessinfo) && in_array('Visa Card', $payment_methods)) ? 'selected' : '' ?>>Visa Card</option>
+                                                <option value="Master Card" <?php echo (!empty($businessinfo) && in_array('Master Card', $payment_methods)) ? 'selected' : '' ?>>Master Card</option>
+                                                <option value="Debit Card" <?php echo (!empty($businessinfo) && in_array('Debit Card', $payment_methods)) ? 'selected' : '' ?>>Debit Card</option>
+                                                <option value="Money Order" <?php echo (!empty($businessinfo) && in_array('Money Order', $payment_methods)) ? 'selected' : '' ?>>Money Order</option>
+                                                <option value="Financing Available" <?php echo (!empty($businessinfo) && in_array('Financing Available', $payment_methods)) ? 'selected' : '' ?>>Financing Available</option>
+                                                <option value="Cheque" <?php echo (!empty($businessinfo) && in_array('Cheque', $payment_methods)) ? 'selected' : '' ?>>Cheque</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Product Rate:</h4>
@@ -1970,7 +1974,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row setup-content" id="step-3" style="display: none;">
+                                <div class="row setup-content" id="step-3" style="display:none">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3>Step 3: Upload Photos</h3>
@@ -1978,96 +1982,32 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Upload Logo :</h4>
                                             <div class="kv-avatar">
-                                                <div class="file-input"><div class="file-preview ">
-                                                        <div class="close fileinput-remove">×</div>
-                                                        <div class="file-drop-disabled">
-                                                            <div class="file-preview-thumbnails"><div class="file-default-preview"><img src="http://localhost/new_realgujarat/include_files/resseller/plugin/imageupload/img/noimage.jpg" alt="Your Avatar" style="width:160px;margin:0 auto;display:block"></div></div>
-                                                            <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                                                            <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="kv-upload-progress hide"><div class="progress">
-                                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                                                0%
-                                                            </div>
-                                                        </div></div>
-                                                    <div class="input-group file-caption-main">
-                                                        <div tabindex="500" class="form-control file-caption  kv-fileinput-caption">
-                                                            <div class="file-caption-name"></div>
-                                                        </div>
-
-                                                        <div class="input-group-btn">
-                                                            <button type="button" tabindex="500" title="Clear selected files" class="btn btn-warning fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i>   <span class="hidden-xs">Delete</span></button>
-                                                            <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i>  <span class="hidden-xs">Cancel</span></button>
-
-                                                            <div tabindex="500" class="btn btn-danger btn-file"><i class="glyphicon glyphicon-picture"></i>   <span class="hidden-xs">Pick Image</span><input id="input-1" accept="image/*" name="avatar-1" class="" data-show-upload="false" type="file"></div>
-                                                        </div>
-                                                    </div></div>
+                                                <input id="input-1" type="file" accept="image/*" name="avatar-1" class="file-loading"  data-show-upload="false">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Upload Banner :</h4>
-                                            <div class="file-input"><div class="file-preview ">
-                                                    <div class="close fileinput-remove">×</div>
-                                                    <div class="file-drop-disabled">
-                                                        <div class="file-preview-thumbnails"><div class="file-default-preview"><img src="http://localhost/new_realgujarat/include_files/resseller/plugin/imageupload/img/noimage.jpg" alt="Your Avatar" style="width:160px;margin:0 auto;display:block"></div></div>
-                                                        <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                                                        <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="kv-upload-progress hide"><div class="progress">
-                                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                                            0%
-                                                        </div>
-                                                    </div></div>
-                                                <div class="input-group file-caption-main">
-                                                    <div tabindex="500" class="form-control file-caption  kv-fileinput-caption">
-                                                        <div class="file-caption-name"></div>
-                                                    </div>
-
-                                                    <div class="input-group-btn">
-                                                        <button type="button" tabindex="500" title="Clear selected files" class="btn btn-warning fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i>   <span class="hidden-xs">Delete</span></button>
-                                                        <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i>  <span class="hidden-xs">Cancel</span></button>
-
-                                                        <div tabindex="500" class="btn btn-danger btn-file"><i class="glyphicon glyphicon-picture"></i>   <span class="hidden-xs">Pick Image</span><input id="input-2" name="company_banner" accept="image/*" class="" data-show-upload="false" type="file"></div>
-                                                    </div>
-                                                </div></div>
+                                            <input id="input-2" name="company_banner" type="file" accept="image/*" class="file-loading" data-show-upload="false">
                                         </div>                                        
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Upload Images</h4>
                                             <div class="alert alert-info">
-                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                                 Maximum 50 Files are allowed
                                             </div>
                                             <div class="row oldimage">
+                                                <?php foreach ($businessinfo['company_images'] as $image) { ?>                                                
+                                                    <div class="col-md-3">
+                                                        <div class="thumbnail">
+                                                            <a class="close" href="#"><i class="fa fa-times-circle"></i></a>
+                                                            <input type="hidden" name="old_company_images[]" id="<?php echo $$image->image; ?>" value="<?php echo $image->image; ?>">
+                                                            <img src="<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>">
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
 
-                                            <div class="file-input file-input-ajax-new"><div class="file-preview ">
-                                                    <div class="close fileinput-remove">×</div>
-                                                    <div class=" file-drop-zone"><div class="file-drop-zone-title">Drag &amp; drop files here …</div>
-                                                        <div class="file-preview-thumbnails">
-                                                        </div>
-                                                        <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                                                        <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="kv-upload-progress hide"><div class="progress">
-                                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                                            0%
-                                                        </div>
-                                                    </div></div>
-                                                <div class="input-group file-caption-main">
-                                                    <div tabindex="500" class="form-control file-caption  kv-fileinput-caption">
-                                                        <div class="file-caption-name"></div>
-                                                    </div>
-
-                                                    <div class="input-group-btn">
-                                                        <button type="button" tabindex="500" title="Clear selected files" class="btn btn-warning fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i>   <span class="hidden-xs">Delete</span></button>
-                                                        <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i>  <span class="hidden-xs">Cancel</span></button>
-
-                                                        <div tabindex="500" class="btn btn-danger btn-file"><i class="glyphicon glyphicon-picture"></i>   <span class="hidden-xs">Pick Image</span><input id="input-3" accept="image/*" name="userFiles[]" class="" multiple="" data-show-upload="false" type="file"></div>
-                                                    </div>
-                                                </div></div>
+                                            <input id="input-3" type="file" accept="image/*" name="userFiles[]" class="file-loading"  multiple  data-show-upload="false">
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-danger prevBtn btn-lg pull-left" type="button">Previous</button>
@@ -2094,6 +2034,11 @@
             <script src="<?php echo base_url(); ?>include_files/admin/js/jQuery.dataTables.reloadAjax.js"></script>
             <!-- bt-switch -->
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/imageupload/js/plugins/sortable.js" type="text/javascript"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/imageupload/js/fileinput.js" type="text/javascript"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/imageupload/themes/explorer/theme.js" type="text/javascript"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/select2/select2.full.min.js"></script>        
+            <script type="text/javascript" src="<?php echo base_url(); ?>include_files/admin/plugins/taginput/js/bootstrap-tagsinput.js"></script> 
             <script>
                                                                 var myTable = "";
                                                                 $(function () {
@@ -2209,59 +2154,233 @@
             </script>
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
             <script>
-                /*step form*/
-                $(document).ready(function () {
-                    var navListItems = $('div.setup-panel div a'),
-                            allWells = $('.setup-content'),
-                            allNextBtn = $('.nextBtn'),
-                            allPrevBtn = $('.prevBtn');
+                                                                /*step form*/
+                                                                $(".select2").select2();
+                                                                $(document).ready(function () {
+                                                                    var navListItems = $('div.setup-panel div a'),
+                                                                            allWells = $('.setup-content'),
+                                                                            allNextBtn = $('.nextBtn'),
+                                                                            allPrevBtn = $('.prevBtn');
 
 
 
-                    navListItems.click(function (e) {
-                        e.preventDefault();
-                        var $target = $($(this).attr('href')),
-                                $item = $(this);
+                                                                    navListItems.click(function (e) {
+                                                                        e.preventDefault();
+                                                                        var $target = $($(this).attr('href')),
+                                                                                $item = $(this);
 
-                        if (!$item.hasClass('disabled')) {
-                            navListItems.removeClass('btn-danger').addClass('btn-default');
-                            $item.addClass('btn-primary').removeClass('btn-default');
-                            allWells.hide();
-                            $target.show();
-                            $target.find('input:eq(0)').focus();
-                        }
-                    });
+                                                                        if (!$item.hasClass('disabled')) {
+                                                                            navListItems.removeClass('btn-danger').addClass('btn-default');
+                                                                            $item.addClass('btn-primary').removeClass('btn-default');
+                                                                            allWells.hide();
+                                                                            $target.show();
+                                                                            $target.find('input:eq(0)').focus();
+                                                                        }
+                                                                    });
 
-                    allPrevBtn.click(function () {
-                        var curStep = $(this).closest(".setup-content"),
-                                curStepBtn = curStep.attr("id"),
-                                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+                                                                    allPrevBtn.click(function () {
+                                                                        var curStep = $(this).closest(".setup-content"),
+                                                                                curStepBtn = curStep.attr("id"),
+                                                                                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-                        prevStepWizard.removeAttr('disabled').trigger('click');
-                    });
+                                                                        prevStepWizard.removeAttr('disabled').trigger('click');
+                                                                    });
 
-                    allNextBtn.click(function () {
-                        var curStep = $(this).closest(".setup-content"),
-                                curStepBtn = curStep.attr("id"),
-                                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                                curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
-                                isValid = true;
+                                                                    allNextBtn.click(function () {
+                                                                        var curStep = $(this).closest(".setup-content"),
+                                                                                curStepBtn = curStep.attr("id"),
+                                                                                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                                                                                curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
+                                                                                isValid = true;
 
-                        $(".form-group").removeClass("has-error");
-                        for (var i = 0; i < curInputs.length; i++) {
-                            if (!curInputs[i].validity.valid) {
-                                isValid = false;
-                                $(curInputs[i]).closest(".form-group").addClass("has-error");
-                            }
-                        }
+                                                                        $(".form-group").removeClass("has-error");
+                                                                        for (var i = 0; i < curInputs.length; i++) {
+                                                                            if (!curInputs[i].validity.valid) {
+                                                                                isValid = false;
+                                                                                $(curInputs[i]).closest(".form-group").addClass("has-error");
+                                                                            }
+                                                                        }
 
-                        if (isValid)
-                            nextStepWizard.removeClass('disabled').trigger('click');
-                    });
+                                                                        if (isValid)
+                                                                            nextStepWizard.removeClass('disabled').trigger('click');
+                                                                    });
 
-                    $('div.setup-panel div a.btn-danger').trigger('click');
-                });
+                                                                    $('div.setup-panel div a.btn-danger').trigger('click');
+                                                                });
 
             </script>
+            <script type="text/javascript">
+                                                                    $(document).on('ready', function () {
+                                                                        var total_earning = 0;
+                                                                        var business_id = $('#edit_id').val();
+                                                                        $('.close').click(function () {
+                                                                            $(this).parents('.oldimage .col-md-3').remove();
+                                                                            $(this).closest('input').remove();
+                                                                        });
+//                                                                        $('#btn-step-1').click(function () {
+//                                                                            if (business_id == "") {
+//                                                                                var company_name = $('#company_name').val();
+//                                                                                var category = $('#category').val();
+//                                                                                var address = $('#company_address').val();
+//                                                                                var mobileno = $('#mobile_no').val();
+//                                                                                total_earning = 0;
+//                                                                                (company_name !== "") ? total_earning += 1 : total_earning -= 1;
+//                                                                                (category !== "") ? total_earning += 1 : total_earning -= 1;
+//                                                                                (address !== "") ?  total_earning += 1 : total_earning -= 1;
+//                                                                                (mobileno !== "") ? total_earning += 1 : total_earning -= 1;
+//                                                                                alert(total_earning);
+//                                                                            }
+//                                                                        });
+                                                                        var dual_timings = $('#dual_timings').is(':checked');
+                                                                        $("#input-3").fileinput({
+                                                                            uploadUrl: '/file-upload-batch/2',
+                                                                            uploadAsync: false,
+                                                                            overwriteInitial: false,
+                                                                            initialPreviewAsData: true,
+                                                                            purifyHtml: true,
+                                                                            maxFilePreviewSize: 10240,
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            previewFileType: "image",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                        });
+                                                                        if (dual_timings === true) {
+                                                                            $('#dual_timings_check').show();
+                                                                        } else {
+                                                                            $('#dual_timings_check').hide();
+                                                                        }
+                                                                        $(".select2").select2();
+                                                                        $('#find_duplicates').hide();
+                                                                        $('#pincode, #mobile_no, #other_no, #year_establishment').on('change keyup', function () {
+                                                                            var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
+                                                                            sanitized = sanitized.replace(/(.)-+/g, '$1');
+                                                                            sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
+                                                                            $(this).val(sanitized);
+                                                                        });
+                                                                        $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {
+                                                                            var landline_no = $("#landline_no").val();
+                                                                            var mobile_no = $("#mobile_no").val();
+                                                                            var other_no = $("#other_no").val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/check_duplicates/",
+                                                                                type: "POST",
+                                                                                data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    if (data > 0) {
+                                                                                        $('#btn-step-1').attr('disabled', true);
+                                                                                        $('#find_duplicates').show();
+                                                                                    } else {
+                                                                                        $('#btn-step-1').attr('disabled', false);
+                                                                                        $('#find_duplicates').hide();
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        $('#dual_timings').change(function () {
+                                                                            if ($(this).is(':checked')) {
+                                                                                $('#dual_timings_check').show();
+                                                                            } else {
+                                                                                $('#dual_timings_check').hide();
+                                                                            }
+                                                                        });
+                                                                        $("#copy_timings").click(function () {
+                                                                            if ($(this).is(':checked')) {
+                                                                                var from_time = $('#from_timings-0').val();
+                                                                                var to_time = $('#to_timings-0').val();
+                                                                                $('#from_timings-1').val(from_time);
+                                                                                $('#from_timings-2').val(from_time);
+                                                                                $('#from_timings-3').val(from_time);
+                                                                                $('#from_timings-4').val(from_time);
+                                                                                $('#from_timings-5').val(from_time);
+                                                                                $('#from_timings-6').val(from_time);
+                                                                                $('#to_timings-1').val(to_time);
+                                                                                $('#to_timings-2').val(to_time);
+                                                                                $('#to_timings-3').val(to_time);
+                                                                                $('#to_timings-4').val(to_time);
+                                                                                $('#to_timings-5').val(to_time);
+                                                                                $('#to_timings-6').val(to_time);
+                                                                            }
+                                                                        });
+                                                                        $('#category').change(function () {
+                                                                            var category_id = $('#category').val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/subcategories/",
+                                                                                type: "POST",
+                                                                                data: {category_id: category_id},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    $('#subcategory').empty();
+                                                                                    $('#subcategory').html('<option value="">Select Subcategory</option>');
+                                                                                    $.each(data, function (index, value) {
+                                                                                        $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        $('#state').change(function () {
+                                                                            var state_id = $('#state').val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/cities/",
+                                                                                type: "POST",
+                                                                                data: {state_id: state_id},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    $('#city').empty();
+                                                                                    $('#city').html('<option value="">Select City</option>');
+                                                                                    $.each(data, function (index, value) {
+                                                                                        $('#city').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                    });
+                                                                    function set_closed(from_id, to_id) {
+                                                                        $('#' + from_id).val("Closed");
+                                                                        $('#' + to_id).val("Closed");
+                                                                    }
+                                                                    $(document).on('ready', function () {
+                                                                        $("#input-2").fileinput({
+                                                                            previewFileType: "image",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            uploadClass: "btn btn-info",
+                                                                            uploadLabel: "Upload",
+                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                            minImageWidth: 800,
+                                                                            minImageHeight: 500
+                                                                        });
+                                                                        var btnCust = '';
+                                                                        $("#input-1").fileinput({
+                                                                            previewFileType: "image",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            uploadClass: "btn btn-info",
+                                                                            uploadLabel: "Upload",
+                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                            maxImageWidth: 80,
+                                                                            maxImageHeight: 80
+                                                                        });
+                                                                    });
+        </script>
     </body>
 </html>

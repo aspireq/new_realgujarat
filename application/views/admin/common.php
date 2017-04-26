@@ -18,3 +18,7 @@
 <link href="<?php echo base_url(); ?>include_files/admin/css/colors/default.css" id="theme"  rel="stylesheet">
 <link href="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="<?php echo base_url(); ?>include_files/admin/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>include_files/admin/plugins/taginput/css/bootstrap-tagsinput.css">
+<link href="<?php echo base_url(); ?>include_files/admin/plugins/imageupload/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="<?php echo base_url(); ?>include_files/admin/plugins/imageupload/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/>
