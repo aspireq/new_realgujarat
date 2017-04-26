@@ -45,7 +45,7 @@ class Admin_model extends CI_Model {
 
     function get_payments($user_id) {
         $this->load->library('Datatables');
-        $this->datatables->select('reseller_payments.netamount as netamount,reseller_payments.tax as tax,reseller_payments.date as date,reseller_payments.payment_method as payment_method,reseller_payments.id as id,reseller_payments.created_date as created_date,reseller_payments.status as status,reseller_payments.amount as amount,reseller_payments.transaction_id as transaction_id,reseller_payments.bank_transaction_id as bank_transaction_id,reseller_payments.chequeno as chequeno');
+        $this->datatables->select('reseller_payments.id as id,reseller_payments.netamount as netamount,reseller_payments.tax as tax,reseller_payments.date as date,reseller_payments.payment_method as payment_method,reseller_payments.id as id,reseller_payments.created_date as created_date,reseller_payments.status as status,reseller_payments.amount as amount,reseller_payments.transaction_id as transaction_id,reseller_payments.bank_transaction_id as bank_transaction_id,reseller_payments.chequeno as chequeno');
         $this->datatables->from('reseller_payments');
         $this->datatables->where('reseller_payments.status = 1');
         $this->datatables->where('reseller_payments.user_id',$user_id);        

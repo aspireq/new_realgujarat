@@ -328,13 +328,13 @@ class Auth_admin extends CI_Controller {
 
             $payment_data = array(
                 "user_id" => $this->input->post('reseller_id'),
+                "earnings" => $this->input->post('total_earnings'),
                 "date" => $this->input->post('payment_date'),
                 "payment_method" => $this->input->post('payment_mode'),
                 "amount" => $this->input->post('amount'),
                 "netamount" => $this->input->post('final_amount'),
                 "tax" => $this->input->post('tax_method'),
                 "description" => $this->input->post('payment_description'));
-
             if ($this->input->post('transaction_id')) {
                 $payment_data['transaction_id'] = $this->input->post('transaction_id');
             }

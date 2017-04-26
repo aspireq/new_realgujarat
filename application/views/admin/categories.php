@@ -95,7 +95,7 @@
                                                 aTargets: [2]
                                             },
                                             {
-                                                mData: 'created_date',
+                                                mData: '',
                                                 aTargets: [3],
                                                 mRender: function (data, type, full)
                                                 {
@@ -103,7 +103,6 @@
                                                     html += '<a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="ti-trash"></i></a>';
                                                     return html;
                                                 }
-
                                             }
                                         ]
                                     });

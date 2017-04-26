@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Auth extends CI_Controller {
 
-    function __construct() {   
+    function __construct() {
         parent::__construct();
         $this->load->database();
         $this->load->library('session');
@@ -13,7 +13,7 @@ class Auth extends CI_Controller {
         $this->load->helper('form');
         $this->auth = new stdClass;
 
-        $this->load->library('flexi_auth'); 
+        $this->load->library('flexi_auth');
         if ($this->flexi_auth->is_logged_in_via_password() && uri_string() != 'auth/logout') {
             if ($this->session->flashdata('message')) {
                 $this->session->keep_flashdata('message');
@@ -25,8 +25,8 @@ class Auth extends CI_Controller {
             $this->user_id = $this->data['userinfo']['uacc_id'];
         }
     }
- 
-    function index() { 
+
+    function index() {
         $this->home();
     }
 
@@ -407,6 +407,14 @@ class Auth extends CI_Controller {
                 $data .= '</p>';
             }
         }
+        die(json_encode($data));
+    }
+
+    function get_record() {
+        $table_name = $this->input->post('table_name');
+        $id = $this->input->post('id');
+        $table_coloum = $this->input->post('table_coloum');
+        $data = $this->Common_model->select_where_row($table_name, array($table_coloum => $id));        
         die(json_encode($data));
     }
 
