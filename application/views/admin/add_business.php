@@ -28,7 +28,7 @@
                             <div class="stepwizard col-md-12 col-sm-12 col-xs-12">
                                 <div class="stepwizard-row setup-panel">
                                     <div class="stepwizard-step">
-                                        <a href="#step-1" type="button" class="btn btn-circle btn-primary">1</a>
+                                        <a href="#step-1" type="button" class="btn btn-danger btn-circle">1</a>
                                         <p>Step 1</p>
                                     </div>
                                     <div class="stepwizard-step">
@@ -43,8 +43,8 @@
                             </div>
                             <!--  form-->
                             <form class="form" role="form" method="post" enctype="multipart/form-data" action="" id="business_post">
-                                <input name="total_earnings" id="total_earnings" value="0" type="hidden">
-                                <div class="row setup-content" id="step-1" style="display: block;">
+                                <input type="hidden" name="total_earnings" id="total_earnings">
+                                <div class="row setup-content" id="step-1">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3>Step 1 : Basic Information</h3>
@@ -52,26 +52,20 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                                <input class="form-control" placeholder="Company name" required="" name="company_name" id="company_name" value="" onblur="calculateTotal()" type="text">
+                                                <input type="text" class="form-control" placeholder="Company name" required name="company_name" id="company_name" value="<?php echo (!empty($businessinfo) && $businessinfo['name'] != "") ? $businessinfo['name'] : '' ?>" onblur="calculateTotal()">
                                             </div>
                                         </div>
-                                        <input name="edit_id" id="edit_id" value="" type="hidden">
-                                        <input name="old_logo" id="old_logo" value="" type="hidden">
-                                        <input name="old_banner" id="old_banner" value="" type="hidden">
+                                        <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($businessinfo && isset($businessinfo['id']))) ? $businessinfo['id'] : '' ?>">
+                                        <input type="hidden" name="old_logo" id="old_logo" value="<?php echo (!empty($businessinfo && isset($businessinfo['banner']))) ? $businessinfo['banner'] : '' ?>">
+                                        <input type="hidden" name="old_banner" id="old_banner" value="<?php echo (!empty($businessinfo && isset($businessinfo['logo']))) ? $businessinfo['logo'] : '' ?>">
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-cube"></i></div>
-                                                <select type="text" class="form-control" name="category" id="category" required="" onchange="calculateTotal()">
+                                                <select type="text" class="form-control" name="category" id="category" required onChange="calculateTotal()">
                                                     <option value="">Select Category</option>
-                                                    <option value="1">Real Estate</option>
-                                                    <option value="2">Air Ticket</option>
-                                                    <option value="3">Hotel</option>
-                                                    <option value="4">Play</option>
-                                                    <option value="5">Job Search</option>
-                                                    <option value="6">Car</option>
-                                                    <option value="7">Electronics</option>
-                                                    <option value="8">Salon</option>
-                                                    <option value="9">Education</option>
+                                                    <?php foreach ($categories as $category) { ?>
+                                                        <option value="<?php echo $category->id; ?>" <?php echo (!empty($businessinfo) && $businessinfo['category_id'] != "" && $businessinfo['category_id'] == $category->id ) ? 'selected' : '' ?>><?php echo $category->name; ?></option>
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -80,19 +74,26 @@
                                                 <div class="input-group-addon"><i class="fa fa-cube"></i></div>
                                                 <select class="form-control" name="subcategory" id="subcategory">
                                                     <option value="">Select Subcategory</option>
+                                                    
+                                                    <?php
+                                                    if (!empty($businessinfo) && $businessinfo['subcategory_id'] != "") {
+                                                        $subcategoryin = $this->db->query('select * from subcategories where id = ' . $businessinfo['subcategory_id'] . '');
+                                                        echo '<option value="' . $subcategoryin->row()->id . '" selected>' . $subcategoryin->row()->name . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                <textarea type="text" class="form-control" rows="2" placeholder="Company Address" name="company_address" id="company_address" required="" onblur="calculateTotal()"></textarea>
+                                                <textarea type="text" class="form-control" rows="2" placeholder="Company Address" name="company_address" id="company_address" required="" onblur="calculateTotal()"><?php echo (!empty($businessinfo) && $businessinfo['address'] != "") ? $businessinfo['address'] : '' ?></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                <input class="form-control" placeholder="Pincode" name="pincode" id="pincode" maxlength="6" onblur="calculateTotal()" value="" type="text">
+                                                <input type="text" class="form-control" placeholder="Pincode" name="pincode" id="pincode" maxlength="6" onblur="calculateTotal()" value="<?php echo (!empty($businessinfo) && $businessinfo['pincode'] != "") ? $businessinfo['pincode'] : '' ?>">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
@@ -100,7 +101,9 @@
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                                 <select class="form-control" name="state" id="state">
                                                     <option value="">Select State</option>
-                                                    <option value="12">Gujarat</option>
+                                                    <?php foreach ($states as $state) { ?>
+                                                        <option value="<?php echo $state->id; ?>" <?php echo (!empty($businessinfo) && $businessinfo['state'] != "" && $businessinfo['state'] == $state->id ) ? 'selected' : '' ?>><?php echo $state->name; ?></option>
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -109,16 +112,22 @@
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                                 <select class="form-control" id="city" name="city">
                                                     <option value="">Select City</option>
+                                                    <?php
+                                                    if (!empty($businessinfo) && $businessinfo['city'] != "") {
+                                                        $cityinfo = $this->db->query('select * from cities where id = ' . $businessinfo['city'] . '');
+                                                        echo '<option value="' . $cityinfo->row()->id . '" selected>' . $cityinfo->row()->name . '</option>';
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                                <input class="form-control" placeholder="Email" name="email" id="email" value="" type="email">
+                                                <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?php echo (!empty($businessinfo) && $businessinfo['email'] != "") ? $businessinfo['email'] : '' ?>">
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="find_duplicates" style="display: none;">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="find_duplicates">
                                             <div class="alert alert-danger alert-dismissable">                                                
                                                 One of the Contact already registered with the system
                                             </div>
@@ -129,33 +138,33 @@
                                                     <i class="fa fa-phone"></i>
                                                 </div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input placeholder="Code" class="form-control" type="text">
+                                                    <input type="text" placeholder="Code" class="form-control">
                                                 </div>
-                                                <input class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="" type="text">
+                                                <input type="text" class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_no'] != "") ? $businessinfo['landline_no'] : '' ?>" >
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input placeholder="Code" class="form-control" type="text">
+                                                    <input type="text" placeholder="Code" class="form-control">
                                                 </div>
-                                                <input class="form-control" placeholder="Mobile No." required="" name="mobile_no" id="mobile_no" maxlength="10" value="" onblur="calculateTotal()" type="text">
+                                                <input type="text" class="form-control" placeholder="Mobile No." required name="mobile_no" id="mobile_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_no'] != "") ? $businessinfo['mobile_no'] : '' ?>" onblur="calculateTotal()">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input placeholder="Code" class="form-control" type="text">
+                                                    <input type="text" placeholder="Code" class="form-control">
                                                 </div>
-                                                <input class="form-control" placeholder="Other No." name="other_no" id="other_no" maxlength="10" value="" type="text">
+                                                <input type="text" class="form-control" placeholder="Other No." name="other_no" id="other_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['other_no'] != "") ? $businessinfo['other_no'] : '' ?>">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                                <input class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="" type="text">
+                                                <div class="input-group-addon"><i class="fa fa-times-rectangle-o"></i></div>
+                                                <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -163,7 +172,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row setup-content" id="step-2" style="display: none;">
+                                <div class="row setup-content" id="step-2">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3>Step 2 : Company Detail</h3>
@@ -171,1773 +180,323 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                                <textarea class="form-control" placeholder="About Company" name="about_company" id="about_company"></textarea>
+                                                <textarea class="form-control" placeholder="About Company" name="about_company" id="about_company"><?php echo (!empty($businessinfo) && $businessinfo['business_description'] != "") ? $businessinfo['business_description'] : '' ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Services You Provide :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <select multiple="" data-role="tagsinput" class="form-control" name="services[]" id="services" style="display: none;">
+                                            <select multiple data-role="tagsinput" class="form-control" name="services[]" id="services">
+                                                <?php
+                                                if (!empty($businessinfo) && $businessinfo['services'] != "") {
+                                                    $services = explode(',', $businessinfo['services']);
+                                                    foreach ($services as $service) {
+                                                        echo '<option value="' . $service . '">' . $service . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Other Locations :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <select multiple="" data-role="tagsinput" class="form-control" name="other_locations[]" id="other_locations" style="display: none;">
+                                            <select multiple data-role="tagsinput" class="form-control" name="other_locations[]" id="other_locations">
+                                                <?php
+                                                if (!empty($businessinfo) && $businessinfo['other_locations'] != "") {
+                                                    $locations = explode(',', $businessinfo['other_locations']);
+                                                    foreach ($locations as $location) {
+                                                        echo '<option value="' . $location . '">' . $location . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Hours Of Operation :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Monday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-0">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-0">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-0" onclick="set_closed('from_timings-0', 'to_timings-0')" type="checkbox">
-                                                            Closed
-                                                        </label>
+                                            <?php
+                                            $days = array(
+                                                0 => 'Monday',
+                                                1 => 'Tuesday',
+                                                2 => 'Wednesday',
+                                                3 => 'Thursday',
+                                                4 => 'Friday',
+                                                5 => 'Saturday',
+                                                6 => 'Sunday');
+                                            if (!empty($businessinfo)) {
+                                                $from_timings_1 = explode(',', $businessinfo['from_timings_1']);
+                                                $to_timings_1 = explode(',', $businessinfo['to_timings_1']);
+                                                if ($businessinfo['from_timings_2'] != null) {
+                                                    $from_timings_2 = explode(',', $businessinfo['from_timings_2']);
+                                                    $to_timings_2 = explode(',', $businessinfo['to_timings_2']);
+                                                }
+                                            }
+                                            ?>
+                                            <?php foreach ($days as $key => $day) { ?>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-3 col-xs-12">
+                                                        <p><?php echo $day; ?> :</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
+                                                        <select class="form-control" name="from_timings[]" id="from_timings<?php echo '-' . $key; ?>">
+                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_1[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_1[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_1[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1 col-sm-1 col-xs-2 text-center">
+                                                        <p>To</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
+                                                        <select class="form-control" name="to_timings[]" id="to_timings<?php echo '-' . $key; ?>">
+                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_1[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_1[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_1[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings-' . $key; ?>', '<?php echo 'to_timings-' . $key; ?>')">
+                                                                Closed
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Tuesday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-1">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-1">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-1" onclick="set_closed('from_timings-1', 'to_timings-1')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Wednesday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-2">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-2">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-2" onclick="set_closed('from_timings-2', 'to_timings-2')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Thursday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-3">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-3">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-3" onclick="set_closed('from_timings-3', 'to_timings-3')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Friday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-4">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-4">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-4" onclick="set_closed('from_timings-4', 'to_timings-4')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Saturday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-5">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-5">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-5" onclick="set_closed('from_timings-5', 'to_timings-5')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Sunday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings[]" id="from_timings-6">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="to_timings[]" id="to_timings-6">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-6" onclick="set_closed('from_timings-6', 'to_timings-6')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input class="" id="copy_timings" name="copy_timings" type="checkbox">
+                                            <input type="checkbox" class="" id="copy_timings" name="copy_timings">
                                             <label for="copy_timings">Copy Timings from Monday to Saturday</label>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input id="dual_timings" name="dual_timings" value="1" type="checkbox">
+                                            <input type="checkbox" <?php echo (!empty($businessinfo) && $businessinfo['from_timings_2'] != null) ? 'checked' : '' ?> id="dual_timings" name="dual_timings" value="1">
                                             <label for="dual_timings">Dual Timings</label>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="dual_timings_check" style="display: none;">
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Monday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-0">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-0">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-0" onclick="set_closed('from_timings_1-0', 'to_timings_1-0')" type="checkbox">
-                                                            Closed
-                                                        </label>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="dual_timings_check">
+                                            <?php foreach ($days as $key => $day) { ?>
+                                                <div class="row">
+                                                    <div class="col-md-2 col-sm-3 col-xs-12">
+                                                        <p><?php echo $day; ?> :</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
+                                                        <select class="form-control" name="from_timings_1[]" id="from_timings_1<?php echo '-' . $key; ?>">
+                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1 col-sm-1 col-xs-2 text-center">
+                                                        <p>To</p>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
+                                                        <select class="form-control" name="to_timings_1[]" id="to_timings_1<?php echo '-' . $key; ?>">
+                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings_1-' . $key; ?>', '<?php echo 'to_timings_1-' . $key; ?>')">
+                                                                Closed
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Tuesday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-1">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-1">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-1" onclick="set_closed('from_timings_1-1', 'to_timings_1-1')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Wednesday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-2">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-2">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-2" onclick="set_closed('from_timings_1-2', 'to_timings_1-2')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Thursday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-3">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-3">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-3" onclick="set_closed('from_timings_1-3', 'to_timings_1-3')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Friday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-4">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-4">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-4" onclick="set_closed('from_timings_1-4', 'to_timings_1-4')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Saturday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-5">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-5">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-5" onclick="set_closed('from_timings_1-5', 'to_timings_1-5')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-3 col-xs-12">
-                                                    <p>Sunday :</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                    <select class="form-control" name="from_timings_1[]" id="from_timings_1-6">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                    <p>To</p>
-                                                </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                    <select class="form-control" name="to_timings_1[]" id="to_timings_1-6">
-                                                        <option value="Open 24 Hours">Open 24 Hours</option>
-                                                        <option value="00:00"> 00:00 </option>
-                                                        <option value="00:30"> 00:30 </option>
-                                                        <option value="01:00"> 01:00 </option>
-                                                        <option value="01:30"> 01:30 </option>
-                                                        <option value="02:00"> 02:00 </option>
-                                                        <option value="02:30"> 02:30 </option>
-                                                        <option value="03:00"> 03:00 </option>
-                                                        <option value="03:30"> 03:30 </option>
-                                                        <option value="04:00"> 04:00 </option>
-                                                        <option value="04:30"> 04:30 </option>
-                                                        <option value="05:00"> 05:00 </option>
-                                                        <option value="05:30"> 05:30 </option>
-                                                        <option value="06:00"> 06:00 </option>
-                                                        <option value="06:30"> 06:30 </option>
-                                                        <option value="07:00"> 07:00 </option>
-                                                        <option value="07:30"> 07:30 </option>
-                                                        <option value="08:00"> 08:00 </option>
-                                                        <option value="08:30"> 08:30 </option>
-                                                        <option value="09:00"> 09:00 </option>
-                                                        <option value="09:30"> 09:30 </option>
-                                                        <option value="10:00"> 10:00 </option>
-                                                        <option value="10:30"> 10:30 </option>
-                                                        <option value="11:00"> 11:00 </option>
-                                                        <option value="11:30"> 11:30 </option>
-                                                        <option value="12:00"> 12:00 </option>
-                                                        <option value="12:30"> 12:30 </option>
-                                                        <option value="13:00"> 13:00 </option>
-                                                        <option value="13:30"> 13:30 </option>
-                                                        <option value="14:00"> 14:00 </option>
-                                                        <option value="14:30"> 14:30 </option>
-                                                        <option value="15:00"> 15:00 </option>
-                                                        <option value="15:30"> 15:30 </option>
-                                                        <option value="16:00"> 16:00 </option>
-                                                        <option value="16:30"> 16:30 </option>
-                                                        <option value="17:00"> 17:00 </option>
-                                                        <option value="17:30"> 17:30 </option>
-                                                        <option value="18:00"> 18:00 </option>
-                                                        <option value="18:30"> 18:30 </option>
-                                                        <option value="19:00"> 19:00 </option>
-                                                        <option value="19:30"> 19:30 </option>
-                                                        <option value="20:00"> 20:00 </option>
-                                                        <option value="20:30"> 20:30 </option>
-                                                        <option value="21:00"> 21:00 </option>
-                                                        <option value="21:30"> 21:30 </option>
-                                                        <option value="22:00"> 22:00 </option>
-                                                        <option value="22:30"> 22:30 </option>
-                                                        <option value="23:00"> 23:00 </option>
-                                                        <option value="23:30"> 23:30 </option>
-                                                        <option value="Closed">Closed</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2 col-sm-2 col-xs-12">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input id="check_closed-6" onclick="set_closed('from_timings_1-6', 'to_timings_1-6')" type="checkbox">
-                                                            Closed
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Payment Modes Accepted By You :</h4>
@@ -1963,9 +522,9 @@
                                         </div>
                                         <div class="form-group col-md-6 col-sm-8 col-xs-12">
                                             <div class="input-group">
-                                                <input class="form-control" id="min_rate" name="min_rate" placeholder="Minimum Rate(INR)" value="" type="text">
+                                                <input type="text" class="form-control" id="min_rate" name="min_rate" placeholder="Minimum Rate(INR)" value="<?php echo (!empty($businessinfo) && $businessinfo['min_price_range'] != "") ? $businessinfo['min_price_range'] : '' ?>">
                                                 <span class="input-group-addon">To</span>
-                                                <input class="form-control" id="max_rate" name="max_rate" placeholder="Maximum Rate(INR)" value="" type="text">
+                                                <input type="text" class="form-control" id="max_rate" name="max_rate"  placeholder="Maximum Rate(INR)" value="<?php echo (!empty($businessinfo) && $businessinfo['max_price_range'] != "") ? $businessinfo['max_price_range'] : '' ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -1974,7 +533,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row setup-content" id="step-3" style="display:none">
+                                <div class="row setup-content" id="step-3">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3>Step 3: Upload Photos</h3>
