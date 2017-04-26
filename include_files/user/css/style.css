@@ -536,7 +536,10 @@ footer .media-heading {
     transition: 0.3s all;
 }
 #listing .title{
-    width: 80%
+    width: 80%;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap
 }
 #listing h3{
     font-size: 20px;
