@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>include_files/user/css/lightbox.css" />
 <style>
     .companybg{
-        background:url('<?php echo base_url(); ?>include_files/banners/<?php echo ($business->banner != "" && (file_exists(FCPATH . 'include_files/banners/' . $business->banner))) ? $business->banner : 'detailbg.png' ?>')no-repeat;        
+        background:url('<?php echo base_url(); ?>include_files/banners/<?php echo ($business->banner != "" && (file_exists(FCPATH . 'include_files/banners/' . $business->banner))) ? $business->banner : 'detailbg.png' ?>')no-repeat;
         background-size: cover;
     }
 </style>
@@ -86,7 +86,6 @@
     </div>
     <div id="editdetail" class="modal fade in" role="dialog">
         <div class="modal-dialog modal-sm">
-            <!-- Modal content-->
             <div class="modal-content row">
                 <div class="modal-header custom-modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -104,8 +103,6 @@
             </div>
         </div>
     </div>
-
-    <!-- /.carousel -->
     <div class="container-fluid companybg p-0">
         <div class="overlay">
             <div class="container">
@@ -295,17 +292,19 @@
                     <?php
                     if (!empty($business->company_images)) {
                         foreach ($business->company_images as $key => $image) {
-                            if ($key < 4) {
-                                ?>
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <a href='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>'
-                                       class='fresco'
-                                       data-fresco-group='example'
-                                       data-fresco-caption="<?php echo $business->name; ?>">
-                                        <img src='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>' alt='' class="img-responsive img" alt="business-image"/>
-                                    </a>
-                                </div>
-                                <?php
+                            if ((file_exists(FCPATH . 'include_files/business_images/' . $image->image))) {
+                                if ($key < 4) {
+                                    ?>
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <a href='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>'
+                                           class='fresco'
+                                           data-fresco-group='example'
+                                           data-fresco-caption="<?php echo $business->name; ?>">
+                                            <img src='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>' alt='' class="img-responsive img" alt="business-image"/>
+                                        </a>
+                                    </div>
+                                    <?php
+                                }
                             }
                         }
                     } else {
@@ -317,17 +316,19 @@
                         <div class="well row">
                             <?php
                             foreach ($business->company_images as $key => $image) {
-                                if ($key > 3) {
-                                    ?>
-                                    <div class="col-md-3 col-sm-6 col-xs-12">
-                                        <a href='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>'
-                                           class='fresco'
-                                           data-fresco-group='example'
-                                           data-fresco-caption="<?php echo $business->name; ?>">
-                                            <img src='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>' alt='' class="img-responsive img"/>
-                                        </a>
-                                    </div>
-                                    <?php
+                                if ((file_exists(FCPATH . 'include_files/business_images/' . $image->image))) {
+                                    if ($key > 3) {
+                                        ?>
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <a href='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>'
+                                               class='fresco'
+                                               data-fresco-group='example'
+                                               data-fresco-caption="<?php echo $business->name; ?>">
+                                                <img src='<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>' alt='' class="img-responsive img"/>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    }
                                 }
                             }
                             ?>
@@ -337,11 +338,9 @@
                         </div>
                     </div>                  
                 </div>
-
                 <div class="col-md-12 col-sm-12 col-xs-12 detail-center m-15 review">
                     <h3>Review</h3>
                     <hr>
-
                     <?php
                     if (!empty($results)) {
                         array_pop($results);
@@ -443,5 +442,5 @@
             </div>
         </div>
     </div>
-</section> 
-<?php echo $footer; ?>    
+</section>
+<?php echo $footer; ?>

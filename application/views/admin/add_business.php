@@ -696,7 +696,7 @@
                     }
                     $(".select2").select2();
                     $('#find_duplicates').hide();
-                    $('#pincode, #mobile_no, #other_no, #year_establishment').on('change keyup', function () {
+                    $('#pincode, #mobile_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
                         var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
                         sanitized = sanitized.replace(/(.)-+/g, '$1');
                         sanitized = sanitized.replace(/\.(?=.*\.)/g, '');

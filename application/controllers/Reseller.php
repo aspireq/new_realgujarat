@@ -381,9 +381,6 @@ class Reseller extends CI_Controller {
 
             if ($edit_business_id != "") {
                 $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
-//                echo "<pre>";
-//                print_r($this->data['businessinfo']);
-//                die();
             }
             $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
             $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));

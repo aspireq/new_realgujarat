@@ -81,19 +81,19 @@
                                 </div>
                             </div>
                         </div>
-<!--                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="white-box">
-                                <h3 class="box-title"><i class="ti-stats-up"></i> Yearly Sales</h3>
+                                <h3 class="box-title"><i class="fa fa-money"></i> Payments</h3>
                                 <div class="text-right">
-                                    <h1 class="counter">9,000</h1>
+                                    <h1 class="counter"><?php echo $dashboard_data->reseller_payments; ?></h1>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>            
                 <?php echo $footer; ?>
             </div>
-        </div>     
+        </div>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
@@ -107,8 +107,6 @@
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/js/dashboard1.js"></script>
-        <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-        <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
     </body>
 </html>

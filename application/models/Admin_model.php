@@ -64,6 +64,7 @@ class Admin_model extends CI_Model {
   (SELECT COUNT(*) FROM categories WHERE status = 1) as total_categories, 
   (SELECT COUNT(*) FROM subcategories WHERE status = 1) as total_subcategories,
   (SELECT COUNT(*) FROM visitorinfo) as total_visitors,
+  (SELECT COUNT(*) FROM reseller_payments where status = 1) as reseller_payments,
   (SELECT COUNT(*) FROM businesses WHERE is_approved = 0) as pending_business,
   (SELECT COUNT(*) FROM businesses WHERE is_approved = 1) as approved_business,
   (SELECT COUNT(*) FROM user_accounts WHERE uacc_group_fk = 2 and uacc_active = 1) as total_users,

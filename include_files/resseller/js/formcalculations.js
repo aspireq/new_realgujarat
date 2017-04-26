@@ -145,15 +145,17 @@ function getPincode() {
 }
 function calculateTotal()
 {
-    var cakePrice = getCompany() + getCategory() + getAddress() + getMobile() + getPincode();
-    var divobj = document.getElementById('totalPrice');
-    divobj.style.display = 'block';
-    divobj.innerHTML = "Total Earnings For this Ad  : " + cakePrice;
-    $('#total_earnings').val(cakePrice);
+        var cakePrice = getCompany() + getCategory() + getAddress() + getMobile() + getPincode();
+        var divobj = document.getElementById('totalPrice');
+        divobj.style.display = 'block';
+        divobj.innerHTML = "Total Earnings For this Ad  : " + cakePrice;
+        $('#total_earnings').val(cakePrice);
+
 }
 function hideTotal()
 {
     var divobj = document.getElementById('totalPrice');
-    // divobj.style.display = 'none';
+    divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
+    divobj.style.display = 'block';
 }
 ///////////////////////////////////////////////////////////////////////////////////
