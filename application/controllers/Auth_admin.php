@@ -22,7 +22,7 @@ class Auth_admin extends CI_Controller {
             $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
             redirect('auth');
         }
-        $this->data = null;        
+        $this->data = null;
         if ($this->flexi_auth->is_logged_in()) {
             $this->data['userinfo'] = $this->userinfo = $this->flexi_auth->get_user_by_identity_row_array();
             $this->user_id = $this->data['userinfo']['uacc_id'];
@@ -42,41 +42,65 @@ class Auth_admin extends CI_Controller {
     }
 
     function dashboard() {
-        $this->data['dashboard_data'] = $this->Admin_model->dashboard_data();
-        $this->data['message'] = $this->session->flashdata('message');
-        $this->data = $this->include_files();
-        $this->load->view('admin/dashboard', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['dashboard_data'] = $this->Admin_model->dashboard_data();
+            $this->data['message'] = $this->session->flashdata('message');
+            $this->data = $this->include_files();
+            $this->load->view('admin/dashboard', $this->data);
+        } else {
+            redirect('auth');
+        }
     }
 
     function users() {
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/users', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/users', $this->data);
+        } else {
+            
+        }
     }
 
     function businesses() {
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/businesses', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/businesses', $this->data);
+        } else {
+            
+        }
     }
 
     function business_detail($business_id) {
-        $this->data['business'] = $businessinfo = $this->Common_model->get_business($business_id);
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/business_detail', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['business'] = $businessinfo = $this->Common_model->get_business($business_id);
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/business_detail', $this->data);
+        } else {
+            
+        }
     }
 
     function categories() {
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/categories', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/categories', $this->data);
+        } else {
+            
+        }
     }
 
     function visitor_adds() {
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/visitor_adds', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/visitor_adds', $this->data);
+        } else {
+            
+        }
     }
 
     public function file_check($str) {
@@ -214,9 +238,13 @@ class Auth_admin extends CI_Controller {
     }
 
     function subcategories() {
-        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
-        $this->data = $this->include_files();
-        $this->load->view('admin/subcategories', $this->data);
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/subcategories', $this->data);
+        } else {
+            
+        }
     }
 
     function get_user_account() {
@@ -480,7 +508,7 @@ class Auth_admin extends CI_Controller {
                     }
                     $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
                     $business_id = $edit_business_id;
-                } else {                   
+                } else {
                     $business_id = $this->Common_model->inserted_id('businesses', $business_data);
                 }
                 if (!empty($_FILES['userFiles']['name'])) {

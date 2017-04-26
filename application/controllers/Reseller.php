@@ -126,7 +126,7 @@ class Reseller extends CI_Controller {
     }
 
     function account() {
-        if ($this->flexi_auth->is_logged_in()) {
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             $this->data['states'] = $this->Common_model->select_all('states');
             if ($this->userinfo['city'] != null) {
                 $this->data['cityname'] = $this->Common_model->select_where_row('cities', array('id' => $this->userinfo['city']));
@@ -142,7 +142,7 @@ class Reseller extends CI_Controller {
     }
 
     function businesses() {
-        if ($this->flexi_auth->is_logged_in()) {
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             $this->load->library('pagination');
             $config = array();
             $config["base_url"] = base_url() . "reseller/businesses";
@@ -188,7 +188,7 @@ class Reseller extends CI_Controller {
     }
 
     public function payments() {
-        if ($this->flexi_auth->is_logged_in()) {
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             $this->load->library('pagination');
             $config = array();
             $config["base_url"] = base_url() . "reseller/payments";
@@ -233,7 +233,7 @@ class Reseller extends CI_Controller {
     }
 
     function add_business($edit_business_id = null) {
-        if ($this->flexi_auth->is_logged_in()) {
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             if ($this->input->post()) {
                 $from_timings_1 = implode(',', $this->input->post('from_timings'));
                 $to_timings_1 = implode(',', $this->input->post('to_timings'));
