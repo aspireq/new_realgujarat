@@ -344,10 +344,28 @@ class Auth_admin extends CI_Controller {
             if ($this->input->post('chequeno')) {
                 $payment_data['chequeno'] = $this->input->post('chequeno');
             }
-            $result = $this->Common_model->insert('reseller_payments', $payment_data);
             $userbalance = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $this->input->post('reseller_id')));
-            $final_earnings = $userbalance->earnings - $this->input->post('amount');
-            $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $final_earnings), array('uacc_id' => $this->input->post('reseller_id')));
+            if ($this->input->post('edit_id')) {
+                $get_payment = $this->Common_model->select_where_row('reseller_payments', array('id' => $this->input->post('edit_id')));
+                if ($get_payment->netamount < $this->input->post('final_amount')) {
+                    $final_balances = $get_payment->netamount - $this->input->post('final_amount');
+                    $plus_amount = $userbalance->earnings + $final_balances;
+                    $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $plus_amount), array('uacc_id' => $this->input->post('reseller_id')));
+                } else if ($get_payment->netamount > $this->input->post('final_amount')) {
+                    $final_balances = $this->input->post('final_amount') - $get_payment->netamount;
+                    $plus_amount = $userbalance->earnings - $final_balances;
+                    if ($userbalance->earnings <= $plus_amount) {
+                        $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $plus_amount), array('uacc_id' => $this->input->post('reseller_id')));
+                    }
+                } else {
+                    $updateuser = true;
+                }
+                $result = $this->Common_model->select_update('reseller_payments', $payment_data, array('id' => $this->input->post('edit_id')));
+            } else {
+                $result = $this->Common_model->insert('reseller_payments', $payment_data);
+                $final_earnings = $userbalance->earnings - $this->input->post('final_amount');
+                $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $final_earnings), array('uacc_id' => $this->input->post('reseller_id')));
+            }
             die(json_encode(($result && $updateuser) ? true : false));
         } else {
             die(json_encode(false));

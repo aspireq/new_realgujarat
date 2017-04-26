@@ -58,7 +58,8 @@
                         </div>
                         <form method="post" id="add_user_payment" enctype="multipart/form-data">
                             <div class="modal-body">
-                                <input type="hidden" name="reseller_id" id="reseller_id">                               
+                                <input type="hidden" name="reseller_id" id="reseller_id">
+                                <input type="hidden" name="edit_id" id="edit_id">
                                 <div class="form-group">
                                     <label for="total_earnings" class="control-label">Earnings:</label>
                                     <input type="text" class="form-control" id="total_earnings" name="total_earnings" readonly="">
@@ -441,19 +442,34 @@
                     $.ajax({
                         url: "<?php echo base_url(); ?>auth/get_record/",
                         type: "POST",
-                        data: {id: id,table_coloum: 'id',table_name : 'reseller_payments'},
+                        data: {id: id, table_coloum: 'id', table_name: 'reseller_payments'},
                         dataType: "JSON",
                         success: function (data)
-                        {                            
+                        {
                             $('.error').remove();
                             $('.form-group').removeClass('has-error');
-                            $('#add_user_payment')[0].reset();                             
+                            $('#add_user_payment')[0].reset();
                             $('#total_earnings').val(data.earnings);
                             $('#reseller_id').val(data.user_id);
                             $('#payment_date').val(data.date);
                             $('#amount').val(data.amount);
+                            $('#nettamount').val(data.netamount);
+                            $('#final_amount').val(data.netamount);
                             $('#payment_description').val(data.description);
-                            $('#responsive-modal').modal('show');                            
+                            $('select[id="payment_mode"]').find('option:contains(' + data.payment_method + ')').attr("selected", true);                            
+                            if (data.tax !== '0') {                                
+                                $('select[id="tax_method"]').find('option:contains(' + data.tax + ')').attr("selected", true);
+                            }
+                            $('#payment_mode').trigger("change");
+                            if (data.chequeno !== null) {
+                                $('#chequeno').val(data.chequeno);
+                            } else if (data.bank_transaction_id !== null) {
+                                $('#bank_transaction_id').val(data.bank_transaction_id);
+                            } else if (data.transaction_id !== null) {
+                                $('#transaction_id').val(data.transaction_id);
+                            }                           
+                            $('#edit_id').val(data.id);
+                            $('#responsive-modal').modal('show');
                         }
                     });
                 }
