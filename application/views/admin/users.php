@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div id="payment_history" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div id="payment_history" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  style="display: none;">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -474,5 +474,13 @@
                     });
                 }
             </script>
+            <script>
+//                $(document).ready(function(){
+//                    if  ($('#responsive-modal').is(':visible')){
+//                           $('body').addClass('modal-open');
+//                        }
+//                });
+            </script>
+                
     </body>
 </html>
