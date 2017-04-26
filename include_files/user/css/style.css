@@ -1083,3 +1083,12 @@ form h3{
 h3 small{
     color: #fbfbfb
 }
+.codeinput {
+    padding: 0;
+    width: 22%;
+    border: 0;
+}
+.codeinput .form-control {
+    border-right: 0;
+    padding: 6px;
+}
