@@ -36,6 +36,7 @@
                                             <th>Addded Date</th>
                                             <th>Is Approved</th>
                                             <th>Detail ?</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,117 +62,126 @@
         <!-- bt-switch -->
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
         <script>
-            var myTable = "";
-            $(function () {
-                myTable = $('#myTable').DataTable({
-                    "bServerSide": true,
-                    "sAjaxSource": "<?php echo base_url(); ?>auth_admin/get_business",
-                    "sServerMethod": "POST",
-                    "info": false,
-                    "fnServerParams":
-                            function (aoData) {
-                            },
-                    "aaSorting": [[2, 'desc'], [1, 'desc']],
-                    "iDisplayLength": 10,
-                    "bStateSave": true,
-                    "fnCreatedRow": function (nRow, aData, iDataIndex)
-                    {
-                        $(nRow).attr("uacc_id", aData.id);
-                    },
-                    aoColumnDefs: [
-                        {
-                            mData: 'name',
-                            aTargets: [0]
-                        },
-                        {
-                            mData: 'email',
-                            aTargets: [1]
-                        },
-                        {
-                            mData: 'mobile_no',
-                            aTargets: [2]
-                        },
-                        {
-                            mData: 'other_no',
-                            aTargets: [3]
-                        },
-                        {
-                            mData: 'created_date',
-                            aTargets: [4]
-                        },
-                        {
-                            mData: '',
-                            aTargets: [5],
-                            mRender: function (data, type, full)
-                            {
-                                if (full['is_approved'] == 1) {
-                                    //var html = '<div class="onoffswitch2"><input type="checkbox" name="approved' + full['id'] + '" class="onoffswitch2-checkbox" id="approved' + full['id'] + '" checked><label class="onoffswitch2-label" for="approved' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
-                                    var html = '<span class="label label-success font-weight-100">Approved</span>'
-                                    return html;
-                                } else {
-                                    var html = '<div class="onoffswitch2"><input type="checkbox" onClick="business_status(' + full['id'] + ')" name="pending' + full['id'] + '" class="onoffswitch2-checkbox" id="pending' + full['id'] + '"><label class="onoffswitch2-label" for="pending' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
-                                    return html;
+                                var myTable = "";
+                                $(function () {
+                                    myTable = $('#myTable').DataTable({
+                                        "bServerSide": true,
+                                        "sAjaxSource": "<?php echo base_url(); ?>auth_admin/get_business",
+                                        "sServerMethod": "POST",
+                                        "info": false,
+                                        "fnServerParams":
+                                                function (aoData) {
+                                                },
+                                        "aaSorting": [[2, 'desc'], [1, 'desc']],
+                                        "iDisplayLength": 10,
+                                        "bStateSave": true,
+                                        "fnCreatedRow": function (nRow, aData, iDataIndex)
+                                        {
+                                            $(nRow).attr("uacc_id", aData.id);
+                                        },
+                                        aoColumnDefs: [
+                                            {
+                                                mData: 'name',
+                                                aTargets: [0]
+                                            },
+                                            {
+                                                mData: 'email',
+                                                aTargets: [1]
+                                            },
+                                            {
+                                                mData: 'mobile_no',
+                                                aTargets: [2]
+                                            },
+                                            {
+                                                mData: 'other_no',
+                                                aTargets: [3]
+                                            },
+                                            {
+                                                mData: 'created_date',
+                                                aTargets: [4]
+                                            },
+                                            {
+                                                mData: '',
+                                                aTargets: [5],
+                                                mRender: function (data, type, full)
+                                                {
+                                                    if (full['is_approved'] == 1) {
+                                                        //var html = '<div class="onoffswitch2"><input type="checkbox" name="approved' + full['id'] + '" class="onoffswitch2-checkbox" id="approved' + full['id'] + '" checked><label class="onoffswitch2-label" for="approved' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                        var html = '<span class="label label-success font-weight-100">Approved</span>'
+                                                        return html;
+                                                    } else {
+                                                        var html = '<div class="onoffswitch2"><input type="checkbox" onClick="business_status(' + full['id'] + ')" name="pending' + full['id'] + '" class="onoffswitch2-checkbox" id="pending' + full['id'] + '"><label class="onoffswitch2-label" for="pending' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                        return html;
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                mData: '',
+                                                aTargets: [6],
+                                                mRender: function (data, type, full)
+                                                {
+                                                    var html = '<a href="<?php echo base_url(); ?>auth_admin/business_detail/' + full['id'] + '" class="btn btn-info fcbtn btn-outline btn-1d">View More</a>';
+                                                    return html;
+                                                }
+                                            },
+                                            {
+                                                mData: '',
+                                                aTargets: [7],
+                                                mRender: function (data, type, full)
+                                                {
+                                                    var html = '<a href="<?php echo base_url(); ?>auth_admin/add_business/' + full['id'] + '" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a>'
+                                                    return html;
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
+                                $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+                                var radioswitch = function () {
+                                    var bt = function () {
+                                        $(".radio-switch").on("switch-change", function () {
+                                            $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                                        }),
+                                                $(".radio-switch").on("switch-change", function () {
+                                            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                                        }),
+                                                $(".radio-switch").on("switch-change", function () {
+                                            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                                        })
+                                    };
+                                    return {
+                                        init: function () {
+                                            bt()
+                                        }
+                                    }
+                                }();
+                                $(document).ready(function () {
+                                    radioswitch.init()
+                                });
+                                function business_status(id) {
+                                    var x;
+                                    if (confirm("Are you sure you want approve this business") == true) {
+                                        x = "ok";
+                                    } else {
+                                        x = "cancel";
+                                    }
+                                    if (x == "ok") {
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth_admin/business_status/",
+                                            type: "POST",
+                                            data: {id: id},
+                                            dataType: "JSON",
+                                            success: function (data)
+                                            {
+                                                alert('Business approved successfully!');
+                                            }
+                                        });
+                                    }
+                                    reload_table();
                                 }
-                            }
-                        },
-                        {
-                            mData: '',
-                            aTargets: [6],
-                            mRender: function (data, type, full)
-                            {
-                                var html = '<a href="<?php echo base_url(); ?>auth_admin/business_detail/' + full['id'] + '" class="btn btn-info fcbtn btn-outline btn-1d">View More</a>';
-                                return html;
-                            }
-                        },
-                    ]
-                });
-            });
-            $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
-            var radioswitch = function () {
-                var bt = function () {
-                    $(".radio-switch").on("switch-change", function () {
-                        $(".radio-switch").bootstrapSwitch("toggleRadioState")
-                    }),
-                            $(".radio-switch").on("switch-change", function () {
-                        $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
-                    }),
-                            $(".radio-switch").on("switch-change", function () {
-                        $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
-                    })
-                };
-                return {
-                    init: function () {
-                        bt()
-                    }
-                }
-            }();
-            $(document).ready(function () {
-                radioswitch.init()
-            });
-            function business_status(id) {
-                var x;
-                if (confirm("Are you sure you want approve this business") == true) {
-                    x = "ok";
-                } else {
-                    x = "cancel";
-                }
-                if (x == "ok") {
-                    $.ajax({
-                        url: "<?php echo base_url(); ?>auth_admin/business_status/",
-                        type: "POST",
-                        data: {id: id},
-                        dataType: "JSON",
-                        success: function (data)
-                        {                            
-                            alert('Business approved successfully!');
-                        }
-                    });
-                }
-                reload_table();
-            }
-            function reload_table() {
-                myTable.ajax.reload(null, false);
-            }
+                                function reload_table() {
+                                    myTable.ajax.reload(null, false);
+                                }
         </script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
     </body>

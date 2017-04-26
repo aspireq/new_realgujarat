@@ -22,8 +22,11 @@ class Auth_admin extends CI_Controller {
             $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
             redirect('auth');
         }
-        $this->data = null;
-        $this->data['admininfo'] = $this->flexi_auth->get_user_by_identity_row_array();
+        $this->data = null;        
+        if ($this->flexi_auth->is_logged_in()) {
+            $this->data['userinfo'] = $this->userinfo = $this->flexi_auth->get_user_by_identity_row_array();
+            $this->user_id = $this->data['userinfo']['uacc_id'];
+        }
     }
 
     function include_files() {
@@ -325,7 +328,6 @@ class Auth_admin extends CI_Controller {
         $this->form_validation->set_rules('payment_mode', 'Payment Mode', 'required');
 
         if ($this->form_validation->run() == true) {
-
             $payment_data = array(
                 "user_id" => $this->input->post('reseller_id'),
                 "earnings" => $this->input->post('total_earnings'),
@@ -372,7 +374,157 @@ class Auth_admin extends CI_Controller {
         }
     }
 
-    function add_business() {
+    function add_business($edit_business_id = null) {
+        if ($this->input->post()) {
+            $from_timings_1 = implode(',', $this->input->post('from_timings'));
+            $to_timings_1 = implode(',', $this->input->post('to_timings'));
+            if ($this->input->post('dual_timings') == 1) {
+                $from_timings_2 = implode(',', $this->input->post('from_timings_1'));
+                $to_timings_2 = implode(',', $this->input->post('to_timings_1'));
+            }
+            $this->load->library('upload');
+            $error = "";
+            if (!empty($_FILES['avatar-1']['name'])) {
+                $config['upload_path'] = 'include_files/logo';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['overwrite'] = FALSE;
+                $config['encrypt_name'] = TRUE;
+                $config['max_filename'] = 25;
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('avatar-1')) {
+                    $error = $this->upload->display_errors();
+                } else {
+                    $file_info = $this->upload->data();
+                    $company_logo = $file_info['file_name'];
+                }
+            }
+            if (!empty($_FILES['company_banner']['name'])) {
+                $config['upload_path'] = 'include_files/banners';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['overwrite'] = FALSE;
+                $config['encrypt_name'] = TRUE;
+                $config['max_filename'] = 25;
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('company_banner')) {
+                    $error = $this->upload->display_errors();
+                } else {
+                    $file_info = $this->upload->data();
+                    $banner = $file_info['file_name'];
+                }
+            }
+            if ($error == "") {
+                $business_data = array(
+                    'user_id' => $this->user_id,
+                    'name' => $this->input->post('company_name'),
+                    'category_id' => $this->input->post('category'),
+                    'subcategory_id' => $this->input->post('subcategory'),
+                    'address' => $this->input->post('company_address'),
+                    'pincode' => $this->input->post('pincode'),
+                    'state' => $this->input->post('state'),
+                    'city' => $this->input->post('city'),
+                    'email' => $this->input->post('email'),
+                    'business_description' => $this->input->post('about_company'),
+                    'services' => implode(',', $this->input->post('services')),
+                    'payment_methods' => implode(',', $this->input->post('payment_mode')),
+                    'min_price_range ' => $this->input->post('min_rate'),
+                    'max_price_range' => $this->input->post('max_rate'),
+                    'from_timings_1' => $from_timings_1,
+                    'to_timings_1' => $to_timings_1,
+                    'from_timings_2' => $from_timings_2,
+                    'to_timings_2' => $to_timings_2,
+                    'year_establishment' => $this->input->post('year_establishment'),
+                    'is_approved' => 1
+                );
+
+                if ($this->input->post('other_locations')) {
+                    $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
+                }
+                if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
+                    $business_data['landline_no'] = $this->input->post('landline_no');
+                    $business_data['landline_code'] = $this->input->post('landline_code');
+                }
+                if ($this->input->post('mobile_no') && $this->input->post('mobile_code')) {
+                    $business_data['mobile_no'] = $this->input->post('mobile_no');
+                    $business_data['mobile_code'] = $this->input->post('mobile_code');
+                }
+                if ($this->input->post('other_no') && $this->input->post('other_code')) {
+                    $business_data['other_no'] = $this->input->post('other_no');
+                    $business_data['other_code'] = $this->input->post('other_code');
+                }
+
+                if (isset($banner) && $banner != "") {
+                    $business_data['banner'] = $banner;
+                    if ($edit_business_id != null) {
+                        if (file_exists(FCPATH . 'include_files/banners/' . $this->input->post('old_banner'))) {
+                            unlink(FCPATH . 'include_files/banners/' . $this->input->post('old_banner'));
+                        }
+                    }
+                }
+                if (isset($company_logo) && $company_logo != "") {
+                    $business_data['logo'] = $company_logo;
+                    if ($edit_business_id != null) {
+                        if (file_exists(FCPATH . 'include_files/logo/' . $this->input->post('old_logo'))) {
+                            unlink(FCPATH . 'include_files/logo/' . $this->input->post('old_logo'));
+                        }
+                    }
+                }
+                if ($edit_business_id != null) {
+                    $old_images_post = $this->input->post('old_company_images');
+                    $old_images_table = $this->db->query("select image from company_images where business_id = '" . $edit_business_id . "'")->result_array();
+                    $final_images = array_diff(array_column($old_images_table, 'image'), $old_images_post);
+                    foreach ($final_images as $row_image) {
+                        if (file_exists(FCPATH . 'include_files/business_images/' . $row_image)) {
+                            unlink(FCPATH . 'include_files/business_images/' . $row_image);
+                            $this->Common_model->delete_where('company_images', array('business_id' => $edit_business_id, 'image' => $row_image));
+                        }
+                    }
+                    $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
+                    $business_id = $edit_business_id;
+                } else {
+                    $business_data['earnings'] = $this->input->post('total_earnings');                    
+                    $business_id = $this->Common_model->inserted_id('businesses', $business_data);
+                }
+                if (!empty($_FILES['userFiles']['name'])) {
+                    $filesCount = count($_FILES['userFiles']['name']);
+                    for ($i = 0; $i < $filesCount; $i++) {
+                        $_FILES['userFile']['name'] = $_FILES['userFiles']['name'][$i];
+                        $_FILES['userFile']['type'] = $_FILES['userFiles']['type'][$i];
+                        $_FILES['userFile']['tmp_name'] = $_FILES['userFiles']['tmp_name'][$i];
+                        $_FILES['userFile']['error'] = $_FILES['userFiles']['error'][$i];
+                        $_FILES['userFile']['size'] = $_FILES['userFiles']['size'][$i];
+
+                        $uploadPath = 'include_files/business_images';
+                        $config['upload_path'] = $uploadPath;
+                        $config['allowed_types'] = 'gif|jpg|png';
+                        $config['encrypt_name'] = TRUE;
+                        $this->load->library('upload', $config);
+                        $this->upload->initialize($config);
+                        if ($this->upload->do_upload('userFile')) {
+                            $fileData = $this->upload->data();
+                            $uploadData[$i]['business_id'] = $business_id;
+                            $uploadData[$i]['image'] = $fileData['file_name'];
+                        }
+                    }
+                    if ($edit_business_id != null || $business_id) {
+                        if (!empty($uploadData)) {
+                            $insert = $this->db->insert_batch('company_images', $uploadData);
+                        }
+                        $statusMsg = ($business_id || $edit_business_id || $insert) ? 'Your ad has been saved succesfully !' : 'Some problem occurred, please try again.';
+                        $this->session->set_flashdata('message', $statusMsg);
+                    } else {
+                        $this->session->set_flashdata('message', "Something went wrong!.Please try again later");
+                        $this->data['businessinfo'] = $business_data;
+                    }
+                }
+            } else {
+                $this->session->set_flashdata('message', $error);
+                $this->data['businessinfo'] = $business_data;
+            }
+        }
+
+        if ($edit_business_id != "") {
+            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
+        }
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
         $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];

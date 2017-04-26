@@ -139,7 +139,7 @@
                                                     <i class="fa fa-phone"></i>
                                                 </div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input type="text" placeholder="Code" class="form-control" name="landline_code" id="landline_code">
+                                                    <input type="text" placeholder="Code" class="form-control" name="landline_code" id="landline_code" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_code'] != "") ? $businessinfo['landline_code'] : '' ?>">
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_no'] != "") ? $businessinfo['landline_no'] : '' ?>" >
                                             </div>
@@ -148,7 +148,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input type="text" placeholder="Code" class="form-control" name="mobile_code" id="mobile_code">
+                                                    <input type="text" placeholder="Code" class="form-control" name="mobile_code" id="mobile_code" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_code'] != "") ? $businessinfo['mobile_code'] : '' ?>">
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="Mobile No." required name="mobile_no" id="mobile_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_no'] != "") ? $businessinfo['mobile_no'] : '' ?>" onblur="calculateTotal()">
                                             </div>
@@ -157,7 +157,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
                                                 <div class="input-group-addon codeinput">
-                                                    <input type="text" placeholder="Code" class="form-control" name="other_code" id="other_code">
+                                                    <input type="text" placeholder="Code" class="form-control" name="other_code" id="other_code" value="<?php echo (!empty($businessinfo) && $businessinfo['other_code'] != "") ? $businessinfo['other_code'] : '' ?>">
                                                 </div>
                                                 <input type="text" class="form-control" placeholder="Other No." name="other_no" id="other_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['other_no'] != "") ? $businessinfo['other_no'] : '' ?>">
                                             </div>

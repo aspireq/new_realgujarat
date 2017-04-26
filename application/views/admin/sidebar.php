@@ -15,8 +15,7 @@
             <li> <a href="<?php echo base_url();?>auth_admin/dashboard" class="waves-effect"><i class="fa fa-dashboard"></i>&nbsp;<span class="hide-menu" >Dashboard</span></a> </li>
             <li> <a href="<?php echo base_url();?>auth_admin/users" class="waves-effect"><i class="fa fa-user"></i>&nbsp;<span class="hide-menu" >Users</span></a> </li>
             <li> <a href="<?php echo base_url();?>auth_admin/businesses" class="waves-effect"><i class="fa fa-black-tie"></i>&nbsp;<span class="hide-menu">Businesses</span></a></li>
-            <li> <a href="<?php echo base_url();?>auth_admin/visitor_adds" class="waves-effect"><i class="fa fa-align-left"></i>&nbsp;<span class="hide-menu">Visitor Ads</span></a></li>
-            <li> <a href="<?php echo base_url();?>auth_admin/add_business" class="waves-effect"><i class="fa fa-align-left"></i>&nbsp;<span class="hide-menu">Add Business</span></a></li>
+            <li> <a href="<?php echo base_url();?>auth_admin/visitor_adds" class="waves-effect"><i class="fa fa-align-left"></i>&nbsp;<span class="hide-menu">Visitor Ads</span></a></li>           
             <li class="nav-small-cap m-t-10">--- Categories</li>
             <li> <a href="<?php echo base_url();?>auth_admin/categories" class="waves-effect"><i class="fa fa-folder"></i>&nbsp;<span class="hide-menu">Categories</span></a></li>
             <li> <a href="<?php echo base_url();?>auth_admin/subcategories" class="waves-effect"><i class="fa fa-folder-open"></i>&nbsp;<span class="hide-menu">Subcategories</span></a></li>

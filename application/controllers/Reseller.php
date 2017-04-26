@@ -297,13 +297,16 @@ class Reseller extends CI_Controller {
                         $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
                     }
                     if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
-                        $business_data['landline_no'] = $this->input->post('landline_code') . $this->input->post('landline_no');
+                        $business_data['landline_no'] =  $this->input->post('landline_no');
+                        $business_data['landline_code'] =  $this->input->post('landline_code');
                     }
                     if ($this->input->post('mobile_no') && $this->input->post('mobile_code')) {
-                        $business_data['mobile_no'] = $this->input->post('mobile_code') . $this->input->post('mobile_no');
+                        $business_data['mobile_no'] = $this->input->post('mobile_no');
+                        $business_data['mobile_code'] =  $this->input->post('mobile_code');
                     }
                     if ($this->input->post('other_no') && $this->input->post('other_code')) {
-                        $business_data['other_no'] = $this->input->post('other_code') . $this->input->post('other_no');
+                        $business_data['other_no'] = $this->input->post('other_no');
+                        $business_data['other_code'] = $this->input->post('other_code');
                     }
 
                     if (isset($banner) && $banner != "") {
