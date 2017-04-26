@@ -163,7 +163,7 @@
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-times-rectangle-o"></i></div>
+                                                <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                                 <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>">
                                             </div>
                                         </div>
