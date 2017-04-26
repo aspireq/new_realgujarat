@@ -48,7 +48,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/dashboard', $this->data);
         } else {
-            redirect('auth');
+            redirect('admin');
         }
     }
 
@@ -58,7 +58,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/users', $this->data);
         } else {
-            
+            redirect('admin');
         }
     }
 
@@ -68,7 +68,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/businesses', $this->data);
         } else {
-            
+            redirect('admin');
         }
     }
 
@@ -79,7 +79,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/business_detail', $this->data);
         } else {
-            
+            redirect('admin');
         }
     }
 
@@ -89,7 +89,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/categories', $this->data);
         } else {
-            
+            redirect('admin');
         }
     }
 
@@ -99,7 +99,7 @@ class Auth_admin extends CI_Controller {
             $this->data = $this->include_files();
             $this->load->view('admin/visitor_adds', $this->data);
         } else {
-            
+            redirect('admin');
         }
     }
 
