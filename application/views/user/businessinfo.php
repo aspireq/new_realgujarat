@@ -1,9 +1,13 @@
 <?php include'header.php' ?>
-
 <link href="<?php echo base_url(); ?>include_files/user/css/checkbox.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url(); ?>include_files/user/css/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>include_files/user/css/lightbox.css" />
-
+<style>
+    .companybg{
+        background:url('<?php echo base_url(); ?>include_files/banners/<?php echo ($business->banner != "" && (file_exists(FCPATH . 'include_files/banners/' . $business->banner))) ? $business->banner : 'detailbg.png' ?>')no-repeat;        
+        background-size: cover;
+    }
+</style>
 <section> 
     <div id="sms" class="modal fade in" role="dialog">
         <div class="modal-dialog modal-sm">

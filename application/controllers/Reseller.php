@@ -282,9 +282,6 @@ class Reseller extends CI_Controller {
                         'state' => $this->input->post('state'),
                         'city' => $this->input->post('city'),
                         'email' => $this->input->post('email'),
-                        'landline_no' => $this->input->post('landline_no'),
-                        'mobile_no' => $this->input->post('mobile_no'),
-                        'other_no' => $this->input->post('other_no'),
                         'business_description' => $this->input->post('about_company'),
                         'services' => implode(',', $this->input->post('services')),
                         'payment_methods' => implode(',', $this->input->post('payment_mode')),
@@ -299,6 +296,16 @@ class Reseller extends CI_Controller {
                     if ($this->input->post('other_locations')) {
                         $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
                     }
+                    if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
+                        $business_data['landline_no'] = $this->input->post('landline_code') . $this->input->post('landline_no');
+                    }
+                    if ($this->input->post('mobile_no') && $this->input->post('mobile_code')) {
+                        $business_data['mobile_no'] = $this->input->post('mobile_code') . $this->input->post('mobile_no');
+                    }
+                    if ($this->input->post('other_no') && $this->input->post('other_code')) {
+                        $business_data['other_no'] = $this->input->post('other_code') . $this->input->post('other_no');
+                    }
+
                     if (isset($banner) && $banner != "") {
                         $business_data['banner'] = $banner;
                         if ($edit_business_id != null) {
