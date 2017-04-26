@@ -191,7 +191,7 @@
         $(".select2").select2();
         $('#find_duplicates').hide();
         $('#dual_timings_check').hide();
-        $('#landline_no, #pincode, #mobile_no, #other_no').on('change keyup', function () {
+        $('#landline_no, #pincode, #mobile_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
             var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
             sanitized = sanitized.replace(/(.)-+/g, '$1');
             sanitized = sanitized.replace(/\.(?=.*\.)/g, '');

@@ -120,9 +120,6 @@ class Auth extends CI_Controller {
     public function businessinfo() {
         $business_id = ($this->input->post('business_id_row') != "") ? $this->input->post('business_id_row') : $this->uri->segment(3);
         $this->data['business'] = $this->Common_model->get_business($business_id);
-//        echo "<pre>";
-//        print_r($this->data['business']);
-//        die();
         $this->load->library('pagination');
         $config = array();
         $config["base_url"] = base_url() . "auth/businessinfo/" . $business_id;
@@ -414,7 +411,7 @@ class Auth extends CI_Controller {
         $table_name = $this->input->post('table_name');
         $id = $this->input->post('id');
         $table_coloum = $this->input->post('table_coloum');
-        $data = $this->Common_model->select_where_row($table_name, array($table_coloum => $id));        
+        $data = $this->Common_model->select_where_row($table_name, array($table_coloum => $id));
         die(json_encode($data));
     }
 

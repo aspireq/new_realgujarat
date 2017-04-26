@@ -480,8 +480,7 @@ class Auth_admin extends CI_Controller {
                     }
                     $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
                     $business_id = $edit_business_id;
-                } else {
-                    $business_data['earnings'] = $this->input->post('total_earnings');                    
+                } else {                   
                     $business_id = $this->Common_model->inserted_id('businesses', $business_data);
                 }
                 if (!empty($_FILES['userFiles']['name'])) {

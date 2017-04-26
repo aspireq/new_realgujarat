@@ -89,8 +89,7 @@ class Common_model extends CI_Model {
     function get_duplicate_business($landline_no, $mobile_no, $other_no) {
         $query = $this->db->query("SELECT `businesses`.*
                 FROM `businesses`
-                WHERE 
-                 `businesses`.`mobile_no` = '$mobile_no'");
+                WHERE `businesses`.`mobile_no` = '$mobile_no'");
         return $query->result();
     }
 
