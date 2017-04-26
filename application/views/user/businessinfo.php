@@ -168,9 +168,12 @@
                         <div class="media-body">
                             <h4 class="media-heading">Contact</h4>
                             <?php
-                            echo ($business->mobile_no != 0) ? '<p>' . $business->mobile_code . $business->mobile_no . '</p>' : '';
-                            echo ($business->landline_no != 0) ? '<p>' . $business->landline_code . $business->landline_no . '</p>' : '';
-                            echo ($business->other_no != 0) ? '<p>' . $business->other_code . $business->other_no . '</p>' : '';
+                            $mobile_no = ($business->mobile_code != "") ? '+(' . $business->mobile_code . ')-' : '';
+                            $landline_code = ($business->landline_code != "") ? '+ (' . $business->landline_code . ')-' : '';
+                            $other_code = ($business->other_code != "") ? '+(' . $business->other_code . ')-' : '';
+                            echo ($business->mobile_no != 0) ? '<p>' . $mobile_no . $business->mobile_no . '</p>' : '';
+                            echo ($business->landline_no != 0) ? '<p>' . $landline_code . $business->landline_no . '</p>' : '';
+                            echo ($business->other_no != 0) ? '<p>' . $other_code . $business->other_no . '</p>' : '';
                             ?>
                         </div>
                     </div>
