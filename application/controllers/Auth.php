@@ -415,4 +415,17 @@ class Auth extends CI_Controller {
         die(json_encode($data));
     }
 
+    function map($id = null) {
+        $businessinfo = $this->Common_model->select_where_row('businesses', array('id' => $id));
+        $addres = $businessinfo->address;
+        $address = str_replace(" ", "+", $addres);
+        $json_result = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=$region");
+        $json = json_decode($json_result);
+        $this->data['lat'] = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+        $this->data['long'] = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+        $this->data['name'] = $businessinfo->name;
+        $this->data = $this->include_files();
+        $this->load->view('user/map', $this->data);
+    }
+
 }

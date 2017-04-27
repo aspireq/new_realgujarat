@@ -1,4 +1,4 @@
-<?php include'header.php' ?>
+<?php echo $header; ?>
 <link href="<?php echo base_url(); ?>include_files/user/css/checkbox.css" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo base_url(); ?>include_files/user/css/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>include_files/user/css/lightbox.css" />
@@ -112,7 +112,10 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="pull-right">
-                            <h2><i class="fa fa-phone"></i> <?php echo $business->mobile_no; ?></h2>
+                            <h2><i class="fa fa-phone"></i> <?php 
+                            $mobile_no = ($business->mobile_code != "") ? '+(' . $business->mobile_code . ')-' : '';
+                            echo $mobile_no.$business->mobile_no;
+                            ?></h2>
                             <ul class="list-inline pull-right">
                                 <?php
                                 for ($i = 1; $i <= 5; $i++) {
@@ -431,7 +434,7 @@
                     </li>
                     <li>
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/address.png" alt="address"/>
-                        <span>Map</span>
+                        <span><a target="_blank" href="<?php echo base_url();?>auth/map/<?php echo $business->id; ?>">Map</a></span>
                     </li>
                     <li data-toggle="modal" data-target="#editdetail">
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/edit.png" alt="edit"/>
@@ -442,8 +445,8 @@
                         <span>Varified</span>
                     </li>
                 </ul>
-            </div>
+            </div>            
         </div>
-    </div>
+    </div>    
 </section>
 <?php echo $footer; ?>

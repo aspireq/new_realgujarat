@@ -136,6 +136,7 @@
         <i class="fa fa-2x fa-arrow-circle-up"></i>
     </span>
 </div>
+<div id="map"></div>
 <script src="<?php echo base_url(); ?>include_files/user/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/jquery-ui.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/review.js"></script>
@@ -148,6 +149,9 @@
 <script src="<?php echo base_url(); ?>include_files/user/js/classie.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/zeroGravity.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/bootstrap-select.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUtuwvvgzEjpbGtnBpi-94V9auHIa_n1M&callback=initMap">
+    </script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#myCarousel').carousel({
@@ -327,7 +331,7 @@
         $('#' + to_id).val("Closed");
     }
     function show_timings(id) {
-        var type; 
+        var type;
         if ($('#hours_display').is(':checked')) {
             $('#hours_display_lable').text('Show Less');
             type = "View All";
@@ -338,7 +342,7 @@
         $.ajax({
             url: "<?php echo base_url(); ?>auth/hours_of_operation/",
             type: "POST",
-            data: {id: id,type : type},
+            data: {id: id, type: type},
             dataType: "JSON",
             success: function (data)
             {
