@@ -15,16 +15,7 @@
         <link href="<?php echo base_url(); ?>include_files/user/css/responsive.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>include_files/user/css/set2.css" />      
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <style>
-            #map {
-                height: 100%;
-            }
-            html, body {
-                height: 50%;
-                margin: 0;
-                padding: 0;
-            }
-        </style>
+        
     </head>
     <body>
         <header>

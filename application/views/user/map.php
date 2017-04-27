@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
     <?php echo $header; ?> 
-    <div id="map"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Company Name Here</h3>
+            </div>
+            <div class="col-md-12">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    
     <script>
 
         function initMap() {

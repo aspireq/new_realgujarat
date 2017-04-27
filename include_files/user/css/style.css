@@ -1095,3 +1095,9 @@ h3 small{
     border-right: 0;
     padding: 6px;
 }
+ #map {
+    height:500px;
+    width:100%;
+    border-radius: 2px;
+    border: 1px solid #ddd
+}
