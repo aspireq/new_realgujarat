@@ -49,8 +49,8 @@ class Auth extends CI_Controller {
     }
 
     public function businesses() {
-        //$category_id = ($this->input->post('category_id_row') != "") ? $this->input->post('category_id_row') : $category_id;    
         if ($this->input->post('category_id_row')) {
+            $this->session->unset_userdata('session_category');
             $this->session->set_userdata('session_category', $this->input->post('category_id_row'));
         }
         $category_id = $this->session->userdata('session_category');
@@ -118,7 +118,13 @@ class Auth extends CI_Controller {
     }
 
     public function businessinfo() {
-        $business_id = ($this->input->post('business_id_row') != "") ? $this->input->post('business_id_row') : $this->uri->segment(3);
+
+        if ($this->input->post('business_id_row')) {
+            $this->session->unset_userdata('session_business');
+            $this->session->set_userdata('session_business', $this->input->post('business_id_row'));
+        }
+        $business_id = $this->session->userdata('session_business');     
+
         $this->data['business'] = $this->Common_model->get_business($business_id);
         $this->load->library('pagination');
         $config = array();
