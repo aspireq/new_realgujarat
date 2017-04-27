@@ -436,5 +436,8 @@
         });
     });
 </script>
+<script>
+   $(".selectpicker").selectpicker({}).selectpicker("render"); 
+</script>
 </body>
 </html>
