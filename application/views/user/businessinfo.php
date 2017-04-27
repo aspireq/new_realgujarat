@@ -155,9 +155,11 @@
                     <?php
                     if ($business->year_establishment != null) {
                         ?>
+                        <br/>
                         <h4>Year Established</h4>
                         <p><?php echo ($business->year_establishment != null ) ? $business->year_establishment : 'N/A'; ?> </p>
                     <?php } ?>
+                        <br/>
                     <div class="media">
                         <div class="media-left media-top">
                             <a href="#">
@@ -226,13 +228,12 @@
                     <div class="media">
                         <div class="media-left media-top">
                             <a href="#">
-                                <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/phone.png" alt="...">
+                                <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/clock.png" alt="...">
                             </a>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">Hours of Operation</h4>
-                            <input type="checkbox" name="hours_display" id="hours_display" onclick="show_timings(<?php echo $business->id; ?>);">
-                            <label for="hours_display" id="hours_display_lable">View All</label>
+                            
                             <div id="hours_of_opeation">
                                 <?php
                                 $days = array(
@@ -249,7 +250,7 @@
                                 $to_timings_2 = explode(',', $business->to_timings_2);
                                 foreach ($days as $key => $day) {
                                     if (date('l', strtotime(date('Y-m-d'))) == $day) {
-                                        echo '<p>' . $day . '  ' . $from_timings_1[$key] . ' - ' . $to_timings_1[$key];
+                                        echo '<p>' . $day . ':  ' . $from_timings_1[$key] . ' - ' . $to_timings_1[$key];
                                         if (!empty($from_timings_2[0])) {
                                             echo ' || ' . $from_timings_2[$key] . ' - ' . $to_timings_2[$key];
                                         }
@@ -257,6 +258,10 @@
                                     }
                                 }
                                 ?>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="hours_display" id="hours_display" onclick="show_timings(<?php echo $business->id; ?>);">
+                                <label for="hours_display" id="hours_display_lable">View All</label>
                             </div>
                         </div>
                     </div>
