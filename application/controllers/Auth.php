@@ -291,9 +291,6 @@ class Auth extends CI_Controller {
                     'state' => $this->input->post('state'),
                     'city' => $this->input->post('city'),
                     'email' => $this->input->post('email'),
-                    'landline_no' => $this->input->post('landline_no'),
-                    'mobile_no' => $this->input->post('mobile_no'),
-                    'other_no' => $this->input->post('other_no'),
                     'business_description' => $this->input->post('about_company'),
                     'services' => implode(',', $this->input->post('services')),
                     'payment_methods' => implode(',', $this->input->post('payment_mode')),
@@ -307,6 +304,19 @@ class Auth extends CI_Controller {
                     'to_timings_2' => $to_timings_2,
                     'visitor_id' => $this->input->post('visitor_id')
                 );
+
+                if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
+                    $business_data['landline_no'] = $this->input->post('landline_no');
+                    $business_data['landline_code'] = $this->input->post('landline_code');
+                }
+                if ($this->input->post('mobile_no') && $this->input->post('mobile_code')) {
+                    $business_data['mobile_no'] = $this->input->post('mobile_no');
+                    $business_data['mobile_code'] = $this->input->post('mobile_code');
+                }
+                if ($this->input->post('other_no') && $this->input->post('other_code')) {
+                    $business_data['other_no'] = $this->input->post('other_no');
+                    $business_data['other_code'] = $this->input->post('other_code');
+                }
 
                 $business_id = $this->Common_model->inserted_id('businesses', $business_data);
                 $this->Common_model->select_update('visitorinfo', array('ad_id' => $business_id, 'advertize_added' => 1), array('id' => $this->input->post('visitor_id')));

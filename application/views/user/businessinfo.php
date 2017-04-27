@@ -20,7 +20,7 @@
                 <div class="modal-body">
                     <form name="info_form" action="#" method="post">
                         <input type="hidden" name="business_id" id="business_id" value="<?php echo $business->id; ?>"
-                        <span class="input input--chisato">
+                               <span class="input input--chisato">
                             <input class="input__field input__field--chisato" type="text" id="info_name" name="info_name" />
                             <label class="input__label input__label--chisato" for="input-13">
                                 <span class="input__label-content input__label-content--chisato" data-content="Enter Name"><i class="fa fa-user"></i> Enter Name</span>
@@ -113,10 +113,10 @@
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="pull-right">
-                            <h2><i class="fa fa-phone"></i> <?php 
-                            $mobile_no = ($business->mobile_code != "") ? '+(' . $business->mobile_code . ')-' : '';
-                            echo $mobile_no.$business->mobile_no;
-                            ?></h2>
+                            <h2><i class="fa fa-phone"></i> <?php
+                                $mobile_no = ($business->mobile_code != "") ? '+(' . $business->mobile_code . ')-' : '';
+                                echo $mobile_no . $business->mobile_no;
+                                ?></h2>
                             <ul class="list-inline pull-right">
                                 <?php
                                 for ($i = 1; $i <= 5; $i++) {
@@ -138,9 +138,20 @@
     <div class="container detail-content">
         <div class="row wrapper cf">
             <div class="col-md-3 col-sm-3 col-xs-12 p-0">
-                <div class="detail-left col-md-12 col-xs-12">
-                    <h4>About</h4>
-                    <p><?php echo ($business->business_description != null ) ? $business->business_description . '<a href="#">View more</a>' : 'N/A'; ?> </p>
+                <div class="detail-left col-md-12 col-xs-12 view_more">
+                    <?php if ($business->business_description != null) { ?>
+                        <h4>About</h4>
+                        <?php
+                        $string = strip_tags($business->business_description);
+                        if (strlen($string) > 300) {
+                            $stringCut = substr($string, 0, 300);
+                            $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '... <a style="cursor:pointer;" onclick="view_info();">View More</a>';
+                        }
+                        ?>
+                        <p id="business_desc"><?php echo $string; ?></p>
+                        <?php
+                    }
+                    ?>
                     <?php
                     if ($business->year_establishment != null) {
                         ?>
@@ -435,7 +446,7 @@
                     </li>
                     <li>
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/address.png" alt="address"/>
-                        <span><a target="_blank" href="<?php echo base_url();?>auth/map/<?php echo $business->id; ?>">Map</a></span>
+                        <span><a target="_blank" href="<?php echo base_url(); ?>auth/map/<?php echo $business->id; ?>">Map</a></span>
                     </li>
                     <li data-toggle="modal" data-target="#editdetail">
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/edit.png" alt="edit"/>
@@ -451,3 +462,166 @@
     </div>    
 </section>
 <?php echo $footer; ?>
+<script src="<?php echo base_url(); ?>include_files/user/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/jquery-ui.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/review.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>include_files/user/js/lightbox.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/js/fileinput.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/themes/explorer/theme.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/select2/select2.full.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>include_files/user/plugin/taginput/js/bootstrap-tagsinput.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/classie.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/zeroGravity.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/bootstrap-select.min.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUtuwvvgzEjpbGtnBpi-94V9auHIa_n1M&callback=initMap">
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myCarousel').carousel({
+            interval: 4000
+        });
+        var clickEvent = false;
+        $('#myCarousel').on('click', '.nav a', function () {
+            clickEvent = true;
+            $('.nav li').removeClass('active');
+            $(this).parent().addClass('active');
+        }).on('slid.bs.carousel', function (e) {
+            if (!clickEvent) {
+                var count = $('.nav').children().length - 1;
+                var current = $('.nav li.active');
+                current.removeClass('active').next().addClass('active');
+                var id = parseInt(current.data('slide-to'));
+                if (count == id) {
+                    $('.nav li').first().addClass('active');
+                }
+            }
+            clickEvent = false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                    $(this).toggleClass('open');
+                }
+        );
+    });
+</script>
+<script>
+    $(document).ready(function () {      
+        $("#rat_busine").click(function () {
+            $(this).attr('data-rating', 2);
+            var rating = $('.stars starrr .stars starrr-on').length;
+            return false;
+        });
+        $("#add_review").click(function () {
+            var rating = $('#rating_value').val();
+            var name = $('#name').val();
+            var review = $('#new-review').val();
+            var business_id = $('#business_id').val();
+            if (name == "") {
+                alert('Please enter name to submit review');
+                return false;
+            } else if (review == "") {
+                alert('Please write something');
+                return false;
+            } else if (rating == 0) {
+                alert('Please select ratings');
+                return false;
+            } else {
+                $.ajax({
+                    url: "<?php echo base_url(); ?>auth/add_review/",
+                    type: "POST",
+                    data: {name: name, review: review, business_id: business_id, rating: rating},
+                    dataType: "JSON",
+                    success: function (data)
+                    {
+                        alert('your review submitted successfully !');
+                        $('#name').val('');
+                        $('#new-review').val('');
+                        location.reload();
+                        //$('#rating_value').val('');
+                    }
+                });
+            }
+        });
+    });
+    function show_timings(id) {
+        var type;
+        if ($('#hours_display').is(':checked')) {
+            $('#hours_display_lable').text('Show Less');
+            type = "View All";
+        } else {
+            $('#hours_display_lable').text('View All');
+            type = "Show Less";
+        }
+        $.ajax({
+            url: "<?php echo base_url(); ?>auth/hours_of_operation/",
+            type: "POST",
+            data: {id: id, type: type},
+            dataType: "JSON",
+            success: function (data)
+            {
+                $('#hours_of_opeation').empty();
+                $('#hours_of_opeation').html(data);
+            }
+        });
+    }
+    function send_information() {
+        $('#info_form')[0].reset();
+        $('#sms').modal('show');
+    }
+
+    function view_info() {
+        var val = $('.view_more a:first').text();        
+        if (val === 'View More') {
+            $('.view_more a:first ').text('View Less');
+            $('#business_desc').text('<?php echo strip_tags($business->business_description);?>');
+        } else {
+            $('.view_more a:first ').text('View More');
+        }
+    }
+    $(document).on('ready', function () {
+        $('#send_info').click(function () {
+            var name = $('#info_name').val();
+            var email = $('#info_email').val();
+            var mobile = $('#info_mobile').val();
+            var business_id = $('#business_id').val();
+            if (name === "") {
+                alert("Enter your name");
+                return false;
+            } else if (email === "") {
+                alert("Enter email address");
+                return false;
+            } else if (mobile === "") {
+                alert("Enter mobile no.");
+                return false;
+            }
+            $.ajax({
+                url: "<?php echo base_url(); ?>auth/send_information/",
+                type: "POST",
+                data: {name: name, email: email, mobile: mobile, business_id: business_id},
+                dataType: "JSON",
+                success: function (response)
+                {
+                    if (response != "") {
+                        $('#sms').modal('hide');
+                        alert("Business information mailed successfully !");
+                    } else {
+                        alert("Something went wrong !...please try again....");
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

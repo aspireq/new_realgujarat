@@ -163,137 +163,7 @@
                             ?>
                             <img src="<?php echo base_url(); ?>include_files/norecordfound.png" class="img-responsive" alt="no-image" />
                         <?php }
-                        ?>
-                        <!--                        <div class="row" id="listing">
-                                                    <div class="col-md-3 col-sm-4 col-xs-12">
-                                                        <img src="<?php echo base_url(); ?>include_files/user/img/logo2.jpg" class="img-responsive img-thumbnail">
-                                                    </div>
-                                                    <div class="col-md-9 col-sm-8 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12 titlediv">
-                                                                <span class="title">Company Name Title Here</span>
-                                                                <hr class="listing-hr" />
-                                                            </div>
-                                                            <div class="col-md-12 col-xs-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-8 col-xs-12">
-                                                                        <ul class="list">
-                                                                            <li><i class="fa fa-phone"></i>&nbsp;&nbsp;+91 123456789</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Shivranjni, Ahmedabad</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-xs-12">
-                                                                        <a href="#" class="listing-button">View More</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" id="listing">
-                                                    <div class="col-md-3 col-sm-4 col-xs-12">
-                                                        <img src="<?php echo base_url(); ?>include_files/user/img/logo3.jpg" class="img-responsive img-thumbnail">
-                                                    </div>
-                                                    <div class="col-md-9 col-sm-8 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-xs-12 titlediv">
-                                                                <span class="title">Lorm ipsum dummy Title Here</span>
-                                                                <hr class="listing-hr" />
-                                                            </div>
-                                                            <div class="col-md-12 col-xs-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-8 col-xs-12">
-                                                                        <ul class="list">
-                                                                            <li><i class="fa fa-phone"></i>&nbsp;&nbsp;+91 123456789</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Bopal, Ahmedabad</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-xs-12">
-                                                                        <a href="#" class="listing-button">View More</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" id="listing">
-                                                    <div class="col-md-3 col-sm-4 col-xs-12">
-                                                        <img src="<?php echo base_url(); ?>include_files/user/img/logo1.png" class="img-responsive img-thumbnail">
-                                                    </div>
-                                                    <div class="col-md-9 col-sm-8 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-xs-12 titlediv">
-                                                                <span class="title">Company Title Here</span>
-                                                                <hr class="listing-hr" />
-                                                            </div>
-                                                            <div class="col-md-12 col-xs-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-8 col-xs-12">
-                                                                        <ul class="list">
-                                                                            <li><i class="fa fa-phone"></i>&nbsp;&nbsp;+91 123456789</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Maninagar, Ahmedabad</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-xs-12">
-                                                                        <a href="#" class="listing-button">View More</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" id="listing">
-                                                    <div class="col-md-3 col-sm-4 col-xs-12">
-                                                        <img src="<?php echo base_url(); ?>include_files/user/img/logo2.jpg" class="img-responsive img-thumbnail">
-                                                    </div>
-                                                    <div class="col-md-9 col-sm-8 col-xs-12">
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-xs-12 titlediv">
-                                                                <span class="title">Company Name Title Here</span>
-                                                                <hr class="listing-hr" />
-                                                            </div>
-                                                            <div class="col-md-12 col-xs-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-8 col-xs-12">
-                                                                        <ul class="list">
-                                                                            <li><i class="fa fa-phone"></i>&nbsp;&nbsp;+91 123456789</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Shivranjni, Ahmedabad</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <a href="#" class="listing-button">View More</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row" id="listing">
-                                                    <div class="col-md-3 col-sm-4">
-                                                        <img src="<?php echo base_url(); ?>include_files/user/img/logo3.jpg" class="img-responsive img-thumbnail">
-                                                    </div>
-                                                    <div class="col-md-9 col-sm-8">
-                                                        <div class="row">
-                                                            <div class="col-md-12 titlediv">
-                                                                <span class="title">Lorm ipsum dummy Title Here</span>
-                                                                <hr class="listing-hr" />
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        <ul class="list">
-                                                                            <li><i class="fa fa-phone"></i>&nbsp;&nbsp;+91 123456789</li>
-                                                                            <li><i class="fa fa-map-marker"></i>&nbsp;&nbsp;Bopal, Ahmedabad</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <a href="#" class="listing-button">View More</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
+                        ?>                       
                     </div>
                 </div>
                 <div class="row">
@@ -317,3 +187,63 @@
     </div>
 </section>
 <?php echo $footer; ?>
+<script src="<?php echo base_url(); ?>include_files/user/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/jquery-ui.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/review.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>include_files/user/js/lightbox.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/js/fileinput.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/imageupload/themes/explorer/theme.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>include_files/user/plugin/select2/select2.full.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>include_files/user/plugin/taginput/js/bootstrap-tagsinput.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/classie.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/zeroGravity.js"></script>
+<script src="<?php echo base_url(); ?>include_files/user/js/bootstrap-select.min.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUtuwvvgzEjpbGtnBpi-94V9auHIa_n1M&callback=initMap">
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myCarousel').carousel({
+            interval: 4000
+        });
+        var clickEvent = false;
+        $('#myCarousel').on('click', '.nav a', function () {
+            clickEvent = true;
+            $('.nav li').removeClass('active');
+            $(this).parent().addClass('active');
+        }).on('slid.bs.carousel', function (e) {
+            if (!clickEvent) {
+                var count = $('.nav').children().length - 1;
+                var current = $('.nav li.active');
+                current.removeClass('active').next().addClass('active');
+                var id = parseInt(current.data('slide-to'));
+                if (count == id) {
+                    $('.nav li').first().addClass('active');
+                }
+            }
+            clickEvent = false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                    $(this).toggleClass('open');
+                }
+        );
+    });
+</script>
+<script>
+    function show_business(form_id) {
+        $('form#' + form_id).submit();
+    }
+</script>
+</body>
+</html>
