@@ -349,7 +349,7 @@
             }
         });
     }
-    function send_information() {
+    function send_information() { 
         $('#info_form')[0].reset();
         $('#sms').modal('show');
     }
