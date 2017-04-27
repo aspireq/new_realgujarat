@@ -16197,3 +16197,6 @@ h4.form-title{
     border-right: 0;
     padding: 6px;
 }
+#responsive-modal.modal{
+    overflow-y: scroll !important
+}
