@@ -136,7 +136,6 @@
         <i class="fa fa-2x fa-arrow-circle-up"></i>
     </span>
 </div>
-<div id="map"></div>
 <script src="<?php echo base_url(); ?>include_files/user/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/jquery-ui.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/review.js"></script>
@@ -235,7 +234,6 @@
             var rating = $('.stars starrr .stars starrr-on').length;
             return false;
         });
-
         $("#add_review").click(function () {
             var rating = $('#rating_value').val();
             var name = $('#name').val();
