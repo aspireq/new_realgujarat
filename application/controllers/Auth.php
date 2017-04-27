@@ -123,7 +123,7 @@ class Auth extends CI_Controller {
             $this->session->unset_userdata('session_business');
             $this->session->set_userdata('session_business', $this->input->post('business_id_row'));
         }
-        $business_id = $this->session->userdata('session_business');     
+        $business_id = $this->session->userdata('session_business');
 
         $this->data['business'] = $this->Common_model->get_business($business_id);
         $this->load->library('pagination');
@@ -432,6 +432,35 @@ class Auth extends CI_Controller {
         $this->data['name'] = $businessinfo->name;
         $this->data = $this->include_files();
         $this->load->view('user/map', $this->data);
+    }
+
+    function send_information() {
+        $business_id = $this->input->post('business_id');
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        //$mobile = $this->input->post('mobile');
+
+        $businessinfo = $this->Common_model->select_where_row('businesses', array('id' => $business_id));
+
+        $mobile = ($businessinfo->mobile_code != "") ? $businessinfo->mobile_code . $businessinfo->mobile_no : $businessinfo->mobile_no;
+
+        $subject = 'realgujarat - ' . ucfirst($businessinfo->name);
+        $message = "Hello " . $name . "\n";
+        $message .= "Business Info   \n";
+        $message .= "Name  : " . $businessinfo->name . "\n";
+        $message .= "Address : " . $businessinfo->address . "\n";
+        $message .= "Contact : " . $mobile . "\n";
+        $message .= "\r";
+        $message .= "Services Provided : " . $businessinfo->services;
+
+        $headers = 'From: ' . From_Email . '' . "\r\n" .
+                'Reply-To: ' . Reply_Email . '' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+        if (mail($email, $subject, $message, $headers)) {
+            die(json_encode(true));
+        } else {
+            die(json_encode(false));
+        }
     }
 
 }

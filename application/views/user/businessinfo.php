@@ -19,26 +19,27 @@
                 </div>
                 <div class="modal-body">
                     <form name="info_form" action="#" method="post">
+                        <input type="hidden" name="business_id" id="business_id" value="<?php echo $business->id; ?>"
                         <span class="input input--chisato">
-                            <input class="input__field input__field--chisato" type="text" id="" />
+                            <input class="input__field input__field--chisato" type="text" id="info_name" name="info_name" />
                             <label class="input__label input__label--chisato" for="input-13">
                                 <span class="input__label-content input__label-content--chisato" data-content="Enter Name"><i class="fa fa-user"></i> Enter Name</span>
                             </label>
                         </span>
                         <span class="input input--chisato">
-                            <input class="input__field input__field--chisato" type="email" id="input-13" />
+                            <input class="input__field input__field--chisato" type="email" id="info_email" name="info_email" />
                             <label class="input__label input__label--chisato" for="input-13">
                                 <span class="input__label-content input__label-content--chisato" data-content="Enter Email"><i class="fa fa-envelope"></i> Enter Email</span>
                             </label>
                         </span>
                         <span class="input input--chisato">
-                            <input class="input__field input__field--chisato" type="text" id="input-13" />
+                            <input class="input__field input__field--chisato" type="text" id="info_mobile" name="info_mobile" />
                             <label class="input__label input__label--chisato" for="input-13">
-                                <span class="input__label-content input__label-content--chisato" data-content="Enter Phone"><i class="fa fa-phone"></i> Enter phone</span>
+                                <span class="input__label-content input__label-content--chisato" data-content="Enter Mobile"><i class="fa fa-phone"></i> Enter phone</span>
                             </label>
                         </span>
                         <div class="col-sm-12 col-xs-12 col-md-12 gap">
-                            <button type="submit" class="cart-button center-block">SEND <i class="fa fa-paper-plane"></i></button>
+                            <button type="button" name="send_info" id="send_info" class="cart-button center-block">SEND <i class="fa fa-paper-plane"></i></button>
                         </div>
                     </form>
                 </div>
@@ -430,7 +431,7 @@
                     </li>
                     <li data-toggle="modal" data-target="#share">
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/share.png" alt="Share"/>
-                        <span>Share</span>
+                        <span onclick="send_information()">Share</span>
                     </li>
                     <li>
                         <img src="<?php echo base_url(); ?>include_files/user/img/detail/address.png" alt="address"/>

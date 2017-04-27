@@ -148,9 +148,9 @@
 <script src="<?php echo base_url(); ?>include_files/user/js/classie.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/zeroGravity.js"></script>
 <script src="<?php echo base_url(); ?>include_files/user/js/bootstrap-select.min.js"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUtuwvvgzEjpbGtnBpi-94V9auHIa_n1M&callback=initMap">
-    </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUtuwvvgzEjpbGtnBpi-94V9auHIa_n1M&callback=initMap">
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#myCarousel').carousel({
@@ -346,14 +346,45 @@
             {
                 $('#hours_of_opeation').empty();
                 $('#hours_of_opeation').html(data);
-//                $('#city').html('<option value="">Select City</option>');
-//                $.each(data, function (index, value) {
-//                    $('#city').append($('<option>').text(value.name).attr('value', value.id));
-//                });
             }
         });
     }
+    function send_information() {
+        $('#info_form')[0].reset();
+        $('#sms').modal('show');
+    }
     $(document).on('ready', function () {
+        $('#send_info').click(function () {
+            var name = $('#info_name').val();
+            var email = $('#info_email').val();
+            var mobile = $('#info_mobile').val();
+            var business_id = $('#business_id').val();
+            if (name === "") {
+                alert("Enter your name");
+                return false;
+            } else if (email === "") {
+                alert("Enter email address");
+                return false;
+            } else if (mobile === "") {
+                alert("Enter mobile no.");
+                return false;
+            }
+            $.ajax({
+                url: "<?php echo base_url(); ?>auth/send_information/",
+                type: "POST",
+                data: {name: name, email: email, mobile: mobile, business_id: business_id},
+                dataType: "JSON",
+                success: function (response)
+                {
+                    if (response != "") {
+                        $('#sms').modal('hide');
+                        alert("Business information mailed successfully !");
+                    } else {
+                        alert("Something went wrong !...please try again....");
+                    }
+                }
+            });
+        });
         $("#input-2").fileinput({
             previewFileType: "image",
             browseClass: "btn btn-danger",
