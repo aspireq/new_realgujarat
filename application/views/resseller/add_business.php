@@ -370,133 +370,139 @@
                                             <input type="checkbox" <?php echo (!empty($businessinfo) && $businessinfo['from_timings_2'] != null) ? 'checked' : '' ?> id="dual_timings" name="dual_timings" value="1">
                                             <label for="dual_timings">Dual Timings</label>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="dual_timings_check">
-                                            <?php foreach ($days as $key => $day) { ?>
-                                                <div class="row">
-                                                    <div class="col-md-2 col-sm-3 col-xs-12">
-                                                        <p><?php echo $day; ?> :</p>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                        <select class="form-control" name="from_timings_1[]" id="from_timings_1<?php echo '-' . $key; ?>">
-                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
-                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
-                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
-                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
-                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
-                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
-                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
-                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
-                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
-                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
-                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
-                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
-                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
-                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
-                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
-                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
-                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
-                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
-                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
-                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
-                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
-                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
-                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
-                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
-                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
-                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
-                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
-                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
-                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
-                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
-                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
-                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
-                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
-                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
-                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
-                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
-                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
-                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
-                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
-                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
-                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
-                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
-                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
-                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
-                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
-                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
-                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
-                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
-                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
-                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                        <p>To</p>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                        <select class="form-control" name="to_timings_1[]" id="to_timings_1<?php echo '-' . $key; ?>">
-                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
-                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
-                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
-                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
-                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
-                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
-                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
-                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
-                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
-                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
-                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
-                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
-                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
-                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
-                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
-                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
-                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
-                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
-                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
-                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
-                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
-                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
-                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
-                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
-                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
-                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
-                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
-                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
-                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
-                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
-                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
-                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
-                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
-                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
-                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
-                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
-                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
-                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
-                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
-                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
-                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
-                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
-                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
-                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
-                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
-                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
-                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
-                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
-                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
-                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings_1-' . $key; ?>', '<?php echo 'to_timings_1-' . $key; ?>')">
-                                                                Closed
-                                                            </label>
+                                        <div id="dual_timings_check">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <?php foreach ($days as $key => $day) { ?>
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-3 col-xs-12">
+                                                            <p><?php echo $day; ?> :</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
+                                                            <select class="form-control" name="from_timings_1[]" id="from_timings_1<?php echo '-' . $key; ?>">
+                                                                <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                                <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                                <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                                <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                                <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                                <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                                <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                                <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                                <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                                <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                                <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                                <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                                <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                                <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                                <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                                <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                                <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                                <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                                <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                                <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                                <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                                <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                                <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                                <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                                <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                                <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                                <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                                <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                                <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                                <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                                <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                                <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                                <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                                <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                                <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                                <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                                <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                                <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                                <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                                <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                                <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                                <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                                <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                                <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                                <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                                <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                                <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                                <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                                <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                                <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-1 col-sm-1 col-xs-2 text-center">
+                                                            <p>To</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
+                                                            <select class="form-control" name="to_timings_1[]" id="to_timings_1<?php echo '-' . $key; ?>">
+                                                                <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                                <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                                <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                                <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                                <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                                <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                                <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                                <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                                <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                                <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                                <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                                <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                                <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                                <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                                <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                                <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                                <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                                <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                                <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                                <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                                <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                                <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                                <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                                <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                                <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                                <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                                <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                                <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                                <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                                <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                                <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                                <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                                <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                                <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                                <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                                <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                                <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                                <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                                <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                                <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                                <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                                <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                                <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                                <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                                <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                                <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                                <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                                <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                                <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                                <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings_1-' . $key; ?>', '<?php echo 'to_timings_1-' . $key; ?>')">
+                                                                    Closed
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <input type="checkbox" class="" id="copy_timings_dual" name="copy_timings_dual">
+                                                <label for="copy_timings_dual">Copy Timings from Monday to Saturday</label>
+                                            </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Payment Modes Accepted By You :</h4>
@@ -590,176 +596,194 @@
         <script src="<?php echo base_url(); ?>include_files/resseller/plugin/select2/select2.full.min.js"></script>        
         <script type="text/javascript" src="<?php echo base_url(); ?>include_files/resseller/plugin/taginput/js/bootstrap-tagsinput.js"></script> 
         <script type="text/javascript">
-                                                                $(document).on('ready', function () {
-                                                                    var total_earning = 0;
-                                                                    var business_id = $('#edit_id').val();
-                                                                    if (business_id == "") {
-                                                                        var divobj = document.getElementById('totalPrice');
-                                                                        divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
-                                                                        divobj.style.display = 'block';
-                                                                    }else {
-                                                                        var divobj = document.getElementById('totalPrice');                                                                        
-                                                                        divobj.style.display = 'none';
-                                                                    }
-                                                                    $('#add_busines').click(function () {
-                                                                        $("form[id='business_post']").submit();
-                                                                        $('#gif_image').css('display', 'block');                                                                        
-                                                                        $('input[id="add_busines"]').attr('disabled', 'disabled');
-                                                                    });
-                                                                    $('.close').click(function () {
-                                                                        $(this).parents('.oldimage .col-md-3').remove();
-                                                                        $(this).closest('input').remove();
-                                                                    });
-                                                                    var dual_timings = $('#dual_timings').is(':checked');
-                                                                    $("#input-3").fileinput({
-                                                                        uploadUrl: '/file-upload-batch/2',
-                                                                        uploadAsync: false,
-                                                                        overwriteInitial: false,
-                                                                        initialPreviewAsData: true,
-                                                                        purifyHtml: true,
-                                                                        maxFilePreviewSize: 10240,
-                                                                        allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                        previewFileType: "image",
-                                                                        removeClass: "btn btn-warning",
-                                                                        removeLabel: "Delete",
-                                                                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                        browseClass: "btn btn-danger",
-                                                                        browseLabel: "Pick Image",
-                                                                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                                    });
-                                                                    if (dual_timings === true) {
-                                                                        $('#dual_timings_check').show();
-                                                                    } else {
-                                                                        $('#dual_timings_check').hide();
-                                                                    }
-                                                                    $(".select2").select2();
-                                                                    $('#find_duplicates').hide();
-                                                                    $('#pincode, #mobile_no, #landline_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
-                                                                        var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
-                                                                        sanitized = sanitized.replace(/(.)-+/g, '$1');
-                                                                        sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
-                                                                        $(this).val(sanitized);
-                                                                    });
-                                                                    $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {                                                                        
-                                                                        var landline_no = $("#landline_no").val();
-                                                                        var mobile_no = $("#mobile_no").val();
-                                                                        var other_no = $("#other_no").val();
-                                                                        $.ajax({
-                                                                            url: "<?php echo base_url(); ?>reseller/check_duplicates/",
-                                                                            type: "POST",
-                                                                            data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
-                                                                            dataType: "JSON",
-                                                                            success: function (data)
-                                                                            {
-                                                                                if (data > 0) {
-                                                                                    $('#btn-step-1').attr('disabled', true);
-                                                                                    $('#find_duplicates').show();
-                                                                                } else {
-                                                                                    $('#btn-step-1').attr('disabled', false);
-                                                                                    $('#find_duplicates').hide();
-                                                                                }
-                                                                            }
+                                                                    $(document).on('ready', function () {
+                                                                        var total_earning = 0;
+                                                                        var business_id = $('#edit_id').val();
+                                                                        if (business_id == "") {
+                                                                            var divobj = document.getElementById('totalPrice');
+                                                                            divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
+                                                                            divobj.style.display = 'block';
+                                                                        } else {
+                                                                            var divobj = document.getElementById('totalPrice');
+                                                                            divobj.style.display = 'none';
+                                                                        }
+                                                                        $('#add_busines').click(function () {
+                                                                            $("form[id='business_post']").submit();
+                                                                            $('#gif_image').css('display', 'block');
+                                                                            $('input[id="add_busines"]').attr('disabled', 'disabled');
                                                                         });
-                                                                    });
-                                                                    $('#dual_timings').change(function () {
-                                                                        if ($(this).is(':checked')) {
+                                                                        $('.close').click(function () {
+                                                                            $(this).parents('.oldimage .col-md-3').remove();
+                                                                            $(this).closest('input').remove();
+                                                                        });
+                                                                        var dual_timings = $('#dual_timings').is(':checked');
+                                                                        $("#input-3").fileinput({
+                                                                            uploadUrl: '/file-upload-batch/2',
+                                                                            uploadAsync: false,
+                                                                            overwriteInitial: false,
+                                                                            initialPreviewAsData: true,
+                                                                            purifyHtml: true,
+                                                                            maxFilePreviewSize: 10240,
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            previewFileType: "image",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                        });
+                                                                        if (dual_timings === true) {
                                                                             $('#dual_timings_check').show();
                                                                         } else {
                                                                             $('#dual_timings_check').hide();
                                                                         }
-                                                                    });
-                                                                    $("#copy_timings").click(function () {
-                                                                        if ($(this).is(':checked')) {
-                                                                            var from_time = $('#from_timings-0').val();
-                                                                            var to_time = $('#to_timings-0').val();
-                                                                            $('#from_timings-1').val(from_time);
-                                                                            $('#from_timings-2').val(from_time);
-                                                                            $('#from_timings-3').val(from_time);
-                                                                            $('#from_timings-4').val(from_time);
-                                                                            $('#from_timings-5').val(from_time);
-                                                                            $('#from_timings-6').val(from_time);
-                                                                            $('#to_timings-1').val(to_time);
-                                                                            $('#to_timings-2').val(to_time);
-                                                                            $('#to_timings-3').val(to_time);
-                                                                            $('#to_timings-4').val(to_time);
-                                                                            $('#to_timings-5').val(to_time);
-                                                                            $('#to_timings-6').val(to_time);
-                                                                        }
-                                                                    });
-                                                                    $('#category').change(function () {
-                                                                        var category_id = $('#category').val();
-                                                                        $.ajax({
-                                                                            url: "<?php echo base_url(); ?>reseller/subcategories/",
-                                                                            type: "POST",
-                                                                            data: {category_id: category_id},
-                                                                            dataType: "JSON",
-                                                                            success: function (data)
-                                                                            {
-                                                                                $('#subcategory').empty();
-                                                                                $('#subcategory').html('<option value="">Select Subcategory</option>');
-                                                                                $.each(data, function (index, value) {
-                                                                                    $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
-                                                                                });
+                                                                        $(".select2").select2();
+                                                                        $('#find_duplicates').hide();
+                                                                        $('#pincode, #mobile_no, #landline_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
+                                                                            var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
+                                                                            sanitized = sanitized.replace(/(.)-+/g, '$1');
+                                                                            sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
+                                                                            $(this).val(sanitized);
+                                                                        });
+                                                                        $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {
+                                                                            var landline_no = $("#landline_no").val();
+                                                                            var mobile_no = $("#mobile_no").val();
+                                                                            var other_no = $("#other_no").val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/check_duplicates/",
+                                                                                type: "POST",
+                                                                                data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    if (data > 0) {
+                                                                                        $('#btn-step-1').attr('disabled', true);
+                                                                                        $('#find_duplicates').show();
+                                                                                    } else {
+                                                                                        $('#btn-step-1').attr('disabled', false);
+                                                                                        $('#find_duplicates').hide();
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        $('#dual_timings').change(function () {
+                                                                            if ($(this).is(':checked')) {
+                                                                                $('#dual_timings_check').show();
+                                                                            } else {
+                                                                                $('#dual_timings_check').hide();
                                                                             }
                                                                         });
-                                                                    });
-                                                                    $('#state').change(function () {
-                                                                        var state_id = $('#state').val();
-                                                                        $.ajax({
-                                                                            url: "<?php echo base_url(); ?>reseller/cities/",
-                                                                            type: "POST",
-                                                                            data: {state_id: state_id},
-                                                                            dataType: "JSON",
-                                                                            success: function (data)
-                                                                            {
-                                                                                $('#city').empty();
-                                                                                $('#city').html('<option value="">Select City</option>');
-                                                                                $.each(data, function (index, value) {
-                                                                                    $('#city').append($('<option>').text(value.name).attr('value', value.id));
-                                                                                });
+                                                                        $("#copy_timings").click(function () {
+                                                                            if ($(this).is(':checked')) {
+                                                                                var from_time = $('#from_timings-0').val();
+                                                                                var to_time = $('#to_timings-0').val();
+                                                                                $('#from_timings-1').val(from_time);
+                                                                                $('#from_timings-2').val(from_time);
+                                                                                $('#from_timings-3').val(from_time);
+                                                                                $('#from_timings-4').val(from_time);
+                                                                                $('#from_timings-5').val(from_time);
+                                                                                $('#from_timings-6').val(from_time);
+                                                                                $('#to_timings-1').val(to_time);
+                                                                                $('#to_timings-2').val(to_time);
+                                                                                $('#to_timings-3').val(to_time);
+                                                                                $('#to_timings-4').val(to_time);
+                                                                                $('#to_timings-5').val(to_time);
+                                                                                $('#to_timings-6').val(to_time);
                                                                             }
                                                                         });
+                                                                        $("#copy_timings_dual").click(function () {
+                                                                            if ($(this).is(':checked')) {
+                                                                                var from_time = $('#from_timings_1-0').val();
+                                                                                var to_time = $('#to_timings_1-0').val();
+                                                                                $('#from_timings_1-1').val(from_time);
+                                                                                $('#from_timings_1-2').val(from_time);
+                                                                                $('#from_timings_1-3').val(from_time);
+                                                                                $('#from_timings_1-4').val(from_time);
+                                                                                $('#from_timings_1-5').val(from_time);
+                                                                                $('#from_timings_1-6').val(from_time);
+                                                                                $('#to_timings_1-1').val(to_time);
+                                                                                $('#to_timings_1-2').val(to_time);
+                                                                                $('#to_timings_1-3').val(to_time);
+                                                                                $('#to_timings_1-4').val(to_time);
+                                                                                $('#to_timings_1-5').val(to_time);
+                                                                                $('#to_timings_1-6').val(to_time);
+                                                                            }
+                                                                        });
+                                                                        $('#category').change(function () {
+                                                                            var category_id = $('#category').val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/subcategories/",
+                                                                                type: "POST",
+                                                                                data: {category_id: category_id},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    $('#subcategory').empty();
+                                                                                    $('#subcategory').html('<option value="">Select Subcategory</option>');
+                                                                                    $.each(data, function (index, value) {
+                                                                                        $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                        $('#state').change(function () {
+                                                                            var state_id = $('#state').val();
+                                                                            $.ajax({
+                                                                                url: "<?php echo base_url(); ?>reseller/cities/",
+                                                                                type: "POST",
+                                                                                data: {state_id: state_id},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
+                                                                                    $('#city').empty();
+                                                                                    $('#city').html('<option value="">Select City</option>');
+                                                                                    $.each(data, function (index, value) {
+                                                                                        $('#city').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                    });
+                                                                                }
+                                                                            });
+                                                                        });
                                                                     });
-                                                                });
-                                                                function set_closed(from_id, to_id) {
-                                                                    $('#' + from_id).val("Closed");
-                                                                    $('#' + to_id).val("Closed");
-                                                                }
-                                                                $(document).on('ready', function () {
-                                                                    $("#input-2").fileinput({
-                                                                        previewFileType: "image",
-                                                                        browseClass: "btn btn-danger",
-                                                                        browseLabel: "Pick Image",
-                                                                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                                        removeClass: "btn btn-warning",
-                                                                        removeLabel: "Delete",
-                                                                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                        uploadClass: "btn btn-info",
-                                                                        uploadLabel: "Upload",
-                                                                        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                                                                        allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                        defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                                                                        minImageWidth: 800,
-                                                                        minImageHeight: 500
+                                                                    function set_closed(from_id, to_id) {
+                                                                        $('#' + from_id).val("Closed");
+                                                                        $('#' + to_id).val("Closed");
+                                                                    }
+                                                                    $(document).on('ready', function () {
+                                                                        $("#input-2").fileinput({
+                                                                            previewFileType: "image",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            uploadClass: "btn btn-info",
+                                                                            uploadLabel: "Upload",
+                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                            minImageWidth: 800,
+                                                                            minImageHeight: 500
+                                                                        });
+                                                                        var btnCust = '';
+                                                                        $("#input-1").fileinput({
+                                                                            previewFileType: "image",
+                                                                            browseClass: "btn btn-danger",
+                                                                            browseLabel: "Pick Image",
+                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                            removeClass: "btn btn-warning",
+                                                                            removeLabel: "Delete",
+                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                            uploadClass: "btn btn-info",
+                                                                            uploadLabel: "Upload",
+                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                            maxImageWidth: 80,
+                                                                            maxImageHeight: 80
+                                                                        });
                                                                     });
-                                                                    var btnCust = '';
-                                                                    $("#input-1").fileinput({
-                                                                        previewFileType: "image",
-                                                                        browseClass: "btn btn-danger",
-                                                                        browseLabel: "Pick Image",
-                                                                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                                        removeClass: "btn btn-warning",
-                                                                        removeLabel: "Delete",
-                                                                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                        uploadClass: "btn btn-info",
-                                                                        uploadLabel: "Upload",
-                                                                        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                                                                        allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                        defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                                                                        maxImageWidth: 80,
-                                                                        maxImageHeight: 80
-                                                                    });
-                                                                });
         </script>
         <script src="<?php echo base_url(); ?>include_files/resseller/js/zeroGravity.js" type="text/javascript"></script>     
     </body>

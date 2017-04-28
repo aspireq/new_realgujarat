@@ -224,6 +224,21 @@
                                             </select>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h4 class="form-title">Keywords :</h4>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <select multiple data-role="tagsinput" class="form-control" name="keywords[]" id="keywords">
+                                                <?php
+                                                if (!empty($businessinfo) && $businessinfo['keywords'] != "") {
+                                                    $keywords = explode(',', $businessinfo['keywords']);
+                                                    foreach ($keywords as $keywords) {
+                                                        echo '<option value="' . $keywords . '">' . $keywords . '</option>';
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Hours Of Operation :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -380,133 +395,139 @@
                                             <input type="checkbox" <?php echo (!empty($businessinfo) && $businessinfo['from_timings_2'] != null) ? 'checked' : '' ?> id="dual_timings" name="dual_timings" value="1">
                                             <label for="dual_timings">Dual Timings</label>
                                         </div>
-                                        <div class="form-group col-md-12 col-sm-12 col-xs-12" id="dual_timings_check">
-                                            <?php foreach ($days as $key => $day) { ?>
-                                                <div class="row">
-                                                    <div class="col-md-2 col-sm-3 col-xs-12">
-                                                        <p><?php echo $day; ?> :</p>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
-                                                        <select class="form-control" name="from_timings_1[]" id="from_timings_1<?php echo '-' . $key; ?>">
-                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
-                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
-                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
-                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
-                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
-                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
-                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
-                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
-                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
-                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
-                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
-                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
-                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
-                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
-                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
-                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
-                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
-                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
-                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
-                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
-                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
-                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
-                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
-                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
-                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
-                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
-                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
-                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
-                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
-                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
-                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
-                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
-                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
-                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
-                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
-                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
-                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
-                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
-                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
-                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
-                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
-                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
-                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
-                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
-                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
-                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
-                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
-                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
-                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
-                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-1 col-sm-1 col-xs-2 text-center">
-                                                        <p>To</p>
-                                                    </div>
-                                                    <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
-                                                        <select class="form-control" name="to_timings_1[]" id="to_timings_1<?php echo '-' . $key; ?>">
-                                                            <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
-                                                            <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
-                                                            <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
-                                                            <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
-                                                            <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
-                                                            <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
-                                                            <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
-                                                            <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
-                                                            <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
-                                                            <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
-                                                            <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
-                                                            <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
-                                                            <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
-                                                            <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
-                                                            <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
-                                                            <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
-                                                            <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
-                                                            <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
-                                                            <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
-                                                            <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
-                                                            <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
-                                                            <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
-                                                            <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
-                                                            <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
-                                                            <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
-                                                            <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
-                                                            <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
-                                                            <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
-                                                            <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
-                                                            <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
-                                                            <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
-                                                            <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
-                                                            <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
-                                                            <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
-                                                            <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
-                                                            <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
-                                                            <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
-                                                            <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
-                                                            <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
-                                                            <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
-                                                            <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
-                                                            <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
-                                                            <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
-                                                            <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
-                                                            <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
-                                                            <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
-                                                            <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
-                                                            <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
-                                                            <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
-                                                            <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings_1-' . $key; ?>', '<?php echo 'to_timings_1-' . $key; ?>')">
-                                                                Closed
-                                                            </label>
+                                        <div id="dual_timings_check">
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <?php foreach ($days as $key => $day) { ?>
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-3 col-xs-12">
+                                                            <p><?php echo $day; ?> :</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">                                                    
+                                                            <select class="form-control" name="from_timings_1[]" id="from_timings_1<?php echo '-' . $key; ?>">
+                                                                <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                                <option value = '00:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                                <option value = '00:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                                <option value = '01:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                                <option value = '01:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                                <option value = '02:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                                <option value = '02:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                                <option value = '03:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                                <option value = '03:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                                <option value = '04:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                                <option value = '04:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                                <option value = '05:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                                <option value = '05:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                                <option value = '06:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                                <option value = '06:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                                <option value = '07:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                                <option value = '07:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                                <option value = '08:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                                <option value = '08:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                                <option value = '09:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                                <option value = '09:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                                <option value = '10:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                                <option value = '10:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                                <option value = '11:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                                <option value = '11:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                                <option value = '12:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                                <option value = '12:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                                <option value = '13:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                                <option value = '13:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                                <option value = '14:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                                <option value = '14:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                                <option value = '15:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                                <option value = '15:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                                <option value = '16:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                                <option value = '16:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                                <option value = '17:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                                <option value = '17:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                                <option value = '18:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                                <option value = '18:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                                <option value = '19:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                                <option value = '19:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                                <option value = '20:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                                <option value = '20:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                                <option value = '21:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                                <option value = '21:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                                <option value = '22:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                                <option value = '22:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                                <option value = '23:00' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                                <option value = '23:30' <?php echo (!empty($businessinfo) && $from_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                                <option value="Closed" <?php echo (!empty($businessinfo) && $from_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-1 col-sm-1 col-xs-2 text-center">
+                                                            <p>To</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-5 bootstrap-timepicker">
+                                                            <select class="form-control" name="to_timings_1[]" id="to_timings_1<?php echo '-' . $key; ?>">
+                                                                <option value="Open 24 Hours" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Open 24 Hours') ? 'selected' : '' ?>>Open 24 Hours</option>
+                                                                <option value = '00:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:00') ? 'selected' : '' ?>> 00:00 </option>
+                                                                <option value = '00:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '00:30') ? 'selected' : '' ?>> 00:30 </option>
+                                                                <option value = '01:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:00') ? 'selected' : '' ?>> 01:00 </option>
+                                                                <option value = '01:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '01:30') ? 'selected' : '' ?>> 01:30 </option>
+                                                                <option value = '02:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:00') ? 'selected' : '' ?>> 02:00 </option>
+                                                                <option value = '02:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '02:30') ? 'selected' : '' ?>> 02:30 </option>
+                                                                <option value = '03:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:00') ? 'selected' : '' ?>> 03:00 </option>
+                                                                <option value = '03:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '03:30') ? 'selected' : '' ?>> 03:30 </option>
+                                                                <option value = '04:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:00') ? 'selected' : '' ?>> 04:00 </option>
+                                                                <option value = '04:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '04:30') ? 'selected' : '' ?>> 04:30 </option>
+                                                                <option value = '05:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:00') ? 'selected' : '' ?>> 05:00 </option>
+                                                                <option value = '05:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '05:30') ? 'selected' : '' ?>> 05:30 </option>
+                                                                <option value = '06:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:00') ? 'selected' : '' ?>> 06:00 </option>
+                                                                <option value = '06:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '06:30') ? 'selected' : '' ?>> 06:30 </option>
+                                                                <option value = '07:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:00') ? 'selected' : '' ?>> 07:00 </option>
+                                                                <option value = '07:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '07:30') ? 'selected' : '' ?>> 07:30 </option>
+                                                                <option value = '08:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:00') ? 'selected' : '' ?>> 08:00 </option>
+                                                                <option value = '08:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '08:30') ? 'selected' : '' ?>> 08:30 </option>
+                                                                <option value = '09:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:00') ? 'selected' : '' ?>> 09:00 </option>
+                                                                <option value = '09:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '09:30') ? 'selected' : '' ?>> 09:30 </option>
+                                                                <option value = '10:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:00') ? 'selected' : '' ?>> 10:00 </option>
+                                                                <option value = '10:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '10:30') ? 'selected' : '' ?>> 10:30 </option>
+                                                                <option value = '11:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:00') ? 'selected' : '' ?>> 11:00 </option>
+                                                                <option value = '11:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '11:30') ? 'selected' : '' ?>> 11:30 </option>
+                                                                <option value = '12:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:00') ? 'selected' : '' ?>> 12:00 </option>
+                                                                <option value = '12:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '12:30') ? 'selected' : '' ?>> 12:30 </option>
+                                                                <option value = '13:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:00') ? 'selected' : '' ?>> 13:00 </option>
+                                                                <option value = '13:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '13:30') ? 'selected' : '' ?>> 13:30 </option>
+                                                                <option value = '14:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:00') ? 'selected' : '' ?>> 14:00 </option>
+                                                                <option value = '14:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '14:30') ? 'selected' : '' ?>> 14:30 </option>
+                                                                <option value = '15:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:00') ? 'selected' : '' ?>> 15:00 </option>
+                                                                <option value = '15:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '15:30') ? 'selected' : '' ?>> 15:30 </option>
+                                                                <option value = '16:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:00') ? 'selected' : '' ?>> 16:00 </option>
+                                                                <option value = '16:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '16:30') ? 'selected' : '' ?>> 16:30 </option>
+                                                                <option value = '17:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:00') ? 'selected' : '' ?>> 17:00 </option>
+                                                                <option value = '17:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '17:30') ? 'selected' : '' ?>> 17:30 </option>
+                                                                <option value = '18:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:00') ? 'selected' : '' ?>> 18:00 </option>
+                                                                <option value = '18:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '18:30') ? 'selected' : '' ?>> 18:30 </option>
+                                                                <option value = '19:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:00') ? 'selected' : '' ?>> 19:00 </option>
+                                                                <option value = '19:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '19:30') ? 'selected' : '' ?>> 19:30 </option>
+                                                                <option value = '20:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:00') ? 'selected' : '' ?>> 20:00 </option>
+                                                                <option value = '20:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '20:30') ? 'selected' : '' ?>> 20:30 </option>
+                                                                <option value = '21:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:00') ? 'selected' : '' ?>> 21:00 </option>
+                                                                <option value = '21:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '21:30') ? 'selected' : '' ?>> 21:30 </option>
+                                                                <option value = '22:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:00') ? 'selected' : '' ?>> 22:00 </option>
+                                                                <option value = '22:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '22:30') ? 'selected' : '' ?>> 22:30 </option>
+                                                                <option value = '23:00' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:00') ? 'selected' : '' ?>> 23:00 </option>
+                                                                <option value = '23:30' <?php echo (!empty($businessinfo) && $to_timings_2[$key] == '23:30') ? 'selected' : '' ?>> 23:30 </option>
+                                                                <option value="Closed" <?php echo (!empty($businessinfo) && $to_timings_2[$key] == 'Closed') ? 'selected' : '' ?>>Closed</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" id="check_closed<?php echo '-' . $key; ?>" onclick="set_closed('<?php echo 'from_timings_1-' . $key; ?>', '<?php echo 'to_timings_1-' . $key; ?>')">
+                                                                    Closed
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <?php } ?>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <input type="checkbox" class="" id="copy_timings_dual" name="copy_timings_dual">
+                                                <label for="copy_timings_dual">Copy Timings from Monday to Saturday</label>
+                                            </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Payment Modes Accepted By You :</h4>
@@ -610,58 +631,58 @@
             <script type="text/javascript" src="<?php echo base_url(); ?>include_files/admin/plugins/taginput/js/bootstrap-tagsinput.js"></script>
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
             <script>
-                                                                $(".select2").select2();
-                                                                $(document).ready(function () {
-                                                                    var navListItems = $('div.setup-panel div a'),
-                                                                            allWells = $('.setup-content'),
-                                                                            allNextBtn = $('.nextBtn'),
-                                                                            allPrevBtn = $('.prevBtn');
+                                                                        $(".select2").select2();
+                                                                        $(document).ready(function () {
+                                                                            var navListItems = $('div.setup-panel div a'),
+                                                                                    allWells = $('.setup-content'),
+                                                                                    allNextBtn = $('.nextBtn'),
+                                                                                    allPrevBtn = $('.prevBtn');
 
 
 
-                                                                    navListItems.click(function (e) {
-                                                                        e.preventDefault();
-                                                                        var $target = $($(this).attr('href')),
-                                                                                $item = $(this);
+                                                                            navListItems.click(function (e) {
+                                                                                e.preventDefault();
+                                                                                var $target = $($(this).attr('href')),
+                                                                                        $item = $(this);
 
-                                                                        if (!$item.hasClass('disabled')) {
-                                                                            navListItems.removeClass('btn-danger').addClass('btn-default');
-                                                                            $item.addClass('btn-primary').removeClass('btn-default');
-                                                                            allWells.hide();
-                                                                            $target.show();
-                                                                            $target.find('input:eq(0)').focus();
-                                                                        }
-                                                                    });
+                                                                                if (!$item.hasClass('disabled')) {
+                                                                                    navListItems.removeClass('btn-danger').addClass('btn-default');
+                                                                                    $item.addClass('btn-primary').removeClass('btn-default');
+                                                                                    allWells.hide();
+                                                                                    $target.show();
+                                                                                    $target.find('input:eq(0)').focus();
+                                                                                }
+                                                                            });
 
-                                                                    allPrevBtn.click(function () {
-                                                                        var curStep = $(this).closest(".setup-content"),
-                                                                                curStepBtn = curStep.attr("id"),
-                                                                                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+                                                                            allPrevBtn.click(function () {
+                                                                                var curStep = $(this).closest(".setup-content"),
+                                                                                        curStepBtn = curStep.attr("id"),
+                                                                                        prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-                                                                        prevStepWizard.removeAttr('disabled').trigger('click');
-                                                                    });
+                                                                                prevStepWizard.removeAttr('disabled').trigger('click');
+                                                                            });
 
-                                                                    allNextBtn.click(function () {
-                                                                        var curStep = $(this).closest(".setup-content"),
-                                                                                curStepBtn = curStep.attr("id"),
-                                                                                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                                                                                curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
-                                                                                isValid = true;
+                                                                            allNextBtn.click(function () {
+                                                                                var curStep = $(this).closest(".setup-content"),
+                                                                                        curStepBtn = curStep.attr("id"),
+                                                                                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                                                                                        curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
+                                                                                        isValid = true;
 
-                                                                        $(".form-group").removeClass("has-error");
-                                                                        for (var i = 0; i < curInputs.length; i++) {
-                                                                            if (!curInputs[i].validity.valid) {
-                                                                                isValid = false;
-                                                                                $(curInputs[i]).closest(".form-group").addClass("has-error");
-                                                                            }
-                                                                        }
+                                                                                $(".form-group").removeClass("has-error");
+                                                                                for (var i = 0; i < curInputs.length; i++) {
+                                                                                    if (!curInputs[i].validity.valid) {
+                                                                                        isValid = false;
+                                                                                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                                                                                    }
+                                                                                }
 
-                                                                        if (isValid)
-                                                                            nextStepWizard.removeClass('disabled').trigger('click');
-                                                                    });
+                                                                                if (isValid)
+                                                                                    nextStepWizard.removeClass('disabled').trigger('click');
+                                                                            });
 
-                                                                    $('div.setup-panel div a.btn-danger').trigger('click');
-                                                                });
+                                                                            $('div.setup-panel div a.btn-danger').trigger('click');
+                                                                        });
 
             </script>
             <script type="text/javascript">
@@ -746,6 +767,24 @@
                             $('#to_timings-4').val(to_time);
                             $('#to_timings-5').val(to_time);
                             $('#to_timings-6').val(to_time);
+                        }
+                    });
+                    $("#copy_timings_dual").click(function () {
+                        if ($(this).is(':checked')) {
+                            var from_time = $('#from_timings_1-0').val();
+                            var to_time = $('#to_timings_1-0').val();
+                            $('#from_timings_1-1').val(from_time);
+                            $('#from_timings_1-2').val(from_time);
+                            $('#from_timings_1-3').val(from_time);
+                            $('#from_timings_1-4').val(from_time);
+                            $('#from_timings_1-5').val(from_time);
+                            $('#from_timings_1-6').val(from_time);
+                            $('#to_timings_1-1').val(to_time);
+                            $('#to_timings_1-2').val(to_time);
+                            $('#to_timings_1-3').val(to_time);
+                            $('#to_timings_1-4').val(to_time);
+                            $('#to_timings_1-5').val(to_time);
+                            $('#to_timings_1-6').val(to_time);
                         }
                     });
                     $('#category').change(function () {

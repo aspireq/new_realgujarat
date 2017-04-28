@@ -479,7 +479,9 @@ class Auth_admin extends CI_Controller {
                     $business_data['other_no'] = $this->input->post('other_no');
                     $business_data['other_code'] = $this->input->post('other_code');
                 }
-
+                if ($this->input->post('keywords')) {
+                    $business_data['keywords'] = strtolower(implode(',', $this->input->post('keywords')));
+                }                
                 if (isset($banner) && $banner != "") {
                     $business_data['banner'] = $banner;
                     if ($edit_business_id != null) {

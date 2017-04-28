@@ -141,12 +141,14 @@ WHERE `businesses`.`id` = $business_id");
             $this->db->where('businesses.category_id', $search_category_id);
         }
         if ($search_key != null) {
-            $this->db->like('businesses.name', $search_key);
+            //$this->db->like('businesses.name', $search_key);
+            $search_val = strtolower($search_key);
+            $this->db->where("FIND_IN_SET('$search_val',businesses.keywords) !=", 0);
         }
         if ($search_city != null) {
             $this->db->like('businesses.city', $search_city);
         }
-        $query = $this->db->get('businesses');
+        $query = $this->db->get('businesses');        
         if ($query->num_rows() > 0) {
             $final_data = array();
             foreach ($query->result() as $key => $row) {
