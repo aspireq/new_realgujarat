@@ -101,7 +101,7 @@ class Demo_auth_model extends CI_Model {
             $username = $this->input->post('register_username');
             $password = $this->input->post('passwordmain');
 
-            $reffrence_link = base_url() . 'register?ref=' . strtolower($username);
+            $reffrence_link = base_url() . 'reseller/signup?ref=' . strtolower($username);
             if ($this->input->post('reffrence_link')) {
                 $reffered_by_link = $this->input->post('reffrence_link');
                 $reffered_by = $this->db->query("select uacc_id from user_accounts where reffrence_link = '$reffered_by_link'");

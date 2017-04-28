@@ -79,7 +79,7 @@ if ($_GET['ref'] != "") {
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-link"></i></div>
-                            <input type="text" class="form-control" placeholder="Reffrence Link" name="reffrence_link" id="reffrence_link" value="<?php echo ($reffrence_link != "") ? $reffrence_link : "" ?>">
+                            <input type="text" class="form-control" placeholder="Reffrence Link" name="reffrence_link" id="reffrence_link" value="<?php echo ($reffrence_link != "") ? $reffrence_link : "" ?>" readonly="">
                         </div>
                     </div>
                     <input type="hidden" id="user_type" name="user_type" value="2"/>
