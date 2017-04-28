@@ -148,9 +148,7 @@
                             $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '... <a style="cursor:pointer;" onclick="view_info();">View More</a>';
                         }
                         ?>
-                        <p id="business_desc"><?php echo $string; ?>
-                        <br/>
-                        </p>
+                        <p id="business_desc"><?php echo $string; ?></p>
                         <?php
                     }
                     ?>
