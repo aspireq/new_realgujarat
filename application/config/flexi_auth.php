@@ -68,6 +68,7 @@
 	$config['database']['user_acc']['columns']['update_email'] = 'uacc_update_email';
 	$config['database']['user_acc']['columns']['active'] = 'uacc_active';
 	$config['database']['user_acc']['columns']['suspend'] = 'uacc_suspend';
+	$config['database']['user_acc']['columns']['admin_approval'] = 'uacc_admin_approved';
 	$config['database']['user_acc']['columns']['failed_logins'] = 'uacc_fail_login_attempts';
 	$config['database']['user_acc']['columns']['failed_login_ip'] = 'uacc_fail_login_ip_address';
 	$config['database']['user_acc']['columns']['failed_login_ban_date'] = 'uacc_date_fail_login_ban';
@@ -76,7 +77,7 @@
 	
 	// Custom columns can be added to the main user account table to enable library functions to handle additional custom data stored within the table.
 	$config['database']['user_acc']['custom_columns'] = array(
-            //'bitcoin_account_no','reffrence_link','reffered_by'
+            'reffrence_link','reffered_by'
 	);
 
 	###++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++###
@@ -722,6 +723,7 @@
 	$config['messages']['target_user']['login_attempts_exceeded'] = 'public';
 	$config['messages']['target_user']['login_session_expired'] = 'public';
 	$config['messages']['target_user']['account_suspended'] = 'public';
+	$config['messages']['target_user']['admin_approval'] = 'public';
 
 	// Account Changes
 	$config['messages']['target_user']['update_successful'] = 'public';

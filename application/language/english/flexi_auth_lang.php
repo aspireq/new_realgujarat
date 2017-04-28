@@ -54,6 +54,8 @@ $lang['login_attempts_exceeded'] 					= 'The maximum login attempts have been ex
 $lang['login_session_expired']						= 'Your login session has expired.';
 $lang['account_suspended'] 							= 'Your account has been suspended.';
 
+$lang['admin_approval'] 							= 'Your account has to be approved by admin.';
+
 // Account Changes
 $lang['update_successful']							= 'Account information has been successfully updated.';
 $lang['update_unsuccessful']						= 'Unable to update account information.';

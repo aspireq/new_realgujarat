@@ -481,7 +481,7 @@ class Auth_admin extends CI_Controller {
                 }
                 if ($this->input->post('keywords')) {
                     $business_data['keywords'] = strtolower(implode(',', $this->input->post('keywords')));
-                }                
+                }
                 if (isset($banner) && $banner != "") {
                     $business_data['banner'] = $banner;
                     if ($edit_business_id != null) {
@@ -561,4 +561,19 @@ class Auth_admin extends CI_Controller {
         $this->load->view('admin/add_business', $this->data);
     }
 
+    function approve_user() {
+        $user_id = $this->input->post('user_id');
+        $userinfo = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $this->input->post('user_id')));
+        $approve_user = $this->Common_model->select_update('user_accounts', array('uacc_admin_approved' => 1), array('uacc_id' => $user_id));
+        if ($userinfo->reffered_by != null) {
+            $refuser = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $userinfo->reffered_by));
+            $final_balance = $refuser->earnings + 2500;
+            $add_commission = $this->Common_model->select_update('user_accounts', array('earnings' => $final_balance), array('uacc_id' => $userinfo->reffered_by));
+        }
+        if ($approve_user && $add_commission) {
+            die(json_encode(true));
+        } else {
+            die(json_encode(false));
+        }
+    }
 }

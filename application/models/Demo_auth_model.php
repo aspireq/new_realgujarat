@@ -83,7 +83,6 @@ class Demo_auth_model extends CI_Model {
     }
 
     function register_account() {
-
         $this->load->library('form_validation');
         $validation_rules = array(
             array('field' => 'register_email_address', 'label' => 'Email Address', 'rules' => 'required|valid_email'),
@@ -102,15 +101,33 @@ class Demo_auth_model extends CI_Model {
             $username = $this->input->post('register_username');
             $password = $this->input->post('passwordmain');
 
+            $reffrence_link = base_url() . 'register?ref=' . strtolower($username);
+            if ($this->input->post('reffrence_link')) {
+                $reffered_by_link = $this->input->post('reffrence_link');
+                $reffered_by = $this->db->query("select uacc_id from user_accounts where reffrence_link = '$reffered_by_link'");
+            }
+
             $profile_data = array(
                 'upro_first_name' => $this->input->post('first_name'),
                 'upro_last_name' => $this->input->post('last_name'),
                 'landline_no' => $this->input->post('landline_no'),
-                'mobile_no' => $this->input->post('mobile_no')
+                'mobile_no' => $this->input->post('mobile_no'),
+                'reffrence_link' => $reffrence_link
             );
+
+            if ($this->input->post('reffrence_link')) {
+                $profile_data['reffered_by'] = $reffered_by->row()->uacc_id;
+            }
+
             $instant_activate = FALSE;
             $response = $this->flexi_auth->insert_user($email, $username, $password, $profile_data, $user_type, $instant_activate);
             if ($response) {
+                if ($reffrence_link != "") {
+                    $check_reffrels = $this->select_where_row('user_accounts', array('reffrence_link' => $this->input->post('reffrence_link')));
+                    if (!empty($check_reffrels)) {
+                        $this->db->update('user_accounts', array('reffrence_registration' => $check_reffrels->reffrence_registration + 1), array('uacc_id' => $check_reffrels->uacc_id, 'reffrence_link' => $this->input->post('reffrence_link')));
+                    }
+                }
                 $email_data = array('identity' => $email, 'username' => $username);
                 $this->flexi_auth->send_email($email, 'Welcome', 'registration_welcome.tpl.php', $email_data);
                 $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
@@ -236,7 +253,7 @@ class Demo_auth_model extends CI_Model {
                 
             } else {
                 $this->session->set_flashdata('mail_sent', 1);
-            }            
+            }
             redirect('reseller/manual_reset_forgotten_password');
         } else {
             // Set validation errors.

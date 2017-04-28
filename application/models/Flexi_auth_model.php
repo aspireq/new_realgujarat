@@ -1420,6 +1420,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
                 }
             }
 
+            // Check if account has been suspended.
+            if ($user->{$this->auth->database_config['user_acc']['columns']['group_id']} == 2 && $user->{$this->auth->database_config['user_acc']['columns']['admin_approval']} == 0) {
+
+                $this->set_error_message('admin_approval', 'config');
+                return FALSE;
+            }
+            
             // Check whether account has been activated.
             if ($user->{$this->auth->database_config['user_acc']['columns']['active']} == 0) {
 
@@ -1433,6 +1440,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
                 $this->set_error_message('account_suspended', 'config');
                 return FALSE;
             }
+
+
 
             // Verify submitted password matches database.
             if ($this->verify_password($identity, $password)) {

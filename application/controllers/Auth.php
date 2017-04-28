@@ -103,9 +103,7 @@ class Auth extends CI_Controller {
         $total_row = $this->Common_model->business_data('', '', $category_id, $search_key, $search_category_id, $search_city);
         $config["total_rows"] = $total_row['counts'];
         $config['num_links'] = $total_row['counts'];
-        // if ($this->uri->segment(4) != null) {
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        //  }
         $this->data["results"] = $this->Common_model->business_data($config["per_page"], $page, $category_id, $search_key, $search_category_id, $search_city);
         $this->pagination->initialize($config);
         $str_links = $this->pagination->create_links();
