@@ -1393,7 +1393,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             $this->auth->tbl_col_user_account['active'],
             $this->auth->tbl_col_user_account['suspend'],
             $this->auth->tbl_col_user_account['last_login_date'],
-            $this->auth->tbl_col_user_account['failed_logins']
+            $this->auth->tbl_col_user_account['failed_logins'],
+            $this->auth->tbl_col_user_account['uacc_admin_approved']
         );
 
         $sql_where = array($this->auth->primary_identity_col => $identity);
@@ -1421,8 +1422,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             }
 
             // Check if account has been suspended.
-            if ($user->{$this->auth->database_config['user_acc']['columns']['group_id']} == 2 && $user->{$this->auth->database_config['user_acc']['columns']['admin_approval']} == 0) {
-
+            if ($user->{$this->auth->database_config['user_acc']['columns']['group_id']} == 2 && $user->{$this->auth->database_config['user_acc']['columns']['uacc_admin_approved']} == 0) {                
                 $this->set_error_message('admin_approval', 'config');
                 return FALSE;
             }

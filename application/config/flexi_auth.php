@@ -67,8 +67,8 @@
 	$config['database']['user_acc']['columns']['update_email_token'] = 'uacc_update_email_token';
 	$config['database']['user_acc']['columns']['update_email'] = 'uacc_update_email';
 	$config['database']['user_acc']['columns']['active'] = 'uacc_active';
+	$config['database']['user_acc']['columns']['uacc_admin_approved'] = 'uacc_admin_approved';
 	$config['database']['user_acc']['columns']['suspend'] = 'uacc_suspend';
-	$config['database']['user_acc']['columns']['admin_approval'] = 'uacc_admin_approved';
 	$config['database']['user_acc']['columns']['failed_logins'] = 'uacc_fail_login_attempts';
 	$config['database']['user_acc']['columns']['failed_login_ip'] = 'uacc_fail_login_ip_address';
 	$config['database']['user_acc']['columns']['failed_login_ban_date'] = 'uacc_date_fail_login_ban';
