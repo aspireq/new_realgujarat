@@ -198,7 +198,7 @@
                         <div class="media">
                             <div class="media-left media-top">
                                 <a href="#">
-                                    <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/rupee.png" alt="...">
+                                    <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/rate.png" alt="...">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -211,7 +211,7 @@
                         <div class="media">
                             <div class="media-left media-top">
                                 <a href="#">
-                                    <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/rupee.png" alt="...">
+                                    <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/credit-card.png" alt="...">
                                 </a>
                             </div>
                             <div class="media-body">
