@@ -148,14 +148,16 @@
                             $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '... <a style="cursor:pointer;" onclick="view_info();">View More</a>';
                         }
                         ?>
-                        <p id="business_desc"><?php echo $string; ?></p>
+                        <p id="business_desc"><?php echo $string; ?>
+                        <br/>
+                        </p>
                         <?php
                     }
                     ?>
                     <?php
                     if ($business->year_establishment != null) {
                         ?>
-                        <br/>
+                        
                         <h4>Year Established</h4>
                         <p><?php echo ($business->year_establishment != null ) ? $business->year_establishment : 'N/A'; ?> </p>
                     <?php } ?>

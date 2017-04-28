@@ -5,7 +5,10 @@
 }
 @media(max-width:500px) {
     .service {
-      width: 43%;
+      width: 42%;
+    }
+    .cart-button {
+        width: 112px;
     }
 }
 @media (min-width: 500px) and (max-width: 767px) {
