@@ -19,7 +19,7 @@
                 </div>
                 <div class="modal-body">
                     <form name="info_form" action="#" method="post">
-                        <input type="hidden" name="business_id" id="business_id" value="<?php echo $business->id; ?>"
+                        <input type="hidden" name="business_id" id="business_id" value="<?php echo $business->id; ?>">
                                <span class="input input--chisato">
                             <input class="input__field input__field--chisato" type="text" id="info_name" name="info_name" />
                             <label class="input__label input__label--chisato" for="input-13">
