@@ -151,7 +151,7 @@
                             <h4 class="modal-title" id="myModalLabel">Approve User</h4>
                         </div>
                         <form method="post" id="approve_user">
-                            <input type="text" name="approving_user" id="approving_user">
+                            <input type="hidden" name="approving_user" id="approving_user">
                             <div class="modal-body">
                                 <h4>Are you sure want to activate this user </h4>                    
                             </div>
@@ -287,7 +287,7 @@
                                             "fnServerParams":
                                                     function (aoData) {
                                                     },
-                                            "aaSorting": [[2, 'desc'], [1, 'desc']],
+                                            "aaSorting": [4, 'desc'],
                                             "iDisplayLength": 10,
                                             "bStateSave": true,
                                             "fnCreatedRow": function (nRow, aData, iDataIndex)
@@ -375,7 +375,7 @@
                                     function approve_user() {
                                         var user_id = $('#approving_user').val();
                                         $.ajax({
-                                            url: "<?php echo base_url(); ?>auth_admin/approve_user/",
+                                            url: "<?php echo base_url(); ?>auth_admin/approve_user",
                                             type: "POST",
                                             data: {user_id: user_id},
                                             dataType: "JSON",
