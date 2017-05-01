@@ -154,24 +154,27 @@ class Auth extends CI_Controller {
         $config['num_links'] = $total_row['counts'];
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $this->data["results"] = $this->Common_model->review_data($config["per_page"], $page, $business_id);
-        $reviews = (array) $this->Common_model->select_where('reviews', array('business_id' => $business_id, 'status' => 1));
+      //  $reviews = (array) $this->Common_model->select_where('reviews', array('business_id' => $business_id, 'status' => 1));
+        $reviews = $this->db->query('select rating from reviews where business_id = '.$business_id.' AND status = 1')->result_array();
+        
         $total_ratings = array_sum(array_column($reviews, 'rating'));
-
+       // echo $total_ratings;die();
         foreach ($reviews as $review) {
-            if ($review->rating == 1.0) {
-                $star_1 += $review->rating;
-            } else if ($review->rating == 2.0) {
-                $star_2 += $review->rating;
-            } else if ($review->rating == 3.0) {
-                $star_3 += $review->rating;
-            } else if ($review->rating == 4.0) {
-                $star_4 += $review->rating;
-            } else if ($review->rating == 5.0) {
-                $star_5 += $review->rating;
+            if ($review['rating'] == 1.0) {
+                $star_1 += $review['rating'];
+            } else if ($review['rating'] == 2.0) {
+                $star_2 += $review['rating'];
+            } else if ($review['rating'] == 3.0) {
+                $star_3 += $review['rating'];
+            } else if ($review['rating'] == 4.0) {
+                $star_4 += $review['rating'];
+            } else if ($review['rating'] == 5.0) {
+                $star_5 += $review['rating'];
             }
         }
         $string = ($star_1 + $star_2 * 2 + $star_3 * 3 + $star_4 * 4 + $star_5 * 5) / $total_ratings;
         $this->data["total_ratings"] = round(mb_substr($string, 0, -1));
+       
         $this->pagination->initialize($config);
         $str_links = $this->pagination->create_links();
         $this->data["links"] = explode('&nbsp;', $str_links);

@@ -155,11 +155,11 @@
                     <?php
                     if ($business->year_establishment != null) {
                         ?>
-                        
+
                         <h4>Year Established</h4>
                         <p><?php echo ($business->year_establishment != null ) ? $business->year_establishment : 'N/A'; ?> </p>
                     <?php } ?>
-                        <br/>
+                    <br/>
                     <div class="media">
                         <div class="media-left media-top">
                             <a href="#">
@@ -169,10 +169,10 @@
                         <div class="media-body">
                             <h4 class="media-heading">Address</h4>
                             <address>
-                                <?php echo ($business->address != null) ? $business->address : ''; ?>
-                                <?php echo ($business->city != 0) ? ',' . $business->city_name : ''; ?>
-                                <?php echo ($business->state != 0) ? ',' . $business->state_name : ''; ?>
-                                <?php echo ($business->pincode != 0) ? ',' . $business->pincode : ''; ?>
+                                <?php echo ($business->address != null) ? $business->address:'';?>
+                                <?php echo ($business->city != 0)?','.$business->city_name:'';?>
+                                <?php echo ($business->state != 0)?','.$business->state_name:'';?>
+                                <?php echo ($business->pincode != 0)?','.$business->pincode:'';?>
                             </address>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">Hours of Operation</h4>
-                            
+
                             <div id="hours_of_opeation">
                                 <?php
                                 $days = array(
@@ -265,6 +265,26 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                    $keywords = explode(',', $business->keywords);
+                    if (!empty($keywords[0])) {
+                        ?>
+                        <div class="media">
+                            <div class="media-left media-top">
+                                <a href="#">
+                                    <img class="media-object" src="<?php echo base_url(); ?>include_files/user/img/detail/phone.png" alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">Also Listed In</h4>
+                                <?php
+                                foreach ($keywords as $keyword) {
+                                    echo '<p>' . $keyword . '</p>';
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                     <?php
                     $other_locations = explode(',', $business->other_locations);
                     if (!empty($other_locations[0])) {
@@ -521,7 +541,7 @@
     });
 </script>
 <script>
-    $(document).ready(function () {      
+    $(document).ready(function () {
         $("#rat_busine").click(function () {
             $(this).attr('data-rating', 2);
             var rating = $('.stars starrr .stars starrr-on').length;
@@ -586,10 +606,10 @@
     }
 
     function view_info() {
-        var val = $('.view_more a:first').text();        
+        var val = $('.view_more a:first').text();
         if (val === 'View More') {
             $('.view_more a:first ').text('View Less');
-            $('#business_desc').text('<?php echo strip_tags($business->business_description);?>');
+            $('#business_desc').text('<?php echo strip_tags($business->business_description); ?>');
         } else {
             $('.view_more a:first ').text('View More');
         }
