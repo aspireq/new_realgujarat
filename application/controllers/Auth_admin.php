@@ -242,8 +242,6 @@ class Auth_admin extends CI_Controller {
             $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
             $this->data = $this->include_files();
             $this->load->view('admin/subcategories', $this->data);
-        } else {
-            
         }
     }
 
@@ -395,6 +393,14 @@ class Auth_admin extends CI_Controller {
                 $result = $this->Common_model->insert('reseller_payments', $payment_data);
                 $final_earnings = $userbalance->earnings - $this->input->post('final_amount');
                 $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $final_earnings), array('uacc_id' => $this->input->post('reseller_id')));
+                $subject = 'realgujarat - Payment Approval';
+                $message = "Hello " . $userbalance->uacc_username . "\n";
+                $message .= "Your payment of Rs. " . $payment_data['netamount'] . " has been prosesed successfully   \n";                
+                $message .= "Thank you";
+                $headers = 'From: ' . From_Email . '' . "\r\n" .
+                        'Reply-To: ' . Reply_Email . '' . "\r\n" .
+                        'X-Mailer: PHP/' . phpversion();
+                mail($userbalance->uacc_email, $subject, $message, $headers);
             }
             die(json_encode(($result && $updateuser) ? true : false));
         } else {
@@ -550,9 +556,8 @@ class Auth_admin extends CI_Controller {
                 $this->data['businessinfo'] = $business_data;
             }
         }
-
         if ($edit_business_id != "") {
-            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
+            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);            
         }
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
@@ -563,7 +568,7 @@ class Auth_admin extends CI_Controller {
 
     function approve_user() {
         $user_id = $this->input->post('user_id');
-        $userinfo = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $this->input->post('user_id')));        
+        $userinfo = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $this->input->post('user_id')));
         $approve_user = $this->Common_model->select_update('user_accounts', array('uacc_admin_approved' => 1), array('uacc_id' => $user_id));
         if ($userinfo->reffered_by != null) {
             $refuser = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $userinfo->reffered_by));
@@ -576,4 +581,21 @@ class Auth_admin extends CI_Controller {
             die(json_encode(false));
         }
     }
+
+    function suspend_user() {
+        $user_id = $this->input->post('user_id');
+        $userinfo = $this->Common_model->select_where_row('user_accounts', array('uacc_id' => $this->input->post('user_id')));
+        if ($userinfo->uacc_suspend == 1) {
+            $suspend_status = 0;
+        } else {
+            $suspend_status = 1;
+        }
+        $suspend_user = $this->Common_model->select_update('user_accounts', array('uacc_suspend' => $suspend_status), array('uacc_id' => $user_id));
+        if ($suspend_user) {
+            die(json_encode(true));
+        } else {
+            die(json_encode(false));
+        }
+    }
+
 }

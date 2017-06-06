@@ -565,7 +565,7 @@
                                                     <div class="col-md-3">
                                                         <div class="thumbnail">
                                                             <a class="close" href="#"><i class="fa fa-times-circle"></i></a>
-                                                            <input type="hidden" name="old_company_images[]" id="<?php echo $$image->image; ?>" value="<?php echo $image->image; ?>">
+                                                            <input type="hidden" name="old_company_images[]" id="<?php echo $image->image; ?>" value="<?php echo $image->image; ?>">
                                                             <img src="<?php echo base_url(); ?>include_files/business_images/<?php echo $image->image; ?>">
                                                         </div>
                                                     </div>

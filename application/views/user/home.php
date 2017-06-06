@@ -67,8 +67,8 @@
         <div class="col-md-9 col-sm-7 col-xs-12">
             <div class="row">
                 <?php
-                foreach ($categories as $category) {
-                    if ($key < 8) {
+                foreach ($categories as $key => $category) {
+                    if ($key < 11) {
                         ?>
                         <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
                             <div class="col-md-2 col-sm-2 col-xs-6 service">
@@ -84,13 +84,38 @@
                 }
                 ?>
                 <div class="col-md-2 col-sm-2 col-xs-6 service">
-                    <img src="<?php echo base_url(); ?>include_files/user/img/service/more.png" alt="more service"/>
-                    <h3>View More</h3>
+                    <a onclick="show_more_categories();">
+                        <img src="<?php echo base_url(); ?>include_files/user/img/service/more.png" alt="more service"/>
+                        <h3>View More</h3>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-sm-4 col-xs-12">
             <img src="<?php echo base_url(); ?>include_files/user/img/adbanner1.png" alt="ad"/>
+        </div>
+    </div>
+    <div class="row" id="more_categoruies">
+        <div class="col-md-9 col-sm-7 col-xs-12">
+            <div class="row">
+                <?php
+                foreach ($categories as $key => $category) {
+                    if ($key >= 11) {
+                        ?>
+                        <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
+                            <div class="col-md-2 col-sm-2 col-xs-6 service">
+                                <img src="<?php echo base_url(); ?>include_files/categories/<?php echo $category->image; ?>" alt="categories"/>
+                                <h3><?php echo $category->name; ?></h3>
+                            </div>
+                        </a>
+                        <form method="post" id="<?php echo $category->id; ?>" action="<?php echo base_url(); ?>auth/businesses">
+                            <input type="hidden" name="category_id_row" id="category_id_row" value="<?php echo $category->id; ?>">                           
+                        </form>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>
@@ -115,6 +140,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#more_categoruies').hide();
         $('#myCarousel').carousel({
             interval: 4000
         });
@@ -136,6 +162,9 @@
             clickEvent = false;
         });
     });
+    function show_more_categories() {        
+        $('#more_categoruies').show();
+    }
 </script>
 <script type="text/javascript">
     $(document).ready(function () {

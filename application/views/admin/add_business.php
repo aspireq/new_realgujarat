@@ -67,7 +67,7 @@
                                         </div>
                                         <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($businessinfo && isset($businessinfo['id']))) ? $businessinfo['id'] : '' ?>">
                                         <input type="hidden" name="old_logo" id="old_logo" value="<?php echo (!empty($businessinfo && isset($businessinfo['banner']))) ? $businessinfo['banner'] : '' ?>">
-                                        <input type="hidden" name="old_banner" id="old_banner" value="<?php echo (!empty($businessinfo && isset($businessinfo['logo']))) ? $businessinfo['logo'] : '' ?>">
+                                        <input type="hidden" name="old_banner" id="old_banner" value="<?php echo (!empty($businessinfo && isset($businessinfo['logo']))) ? $businessinfo['logo'] : '' ?>">                                        
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-cube"></i></div>

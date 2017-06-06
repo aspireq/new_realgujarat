@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-12">Image</label>
+                                        <label class="col-sm-12">Image [Standard : 64 * 64]</label>
                                         <div class="col-sm-12">
                                             <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                                 <div class="form-control" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>

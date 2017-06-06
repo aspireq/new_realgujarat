@@ -27,6 +27,7 @@
                             <input type="hidden" alt="alert" class="img-responsive model_img" id="payment_added">
                             <input type="hidden" alt="alert" class="img-responsive model_img" id="payment_failed">
                             <input type="hidden" alt="alert" class="img-responsive model_img" id="user_approved_success">
+                            <input type="hidden" alt="alert" class="img-responsive model_img" id="suspend_user_success">
                             <div class="table-responsive">
                                 <table class="table product-overview" id="myTable">
                                     <thead>
@@ -40,6 +41,7 @@
                                             <th>Add Payment</th>
                                             <th>Payments</th>
                                             <th>Status</th>
+                                            <th>Suspended</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -162,6 +164,25 @@
                     </div>
                 </div>
             </div>
+            <div id="suspend_modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Suspend User</h4>
+                        </div>
+                        <form method="post" id="suspend_user">
+                            <input type="hidden" name="suspending_user" id="suspending_user">
+                            <div class="modal-body">
+                                <h4 id="suspend_msg"></h4>                    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info waves-effect" name="suspend" id="suspend" onclick="suspend_user_confirm();">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
             <script src="<?php echo base_url(); ?>include_files/admin/bootstrap/dist/js/bootstrap.min.js"></script>
             <script src="<?php echo base_url(); ?>include_files/admin/js/jquery.validate.min.js"></script>
@@ -190,6 +211,9 @@
                                         });
                                         $('#user_approved_success').click(function () {
                                             swal("", "User approved Successfully!");
+                                        });
+                                        $('#suspend_user_success').click(function () {
+                                            swal("", "Suspend status saved Successfully!");
                                         });
                                         $('#payment_date').datepicker({
                                             autoclose: true,
@@ -365,6 +389,20 @@
                                                             return html;
                                                         }
                                                     }
+                                                },
+                                                {
+                                                    mData: '',
+                                                    aTargets: [9],
+                                                    mRender: function (data, type, full)
+                                                    {
+                                                        if (full['uacc_suspend'] == 1) {
+                                                            var html = '<div class="onoffswitch2"><input type="checkbox" onClick="suspend_user(' + full['uacc_id'] + ')" name="suspend' + full['uacc_id'] + '" class="onoffswitch2-checkbox" id="suspend' + full['uacc_id'] + '" checked><label class="onoffswitch2-label" for="suspend' + full['uacc_id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                            return html;
+                                                        } else {
+                                                            var html = '<div class="onoffswitch2"><input type="checkbox" onClick="suspend_user(' + full['uacc_id'] + ')" name="suspend' + full['uacc_id'] + '" class="onoffswitch2-checkbox" id="suspend' + full['uacc_id'] + '"><label class="onoffswitch2-label" for="suspend' + full['uacc_id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                            return html;
+                                                        }
+                                                    }
                                                 }
                                             ]
                                         });
@@ -382,8 +420,27 @@
                                             success: function (response)
                                             {
                                                 if (response == true) {
-                                                    $("#user_approved_success").trigger('click');                                                    
+                                                    $("#user_approved_success").trigger('click');
                                                     $('#approve_modal').modal('hide');
+                                                } else {
+                                                    $("#payment_failed").trigger('click');
+                                                }
+                                                reload_table();
+                                            }
+                                        });
+                                    }
+                                    function suspend_user_confirm() {
+                                        var user_id = $('#suspending_user').val();
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth_admin/suspend_user",
+                                            type: "POST",
+                                            data: {user_id: user_id},
+                                            dataType: "JSON",
+                                            success: function (response)
+                                            {
+                                                if (response == true) {
+                                                    $("#suspend_user_success").trigger('click');
+                                                    $('#suspend_modal').modal('hide');
                                                 } else {
                                                     $("#payment_failed").trigger('click');
                                                 }
@@ -398,6 +455,26 @@
                                         $('#approve_user')[0].reset();
                                         $('#approving_user').val(user_id);
                                         $('#approve_modal').modal('show');
+                                    }
+
+                                    function suspend_user(user_id) {
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth/get_record/",
+                                            type: "POST",
+                                            data: {id: user_id, table_coloum: 'uacc_id', table_name: 'user_accounts'},
+                                            dataType: "JSON",
+                                            success: function (data)
+                                            {
+                                                if (data.uacc_suspend == 1) {
+                                                    $('#suspend_msg').text('Are you sure want to activated this user');
+                                                } else {
+                                                    $('#suspend_msg').text('Are you sure want to suspend this user');
+                                                }
+                                                $('#suspend_user')[0].reset();
+                                                $('#suspending_user').val(user_id);
+                                                $('#suspend_modal').modal('show');
+                                            }
+                                        });
                                     }
 
                                     function add_payment(user_id) {
@@ -548,13 +625,5 @@
                     });
                 }
             </script>
-            <script>
-//                $(document).ready(function(){
-//                    if  ($('#responsive-modal').is(':visible')){
-//                           $('body').addClass('modal-open');
-//                        }
-//                });
-            </script>
-
     </body>
 </html>
