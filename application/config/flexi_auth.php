@@ -724,6 +724,7 @@
 	$config['messages']['target_user']['login_session_expired'] = 'public';
 	$config['messages']['target_user']['account_suspended'] = 'public';
 	$config['messages']['target_user']['admin_approval'] = 'public';
+	$config['messages']['target_user']['multiple_login_confg'] = 'public';
 
 	// Account Changes
 	$config['messages']['target_user']['update_successful'] = 'public';

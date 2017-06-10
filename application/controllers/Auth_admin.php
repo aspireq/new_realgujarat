@@ -232,6 +232,7 @@ class Auth_admin extends CI_Controller {
     }
 
     function logout() {
+        $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $this->user_id));
         $this->flexi_auth->logout(TRUE);
         $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
         redirect('admin');

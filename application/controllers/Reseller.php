@@ -35,6 +35,7 @@ class Reseller extends CI_Controller {
     }
 
     function logout() {
+        $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $this->user_id));
         $this->flexi_auth->logout(TRUE);
         $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
         redirect('reseller/home');
@@ -415,7 +416,7 @@ class Reseller extends CI_Controller {
 
             if ($edit_business_id != "") {
                 $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
-                $this->data['contact_info'] = $this->Common_model->select_where('business_contacts',array('business_id' => $edit_business_id));
+                $this->data['contact_info'] = $this->Common_model->select_where('business_contacts', array('business_id' => $edit_business_id));
             }
             $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
             $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));

@@ -40,6 +40,7 @@ $lang['deactivate_unsuccessful']					= 'Unable to deactivate account.';
 $lang['activation_email_successful'] 	 			= 'An activation email has been sent.';
 $lang['activation_email_unsuccessful']  	 		= 'Unable to send activation email.';
 $lang['account_requires_activation'] 				= 'Your account needs to be activated via email.';
+$lang['multiple_login_confg'] 				= 'Login is associated with another machine.';
 $lang['account_already_activated'] 					= 'Your account has already been activated.';
 $lang['email_activation_email_successful']			= 'An email has been sent to activate your new email address.';
 $lang['email_activation_email_unsuccessful']		= 'Unable to send an email to activate your new email address.';

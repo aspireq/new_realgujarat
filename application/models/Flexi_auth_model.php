@@ -1384,6 +1384,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             }
         }
 
+
         $sql_select = array(
             $this->auth->primary_identity_col,
             $this->auth->tbl_col_user_account['id'],
@@ -1394,7 +1395,8 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             $this->auth->tbl_col_user_account['suspend'],
             $this->auth->tbl_col_user_account['last_login_date'],
             $this->auth->tbl_col_user_account['failed_logins'],
-            $this->auth->tbl_col_user_account['uacc_admin_approved']
+            $this->auth->tbl_col_user_account['uacc_admin_approved'],
+            $this->auth->tbl_col_user_account['ip_address']
         );
 
         $sql_where = array($this->auth->primary_identity_col => $identity);
@@ -1409,8 +1411,13 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
         ###+++++++++++++++++++++++++++++++++###
         // User exists, now validate credentials.
         if ($query->num_rows() == 1) {
-            $user = $query->row();
 
+            $user = $query->row();
+            $get_previous_login = $this->select_where_row('user_accounts', array('is_login' => 1, 'uacc_id' => $user->uacc_id));
+            if (!empty($get_previous_login)) {                
+                $this->set_error_message('multiple_login_confg', 'config');
+                return FALSE;
+            }
             // If an activation time limit is defined by config file and account hasn't been activated by email.
             if ($this->auth->auth_settings['account_activation_time_limit'] > 0 &&
                     !empty($user->{$this->auth->database_config['user_acc']['columns']['activation_token']})) {
@@ -1422,11 +1429,11 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             }
 
             // Check if account has been suspended.
-            if ($user->{$this->auth->database_config['user_acc']['columns']['group_id']} == 2 && $user->{$this->auth->database_config['user_acc']['columns']['uacc_admin_approved']} == 0) {                
+            if ($user->{$this->auth->database_config['user_acc']['columns']['group_id']} == 2 && $user->{$this->auth->database_config['user_acc']['columns']['uacc_admin_approved']} == 0) {
                 $this->set_error_message('admin_approval', 'config');
                 return FALSE;
             }
-            
+
             // Check whether account has been activated.
             if ($user->{$this->auth->database_config['user_acc']['columns']['active']} == 0) {
 
@@ -1461,6 +1468,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
                     else {
                         $this->flexi_auth_lite_model->delete_remember_me_cookies();
                     }
+                    $this->db->update('user_accounts', array('is_login' => 1), array('uacc_id' => $user->uacc_id));
                     return TRUE;
                 }
             }
