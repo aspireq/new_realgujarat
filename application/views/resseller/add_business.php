@@ -73,7 +73,7 @@
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-cube"></i></div>
-                                                <select class="form-control" name="subcategory" id="subcategory">
+                                                <select type="text" class="form-control" name="subcategory" id="subcategory" onChange="calculateTotal()">
                                                     <option value="">Select Subcategory</option>
                                                     <?php
                                                     if (!empty($businessinfo) && $businessinfo['subcategory_id'] != "") {
@@ -124,7 +124,7 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                                <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?php echo (!empty($businessinfo) && $businessinfo['email'] != "") ? $businessinfo['email'] : '' ?>">
+                                                <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?php echo (!empty($businessinfo) && $businessinfo['email'] != "") ? $businessinfo['email'] : '' ?>" onblur="calculateTotal()">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" id="find_duplicates">
@@ -140,7 +140,7 @@
                                                 <div class="input-group-addon codeinput">
                                                     <input type="text" placeholder="Code" class="form-control" name="landline_code" id="landline_code" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_code'] != "") ? $businessinfo['landline_code'] : '' ?>">
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_no'] != "") ? $businessinfo['landline_no'] : '' ?>" >
+                                                <input type="text" class="form-control" placeholder="Landline No." name="landline_no" id="landline_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['landline_no'] != "") ? $businessinfo['landline_no'] : '' ?>" onblur="calculateTotal()" >
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
@@ -162,9 +162,50 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <input tyoe="button" class="btn btn-primary" name="add_more_contact" id="add_more_contact" value="Add More Contacts" onclick="add_more_contacts();"/>
+                                        </div>
+                                        <?php
+                                        if (!empty($contact_info)) {
+                                            foreach ($contact_info as $contact) {
+                                                ?>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-phone"></i>
+                                                            </div>
+                                                            <div class="input-group-addon codeinput">
+                                                                <input type="text" placeholder="Code" class="form-control" name="more_landline_code[]" id="more_landline_code" value="<?php echo (!empty($contact) && $contact->landline_code_number != "") ? $contact->landline_code_number : '' ?>">
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Landline No." name="more_landline_no[]" id="more_landline_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->landline_number != "") ? $contact->landline_number : '' ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                                            <div class="input-group-addon codeinput">
+                                                                <input type="text" placeholder="Code" class="form-control" name="more_mobile_code[]" id="more_mobile_code" value="<?php echo (!empty($contact) && $contact->mobile_no_code != "") ? $contact->mobile_no_code : '' ?>">
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->mobile_number != "") ? $contact->mobile_number : '' ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                        <div id="add_more_contactinfo">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
-                                                <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>">
+                                                <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>" onblur="calculateTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                                <input type="text" class="form-control" placeholder="Contact Person Name" name="contact_person_name" id="contact_person_name" value="<?php echo (!empty($businessinfo) && $businessinfo['contact_person_name'] != "") ? $businessinfo['contact_person_name'] : '' ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -180,7 +221,7 @@
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                                <textarea class="form-control" placeholder="About Company" name="about_company" id="about_company"><?php echo (!empty($businessinfo) && $businessinfo['business_description'] != "") ? $businessinfo['business_description'] : '' ?></textarea>
+                                                <textarea onblur="calculateTotal()" class="form-control" placeholder="About Company" name="about_company" id="about_company"><?php echo (!empty($businessinfo) && $businessinfo['business_description'] != "") ? $businessinfo['business_description'] : '' ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -601,7 +642,7 @@
                                                                         var business_id = $('#edit_id').val();
                                                                         if (business_id == "") {
                                                                             var divobj = document.getElementById('totalPrice');
-                                                                            divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
+                                                                            divobj.innerHTML = "Approximate Earnings For this Ad  : " + 0;
                                                                             divobj.style.display = 'block';
                                                                         } else {
                                                                             var divobj = document.getElementById('totalPrice');
@@ -745,6 +786,18 @@
                                                                             });
                                                                         });
                                                                     });
+                                                                    function add_more_contacts() {
+                                                                        $.ajax({
+                                                                            url: "<?php echo base_url(); ?>auth/add_more_contacts/",
+                                                                            type: "POST",
+                                                                            data: {},
+                                                                            dataType: "JSON",
+                                                                            success: function (data)
+                                                                            {
+                                                                                $('#add_more_contactinfo').append(data);
+                                                                            }
+                                                                        });
+                                                                    }
                                                                     function set_closed(from_id, to_id) {
                                                                         $('#' + from_id).val("Closed");
                                                                         $('#' + to_id).val("Closed");

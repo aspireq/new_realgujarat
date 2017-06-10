@@ -112,8 +112,9 @@ function insciptionPrice()
 function getCategory()
 {
     var category = theForm.elements["category"];
+    var subcategory = theForm.elements["subcategory"];
     var howmany = 0;
-    (category.value !== "") ? howmany = parseInt(1) : '';
+    (category.value !== "" && subcategory.value !== "") ? howmany = parseInt(1) : '';
     return howmany;
 }
 function getCompany()
@@ -123,6 +124,23 @@ function getCompany()
     (company_name.value !== "") ? howmany = parseInt(1) : '';
     return howmany;
 }
+
+function getEmail()
+{
+    var email = theForm.elements["email"];
+    var howmany = 0;
+    (email.value !== "") ? howmany = parseInt(1) : '';
+    return howmany;
+}
+
+function getEstablishmentyear()
+{
+    var year_establishment = theForm.elements["year_establishment"];
+    var howmany = 0;
+    (year_establishment.value !== "") ? howmany = parseInt(1) : '';
+    return howmany;
+}
+
 function getAddress()
 {
     var company_address = theForm.elements["company_address"];
@@ -137,25 +155,52 @@ function getMobile()
     (mobile_no.value !== "") ? howmany = parseInt(1) : '';
     return howmany;
 }
+
+function getlandlineno()
+{
+    var landline_no = theForm.elements["landline_no"];
+    var howmany = 0;
+    (landline_no.value !== "") ? howmany = parseInt(1) : '';
+    return howmany;
+}
+
+function getCompanyinfo() {
+    var about_company = theForm.elements["about_company"];
+    var howmany = 0;
+    (about_company.value !== "") ? howmany = parseInt(3) : '';
+    return howmany;
+}
 function getPincode() {
     var pincode = theForm.elements["pincode"];
     var howmany = 0;
     (pincode.value !== "") ? howmany = parseInt(1) : '';
     return howmany;
 }
+
+function incentive_calculation() {
+    var company_name = theForm.elements["company_name"];
+    var category = theForm.elements["category"];
+    var subcategory = theForm.elements["subcategory"];    
+    var company_address = theForm.elements["company_address"];
+    var landline_no = theForm.elements["landline_no"];
+    var mobile_no = theForm.elements["mobile_no"];
+    var howmany = 0;
+    (company_name.value !== "" && category.value !== "" && subcategory.value !== "" && company_address.value !== "" && landline_no.value !== "" && mobile_no.value !== "") ? howmany = parseInt(5) : '';
+    return howmany;
+}
 function calculateTotal()
 {
-        var cakePrice = getCompany() + getCategory() + getAddress() + getMobile() + getPincode();
-        var divobj = document.getElementById('totalPrice');
-        divobj.style.display = 'block';
-        divobj.innerHTML = "Total Earnings For this Ad  : " + cakePrice;
-        $('#total_earnings').val(cakePrice);
+    var cakePrice = incentive_calculation() + getCompany() + getEmail() + getCategory() + getAddress() + getMobile() + getlandlineno() + getCompanyinfo() + getEstablishmentyear() + getPincode();
+    var divobj = document.getElementById('totalPrice');
+    divobj.style.display = 'block';
+    divobj.innerHTML = "Approximate Earnings For this Ad  : " + cakePrice;
+    $('#total_earnings').val(cakePrice);
 
 }
 function hideTotal()
 {
     var divobj = document.getElementById('totalPrice');
-    divobj.innerHTML = "Total Earnings For this Ad  : " + 0;
+    divobj.innerHTML = "Approximate Earnings For this Ad  : " + 0;
     divobj.style.display = 'block';
 }
 ///////////////////////////////////////////////////////////////////////////////////

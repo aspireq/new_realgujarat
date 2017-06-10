@@ -320,6 +320,38 @@ class Auth extends CI_Controller {
                 }
 
                 $business_id = $this->Common_model->inserted_id('businesses', $business_data);
+
+                if ($business_id) {
+                    $more_mobile_no_codes = $this->input->post('more_mobile_code');
+                    $more_mobile_nos = $this->input->post('more_mobile_no');
+                    $more_landline_no_codes = $this->input->post('more_landline_code');
+                    $more_landline_nos = $this->input->post('more_landline_no');
+                    $this->Common_model->delete_where('business_contacts', array('business_id' => $business_id));
+                    if (count($more_mobile_nos) > count($more_landline_nos)) {
+                        $more_contacts = $more_mobile_nos;
+                    } else {
+                        $more_contacts = $more_landline_nos;
+                    }
+                    foreach ($more_contacts as $key => $more_contact) {
+                        $business_contacts_data = array(
+                            'business_id' => $business_id
+                        );
+                        $add_record = '';
+                        if ($more_landline_no_codes[$key] != "" && $more_landline_nos[$key]) {
+                            $add_record = 1;
+                            $business_contacts_data['landline_code_number'] = $more_landline_no_codes[$key];
+                            $business_contacts_data['landline_number'] = $more_landline_nos[$key];
+                        }
+                        if ($more_mobile_no_codes[$key] != "" && $more_mobile_nos[$key] != "") {
+                            $add_record = 1;
+                            $business_contacts_data['mobile_no_code'] = $more_mobile_no_codes[$key];
+                            $business_contacts_data['mobile_number'] = $more_mobile_nos[$key];
+                        }
+                        if ($add_record == 1) {
+                            $this->Common_model->insert('business_contacts', $business_contacts_data);
+                        }
+                    }
+                }
                 $this->Common_model->select_update('visitorinfo', array('ad_id' => $business_id, 'advertize_added' => 1), array('id' => $this->input->post('visitor_id')));
 
                 if (!empty($_FILES['userFiles']['name'])) {
@@ -472,6 +504,32 @@ class Auth extends CI_Controller {
         } else {
             die(json_encode(false));
         }
+    }
+
+    function add_more_contacts() {
+        $data = '<div class="col-md-12 col-sm-12 col-xs-12">';
+        $data .= '<div class="form-group col-md-4 col-sm-12 col-xs-12">';
+        $data .= '<div class="input-group">';
+        $data .= '<div class="input-group-addon">';
+        $data .= '<i class="fa fa-phone"></i>';
+        $data .= '</div>';
+        $data .= '<div class="input-group-addon codeinput">';
+        $data .= '<input type="text" placeholder="Code" class="form-control" name="more_landline_code[]" id="more_landline_code" >';
+        $data .= '</div>';
+        $data .= '<input type="text" class="form-control" placeholder="Landline No." name="more_landline_no[]" id="more_landline_no" maxlength="10"">';
+        $data .= '</div>';
+        $data .= '</div>';
+        $data .= '<div class="form-group col-md-4 col-sm-12 col-xs-12">';
+        $data .= '<div class="input-group">';
+        $data .= '<div class="input-group-addon"><i class="fa fa-mobile"></i></div>';
+        $data .= '<div class="input-group-addon codeinput">';
+        $data .= '<input type="text" placeholder="Code" class="form-control" name="more_mobile_code[]" id="more_mobile_code">';
+        $data .= '</div>';
+        $data .= '<input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10">';
+        $data .= '</div>';
+        $data .= '</div>';
+        $data .= '</div>';
+        die(json_encode($data));
     }
 
 }

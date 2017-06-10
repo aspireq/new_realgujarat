@@ -395,7 +395,7 @@ class Auth_admin extends CI_Controller {
                 $updateuser = $this->Common_model->select_update('user_accounts', array('earnings' => $final_earnings), array('uacc_id' => $this->input->post('reseller_id')));
                 $subject = 'realgujarat - Payment Approval';
                 $message = "Hello " . $userbalance->uacc_username . "\n";
-                $message .= "Your payment of Rs. " . $payment_data['netamount'] . " has been prosesed successfully   \n";                
+                $message .= "Your payment of Rs. " . $payment_data['netamount'] . " has been prosesed successfully   \n";
                 $message .= "Thank you";
                 $headers = 'From: ' . From_Email . '' . "\r\n" .
                         'Reply-To: ' . Reply_Email . '' . "\r\n" .
@@ -410,6 +410,43 @@ class Auth_admin extends CI_Controller {
 
     function add_business($edit_business_id = null) {
         if ($this->input->post()) {
+
+            // Business Earning For Reseller
+            $company_name_verified = $this->input->post('company_name_verified');
+            $email_verified = $this->input->post('email_verified');
+            $category_subcategory_verifed = $this->input->post('category_subcategory_verifed');
+            $company_address_verifed = $this->input->post('company_address_verifed');
+            $landline_verified = $this->input->post('landline_verified');
+            $mobileno_verified = $this->input->post('mobileno_verified');
+            $aboutbusiness_verified = $this->input->post('aboutbusiness_verified');
+            $establishmentyear_verified = $this->input->post('establishmentyear_verified');
+            $services_verified = $this->input->post('services_verified');
+            $otherlocation_verified = $this->input->post('otherlocation_verified');
+            $hours_verified = $this->input->post('hours_verified');
+            $photologo_verified = $this->input->post('photologo_verified');
+
+            if ($company_name_verified == 1 && $category_subcategory_verifed == 1 && $company_address_verifed == 1 && $landline_verified == 1 && $mobileno_verified == 1) {
+                $extra_incentive = 5;
+            } else {
+                $extra_incentive = 0;
+            }
+
+            $business_income = ($company_name_verified == 1) ? 1 : 0;
+            $business_income = ($email_verified == 1) ? 1 : 0;
+            $business_income += ($category_subcategory_verifed == 1) ? 1 : 0;
+            $business_income += ($category_subcategory_verifed == 1) ? 1 : 0;
+            $business_income += ($company_address_verifed == 1) ? 1 : 0;
+            $business_income += ($landline_verified == 1) ? 1 : 0;
+            $business_income += ($mobileno_verified == 1) ? 1 : 0;
+            $business_income += ($establishmentyear_verified == 1) ? 1 : 0;
+            $business_income += ($aboutbusiness_verified == 1) ? 3 : 0;
+            $business_income += ($services_verified == 1) ? 1 : 0;
+            $business_income += ($otherlocation_verified == 1) ? 1 : 0;
+            $business_income += ($hours_verified == 1) ? 2 : 0;
+            $business_income += ($photologo_verified == 1) ? 7 : 0;
+
+            $total_income = $extra_incentive + $business_income;
+
             $from_timings_1 = implode(',', $this->input->post('from_timings'));
             $to_timings_1 = implode(',', $this->input->post('to_timings'));
             if ($this->input->post('dual_timings') == 1) {
@@ -448,7 +485,6 @@ class Auth_admin extends CI_Controller {
             }
             if ($error == "") {
                 $business_data = array(
-                    'user_id' => $this->user_id,
                     'name' => $this->input->post('company_name'),
                     'category_id' => $this->input->post('category'),
                     'subcategory_id' => $this->input->post('subcategory'),
@@ -466,8 +502,7 @@ class Auth_admin extends CI_Controller {
                     'to_timings_1' => $to_timings_1,
                     'from_timings_2' => $from_timings_2,
                     'to_timings_2' => $to_timings_2,
-                    'year_establishment' => $this->input->post('year_establishment'),
-                    'is_approved' => 1
+                    'year_establishment' => $this->input->post('year_establishment')
                 );
 
                 if ($this->input->post('other_locations')) {
@@ -514,10 +549,44 @@ class Auth_admin extends CI_Controller {
                             $this->Common_model->delete_where('company_images', array('business_id' => $edit_business_id, 'image' => $row_image));
                         }
                     }
+                    $business_data['earnings'] = $total_income;
                     $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
                     $business_id = $edit_business_id;
                 } else {
+                    $business_data['is_approved'] = 1;
+                    $business_data['user_id'] = $this->user_id;
                     $business_id = $this->Common_model->inserted_id('businesses', $business_data);
+                }
+                if ($business_id) {
+                    $more_mobile_no_codes = $this->input->post('more_mobile_code');
+                    $more_mobile_nos = $this->input->post('more_mobile_no');
+                    $more_landline_no_codes = $this->input->post('more_landline_code');
+                    $more_landline_nos = $this->input->post('more_landline_no');
+                    $this->Common_model->delete_where('business_contacts', array('business_id' => $business_id));
+                    if (count($more_mobile_nos) > count($more_landline_nos)) {
+                        $more_contacts = $more_mobile_nos;
+                    } else {
+                        $more_contacts = $more_landline_nos;
+                    }
+                    foreach ($more_contacts as $key => $more_contact) {
+                        $business_contacts_data = array(
+                            'business_id' => $business_id
+                        );
+                        $add_record = '';
+                        if ($more_landline_no_codes[$key] != "" && $more_landline_nos[$key]) {
+                            $add_record = 1;
+                            $business_contacts_data['landline_code_number'] = $more_landline_no_codes[$key];
+                            $business_contacts_data['landline_number'] = $more_landline_nos[$key];
+                        }
+                        if ($more_mobile_no_codes[$key] != "" && $more_mobile_nos[$key] != "") {
+                            $add_record = 1;
+                            $business_contacts_data['mobile_no_code'] = $more_mobile_no_codes[$key];
+                            $business_contacts_data['mobile_number'] = $more_mobile_nos[$key];
+                        }
+                        if ($add_record == 1) {
+                            $this->Common_model->insert('business_contacts', $business_contacts_data);
+                        }
+                    }
                 }
                 if (!empty($_FILES['userFiles']['name'])) {
                     $filesCount = count($_FILES['userFiles']['name']);
@@ -557,7 +626,8 @@ class Auth_admin extends CI_Controller {
             }
         }
         if ($edit_business_id != "") {
-            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);            
+            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
+            $this->data['contact_info'] = $this->Common_model->select_where('business_contacts', array('business_id' => $edit_business_id));
         }
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));

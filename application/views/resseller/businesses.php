@@ -33,7 +33,9 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
-                                            <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>                                            
+                                            <?php if ($data->is_approved != 1) { ?>
+                                                <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>                                            
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <?php

@@ -293,16 +293,19 @@ class Reseller extends CI_Controller {
                         'to_timings_2' => $to_timings_2,
                         'year_establishment' => $this->input->post('year_establishment')
                     );
+                    if ($this->input->post('contact_person_name')) {
+                        $business_data['contact_person_name'] = $this->input->post('contact_person_name');
+                    }
                     if ($this->input->post('other_locations')) {
                         $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
                     }
                     if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
-                        $business_data['landline_no'] =  $this->input->post('landline_no');
-                        $business_data['landline_code'] =  $this->input->post('landline_code');
+                        $business_data['landline_no'] = $this->input->post('landline_no');
+                        $business_data['landline_code'] = $this->input->post('landline_code');
                     }
                     if ($this->input->post('mobile_no') && $this->input->post('mobile_code')) {
                         $business_data['mobile_no'] = $this->input->post('mobile_no');
-                        $business_data['mobile_code'] =  $this->input->post('mobile_code');
+                        $business_data['mobile_code'] = $this->input->post('mobile_code');
                     }
                     if ($this->input->post('other_no') && $this->input->post('other_code')) {
                         $business_data['other_no'] = $this->input->post('other_no');
@@ -340,6 +343,37 @@ class Reseller extends CI_Controller {
                     } else {
                         $business_data['earnings'] = $this->input->post('total_earnings');
                         $business_id = $this->Common_model->inserted_id('businesses', $business_data);
+                    }
+                    if ($business_id) {
+                        $more_mobile_no_codes = $this->input->post('more_mobile_code');
+                        $more_mobile_nos = $this->input->post('more_mobile_no');
+                        $more_landline_no_codes = $this->input->post('more_landline_code');
+                        $more_landline_nos = $this->input->post('more_landline_no');
+                        $this->Common_model->delete_where('business_contacts', array('business_id' => $business_id));
+                        if (count($more_mobile_nos) > count($more_landline_nos)) {
+                            $more_contacts = $more_mobile_nos;
+                        } else {
+                            $more_contacts = $more_landline_nos;
+                        }
+                        foreach ($more_contacts as $key => $more_contact) {
+                            $business_contacts_data = array(
+                                'business_id' => $business_id
+                            );
+                            $add_record = '';
+                            if ($more_landline_no_codes[$key] != "" && $more_landline_nos[$key]) {
+                                $add_record = 1;
+                                $business_contacts_data['landline_code_number'] = $more_landline_no_codes[$key];
+                                $business_contacts_data['landline_number'] = $more_landline_nos[$key];
+                            }
+                            if ($more_mobile_no_codes[$key] != "" && $more_mobile_nos[$key] != "") {
+                                $add_record = 1;
+                                $business_contacts_data['mobile_no_code'] = $more_mobile_no_codes[$key];
+                                $business_contacts_data['mobile_number'] = $more_mobile_nos[$key];
+                            }
+                            if ($add_record == 1) {
+                                $this->Common_model->insert('business_contacts', $business_contacts_data);
+                            }
+                        }
                     }
                     if (!empty($_FILES['userFiles']['name'])) {
                         $filesCount = count($_FILES['userFiles']['name']);
@@ -381,6 +415,7 @@ class Reseller extends CI_Controller {
 
             if ($edit_business_id != "") {
                 $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
+                $this->data['contact_info'] = $this->Common_model->select_where('business_contacts',array('business_id' => $edit_business_id));
             }
             $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
             $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));

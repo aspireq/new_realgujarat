@@ -65,6 +65,12 @@
                                                 <input type="text" class="form-control" placeholder="Company name" required name="company_name" id="company_name" value="<?php echo (!empty($businessinfo) && $businessinfo['name'] != "") ? $businessinfo['name'] : '' ?>" onblur="calculateTotal()">
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                <label for="company_name_verified">Company Name Verified ? </label>
+                                                <input type="checkbox" class="" id="company_name_verified" name="company_name_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($businessinfo && isset($businessinfo['id']))) ? $businessinfo['id'] : '' ?>">
                                         <input type="hidden" name="old_logo" id="old_logo" value="<?php echo (!empty($businessinfo && isset($businessinfo['banner']))) ? $businessinfo['banner'] : '' ?>">
                                         <input type="hidden" name="old_banner" id="old_banner" value="<?php echo (!empty($businessinfo && isset($businessinfo['logo']))) ? $businessinfo['logo'] : '' ?>">                                        
@@ -94,6 +100,12 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="category_subcategory_verifed">Category & Subcategory Verified ? </label>
+                                                <input type="checkbox" class="" id="category_subcategory_verifed" name="category_subcategory_verifed" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
@@ -131,12 +143,24 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="company_address_verifed">Company Location Information (Address,City,State) Verified ? </label>
+                                                <input type="checkbox" class="" id="company_address_verifed" name="company_address_verifed" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                                 <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?php echo (!empty($businessinfo) && $businessinfo['email'] != "") ? $businessinfo['email'] : '' ?>">
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="email_verified">Email Address Verified ? </label>
+                                                <input type="checkbox" class="" id="email_verified" name="email_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" id="find_duplicates">
                                             <div class="alert alert-danger alert-dismissable">                                                
                                                 One of the Contact already registered with the system
@@ -171,12 +195,64 @@
                                                 <input type="text" class="form-control" placeholder="Other No." name="other_no" id="other_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['other_no'] != "") ? $businessinfo['other_no'] : '' ?>">
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="landline_verified">Landline No. Verified ? </label>
+                                                <input type="checkbox" class="" id="landline_verified" name="landline_verified" value="1">
+                                            </div>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="mobileno_verified">Mobile No. Verified ? </label>
+                                                <input type="checkbox" class="" id="mobileno_verified" name="mobileno_verified" value="1">
+                                            </div>
+                                        <?php } ?>
+
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <input tyoe="button" class="btn btn-primary" name="add_more_contact" id="add_more_contact" value="Add More Contacts" onclick="add_more_contacts();"/>
+                                        </div>
+                                        <?php
+                                        if (!empty($contact_info)) {
+                                            foreach ($contact_info as $contact) {
+                                                ?>
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-phone"></i>
+                                                            </div>
+                                                            <div class="input-group-addon codeinput">
+                                                                <input type="text" placeholder="Code" class="form-control" name="more_landline_code[]" id="more_landline_code" value="<?php echo (!empty($contact) && $contact->landline_code_number != "") ? $contact->landline_code_number : '' ?>">
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Landline No." name="more_landline_no[]" id="more_landline_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->landline_number != "") ? $contact->landline_number : '' ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                                            <div class="input-group-addon codeinput">
+                                                                <input type="text" placeholder="Code" class="form-control" name="more_mobile_code[]" id="more_mobile_code" value="<?php echo (!empty($contact) && $contact->mobile_no_code != "") ? $contact->mobile_no_code : '' ?>">
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->mobile_number != "") ? $contact->mobile_number : '' ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                        <div id="add_more_contactinfo">
+                                        </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                                 <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>">
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="establishmentyear_verified">Estabishment Year Verified ? </label>
+                                                <input type="checkbox" class="" id="establishmentyear_verified" name="establishmentyear_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" id="btn-step-1" name="btn-step-1" onclick="calculateTotal()">Next</button>
                                         </div>
@@ -193,6 +269,12 @@
                                                 <textarea class="form-control" placeholder="About Company" name="about_company" id="about_company"><?php echo (!empty($businessinfo) && $businessinfo['business_description'] != "") ? $businessinfo['business_description'] : '' ?></textarea>
                                             </div>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="aboutbusiness_verified">Business Information Verified ? </label>
+                                                <input type="checkbox" class="" id="aboutbusiness_verified" name="aboutbusiness_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Services You Provide :</h4>
                                         </div>
@@ -208,6 +290,12 @@
                                                 ?>
                                             </select>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="services_verified">Services Information Verified ? </label>
+                                                <input type="checkbox" class="" id="services_verified" name="services_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Other Locations :</h4>
                                         </div>
@@ -223,6 +311,12 @@
                                                 ?>
                                             </select>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="otherlocation_verified">Locations Verified ? </label>
+                                                <input type="checkbox" class="" id="otherlocation_verified" name="otherlocation_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Keywords :</h4>
                                         </div>
@@ -395,6 +489,12 @@
                                             <input type="checkbox" <?php echo (!empty($businessinfo) && $businessinfo['from_timings_2'] != null) ? 'checked' : '' ?> id="dual_timings" name="dual_timings" value="1">
                                             <label for="dual_timings">Dual Timings</label>
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="hours_verified">Working Hours Verified ? </label>
+                                                <input type="checkbox" class="" id="hours_verified" name="hours_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div id="dual_timings_check">
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <?php foreach ($days as $key => $day) { ?>
@@ -596,9 +696,14 @@
                                                     </div>
                                                 <?php } ?>
                                             </div>
-
                                             <input id="input-3" type="file" accept="image/*" name="userFiles[]" class="file-loading"  multiple  data-show-upload="false">
                                         </div>
+                                        <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
+                                            <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
+                                                <label for="photologo_verified">Photos & Logos Verified ? </label>
+                                                <input type="checkbox" class="" id="photologo_verified" name="photologo_verified" value="1">
+                                            </div>
+                                        <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-danger prevBtn btn-lg pull-left" type="button">Previous</button>
                                             <button class="btn btn-success btn-lg pull-right" type="submit" id="add_busines" name="add_busines">Submit</button>
@@ -631,58 +736,58 @@
             <script type="text/javascript" src="<?php echo base_url(); ?>include_files/admin/plugins/taginput/js/bootstrap-tagsinput.js"></script>
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
             <script>
-                                                                        $(".select2").select2();
-                                                                        $(document).ready(function () {
-                                                                            var navListItems = $('div.setup-panel div a'),
-                                                                                    allWells = $('.setup-content'),
-                                                                                    allNextBtn = $('.nextBtn'),
-                                                                                    allPrevBtn = $('.prevBtn');
+                                                                    $(".select2").select2();
+                                                                    $(document).ready(function () {
+                                                                        var navListItems = $('div.setup-panel div a'),
+                                                                                allWells = $('.setup-content'),
+                                                                                allNextBtn = $('.nextBtn'),
+                                                                                allPrevBtn = $('.prevBtn');
 
 
 
-                                                                            navListItems.click(function (e) {
-                                                                                e.preventDefault();
-                                                                                var $target = $($(this).attr('href')),
-                                                                                        $item = $(this);
+                                                                        navListItems.click(function (e) {
+                                                                            e.preventDefault();
+                                                                            var $target = $($(this).attr('href')),
+                                                                                    $item = $(this);
 
-                                                                                if (!$item.hasClass('disabled')) {
-                                                                                    navListItems.removeClass('btn-danger').addClass('btn-default');
-                                                                                    $item.addClass('btn-primary').removeClass('btn-default');
-                                                                                    allWells.hide();
-                                                                                    $target.show();
-                                                                                    $target.find('input:eq(0)').focus();
-                                                                                }
-                                                                            });
-
-                                                                            allPrevBtn.click(function () {
-                                                                                var curStep = $(this).closest(".setup-content"),
-                                                                                        curStepBtn = curStep.attr("id"),
-                                                                                        prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
-
-                                                                                prevStepWizard.removeAttr('disabled').trigger('click');
-                                                                            });
-
-                                                                            allNextBtn.click(function () {
-                                                                                var curStep = $(this).closest(".setup-content"),
-                                                                                        curStepBtn = curStep.attr("id"),
-                                                                                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                                                                                        curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
-                                                                                        isValid = true;
-
-                                                                                $(".form-group").removeClass("has-error");
-                                                                                for (var i = 0; i < curInputs.length; i++) {
-                                                                                    if (!curInputs[i].validity.valid) {
-                                                                                        isValid = false;
-                                                                                        $(curInputs[i]).closest(".form-group").addClass("has-error");
-                                                                                    }
-                                                                                }
-
-                                                                                if (isValid)
-                                                                                    nextStepWizard.removeClass('disabled').trigger('click');
-                                                                            });
-
-                                                                            $('div.setup-panel div a.btn-danger').trigger('click');
+                                                                            if (!$item.hasClass('disabled')) {
+                                                                                navListItems.removeClass('btn-danger').addClass('btn-default');
+                                                                                $item.addClass('btn-primary').removeClass('btn-default');
+                                                                                allWells.hide();
+                                                                                $target.show();
+                                                                                $target.find('input:eq(0)').focus();
+                                                                            }
                                                                         });
+
+                                                                        allPrevBtn.click(function () {
+                                                                            var curStep = $(this).closest(".setup-content"),
+                                                                                    curStepBtn = curStep.attr("id"),
+                                                                                    prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+                                                                            prevStepWizard.removeAttr('disabled').trigger('click');
+                                                                        });
+
+                                                                        allNextBtn.click(function () {
+                                                                            var curStep = $(this).closest(".setup-content"),
+                                                                                    curStepBtn = curStep.attr("id"),
+                                                                                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                                                                                    curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
+                                                                                    isValid = true;
+
+                                                                            $(".form-group").removeClass("has-error");
+                                                                            for (var i = 0; i < curInputs.length; i++) {
+                                                                                if (!curInputs[i].validity.valid) {
+                                                                                    isValid = false;
+                                                                                    $(curInputs[i]).closest(".form-group").addClass("has-error");
+                                                                                }
+                                                                            }
+
+                                                                            if (isValid)
+                                                                                nextStepWizard.removeClass('disabled').trigger('click');
+                                                                        });
+
+                                                                        $('div.setup-panel div a.btn-danger').trigger('click');
+                                                                    });
 
             </script>
             <script type="text/javascript">
@@ -822,6 +927,18 @@
                         });
                     });
                 });
+                function add_more_contacts() {
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>auth/add_more_contacts/",
+                        type: "POST",
+                        data: {},
+                        dataType: "JSON",
+                        success: function (data)
+                        {
+                            $('#add_more_contactinfo').append(data);
+                        }
+                    });
+                }
                 function set_closed(from_id, to_id) {
                     $('#' + from_id).val("Closed");
                     $('#' + to_id).val("Closed");

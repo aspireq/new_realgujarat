@@ -134,6 +134,42 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <input tyoe="button" class="btn btn-info" name="add_more_contact" id="add_more_contact" value="Add More Contacts" onclick="add_more_contacts();"/>
+                                </div>
+                                <?php
+                                if (!empty($contact_info)) {
+                                    foreach ($contact_info as $contact) {
+                                        ?>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <div class="input-group-addon codeinput">
+                                                        <input type="text" placeholder="Code" class="form-control" name="more_landline_code[]" id="more_landline_code" value="<?php echo (!empty($contact) && $contact->landline_code_number != "") ? $contact->landline_code_number : '' ?>">
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Landline No." name="more_landline_no[]" id="more_landline_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->landline_number != "") ? $contact->landline_number : '' ?>">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4 col-sm-12 col-xs-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                                    <div class="input-group-addon codeinput">
+                                                        <input type="text" placeholder="Code" class="form-control" name="more_mobile_code[]" id="more_mobile_code" value="<?php echo (!empty($contact) && $contact->mobile_no_code != "") ? $contact->mobile_no_code : '' ?>">
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->mobile_number != "") ? $contact->mobile_number : '' ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                <div id="add_more_contactinfo">
+                                </div>
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
                                         <input type="text" class="form-control" placeholder="Establishment Year" name="year_establishment" id="year_establishment" value="<?php echo (!empty($businessinfo) && $businessinfo['year_establishment'] != "") ? $businessinfo['year_establishment'] : '' ?>">
@@ -538,6 +574,18 @@
             });
         });
     });
+    function add_more_contacts() {
+        $.ajax({
+            url: "<?php echo base_url(); ?>auth/add_more_contacts/",
+            type: "POST",
+            data: {},
+            dataType: "JSON",
+            success: function (data)
+            {
+                $('#add_more_contactinfo').append(data);
+            }
+        });
+    }
     function set_closed(from_id, to_id) {
         $('#' + from_id).val("Closed");
         $('#' + to_id).val("Closed");
