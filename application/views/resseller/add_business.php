@@ -3,7 +3,7 @@
     <head>
         <?php echo $common; ?>
     </head>
-    <body>
+    <body onbeforeunload="myFunction()">
         <?php echo $header; ?>        
         <div class="loaderwrap" id="gif_image" style="display: none;">
             <div class="loader"></div>
@@ -637,207 +637,208 @@
         <script src="<?php echo base_url(); ?>include_files/resseller/plugin/select2/select2.full.min.js"></script>        
         <script type="text/javascript" src="<?php echo base_url(); ?>include_files/resseller/plugin/taginput/js/bootstrap-tagsinput.js"></script> 
         <script type="text/javascript">
-                                                                    $(document).on('ready', function () {
+                                                                        $(document).on('ready', function () {
                                                                         var total_earning = 0;
                                                                         var business_id = $('#edit_id').val();
                                                                         if (business_id == "") {
-                                                                            var divobj = document.getElementById('totalPrice');
-                                                                            divobj.innerHTML = "Approximate Earnings For this Ad  : " + 0;
-                                                                            divobj.style.display = 'block';
+                                                                        var divobj = document.getElementById('totalPrice');
+                                                                        divobj.innerHTML = "Approximate Earnings For this Ad  : " + 0;
+                                                                        divobj.style.display = 'block';
                                                                         } else {
-                                                                            var divobj = document.getElementById('totalPrice');
-                                                                            divobj.style.display = 'none';
+                                                                        var divobj = document.getElementById('totalPrice');
+                                                                        divobj.style.display = 'none';
                                                                         }
                                                                         $('#add_busines').click(function () {
-                                                                            $("form[id='business_post']").submit();
-                                                                            $('#gif_image').css('display', 'block');
-                                                                            $('input[id="add_busines"]').attr('disabled', 'disabled');
+                                                                        $("form[id='business_post']").submit();
+                                                                        $('#gif_image').css('display', 'block');
+                                                                        $('input[id="add_busines"]').attr('disabled', 'disabled');
                                                                         });
                                                                         $('.close').click(function () {
-                                                                            $(this).parents('.oldimage .col-md-3').remove();
-                                                                            $(this).closest('input').remove();
+                                                                        $(this).parents('.oldimage .col-md-3').remove();
+                                                                        $(this).closest('input').remove();
                                                                         });
                                                                         var dual_timings = $('#dual_timings').is(':checked');
                                                                         $("#input-3").fileinput({
-                                                                            uploadUrl: '/file-upload-batch/2',
-                                                                            uploadAsync: false,
-                                                                            overwriteInitial: false,
-                                                                            initialPreviewAsData: true,
-                                                                            purifyHtml: true,
-                                                                            maxFilePreviewSize: 10240,
-                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                            previewFileType: "image",
-                                                                            removeClass: "btn btn-warning",
-                                                                            removeLabel: "Delete",
-                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                            browseClass: "btn btn-danger",
-                                                                            browseLabel: "Pick Image",
-                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                        uploadUrl: '/file-upload-batch/2',
+                                                                                uploadAsync: false,
+                                                                                overwriteInitial: false,
+                                                                                initialPreviewAsData: true,
+                                                                                purifyHtml: true,
+                                                                                maxFilePreviewSize: 10240,
+                                                                                allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                                previewFileType: "image",
+                                                                                removeClass: "btn btn-warning",
+                                                                                removeLabel: "Delete",
+                                                                                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                                browseClass: "btn btn-danger",
+                                                                                browseLabel: "Pick Image",
+                                                                                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
                                                                         });
                                                                         if (dual_timings === true) {
-                                                                            $('#dual_timings_check').show();
+                                                                        $('#dual_timings_check').show();
                                                                         } else {
-                                                                            $('#dual_timings_check').hide();
+                                                                        $('#dual_timings_check').hide();
                                                                         }
                                                                         $(".select2").select2();
                                                                         $('#find_duplicates').hide();
                                                                         $('#pincode, #mobile_no, #landline_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
-                                                                            var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
-                                                                            sanitized = sanitized.replace(/(.)-+/g, '$1');
-                                                                            sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
-                                                                            $(this).val(sanitized);
+                                                                        var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
+                                                                        sanitized = sanitized.replace(/(.)-+/g, '$1');
+                                                                        sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
+                                                                        $(this).val(sanitized);
                                                                         });
                                                                         $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {
-                                                                            var landline_no = $("#landline_no").val();
-                                                                            var mobile_no = $("#mobile_no").val();
-                                                                            var other_no = $("#other_no").val();
-                                                                            $.ajax({
-                                                                                url: "<?php echo base_url(); ?>reseller/check_duplicates/",
+                                                                        var landline_no = $("#landline_no").val();
+                                                                        var mobile_no = $("#mobile_no").val();
+                                                                        var other_no = $("#other_no").val();
+                                                                        $.ajax({
+                                                                        url: "<?php echo base_url(); ?>reseller/check_duplicates/",
                                                                                 type: "POST",
                                                                                 data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
                                                                                 dataType: "JSON",
                                                                                 success: function (data)
                                                                                 {
-                                                                                    if (data > 0) {
-                                                                                        $('#btn-step-1').attr('disabled', true);
-                                                                                        $('#find_duplicates').show();
-                                                                                    } else {
-                                                                                        $('#btn-step-1').attr('disabled', false);
-                                                                                        $('#find_duplicates').hide();
-                                                                                    }
+                                                                                if (data > 0) {
+                                                                                $('#btn-step-1').attr('disabled', true);
+                                                                                $('#find_duplicates').show();
+                                                                                } else {
+                                                                                $('#btn-step-1').attr('disabled', false);
+                                                                                $('#find_duplicates').hide();
                                                                                 }
-                                                                            });
+                                                                                }
+                                                                        });
                                                                         });
                                                                         $('#dual_timings').change(function () {
-                                                                            if ($(this).is(':checked')) {
-                                                                                $('#dual_timings_check').show();
-                                                                            } else {
-                                                                                $('#dual_timings_check').hide();
-                                                                            }
+                                                                        if ($(this).is(':checked')) {
+                                                                        $('#dual_timings_check').show();
+                                                                        } else {
+                                                                        $('#dual_timings_check').hide();
+                                                                        }
                                                                         });
                                                                         $("#copy_timings").click(function () {
-                                                                            if ($(this).is(':checked')) {
-                                                                                var from_time = $('#from_timings-0').val();
-                                                                                var to_time = $('#to_timings-0').val();
-                                                                                $('#from_timings-1').val(from_time);
-                                                                                $('#from_timings-2').val(from_time);
-                                                                                $('#from_timings-3').val(from_time);
-                                                                                $('#from_timings-4').val(from_time);
-                                                                                $('#from_timings-5').val(from_time);
-                                                                                $('#from_timings-6').val(from_time);
-                                                                                $('#to_timings-1').val(to_time);
-                                                                                $('#to_timings-2').val(to_time);
-                                                                                $('#to_timings-3').val(to_time);
-                                                                                $('#to_timings-4').val(to_time);
-                                                                                $('#to_timings-5').val(to_time);
-                                                                                $('#to_timings-6').val(to_time);
-                                                                            }
+                                                                        if ($(this).is(':checked')) {
+                                                                        var from_time = $('#from_timings-0').val();
+                                                                        var to_time = $('#to_timings-0').val();
+                                                                        $('#from_timings-1').val(from_time);
+                                                                        $('#from_timings-2').val(from_time);
+                                                                        $('#from_timings-3').val(from_time);
+                                                                        $('#from_timings-4').val(from_time);
+                                                                        $('#from_timings-5').val(from_time);
+                                                                        $('#from_timings-6').val(from_time);
+                                                                        $('#to_timings-1').val(to_time);
+                                                                        $('#to_timings-2').val(to_time);
+                                                                        $('#to_timings-3').val(to_time);
+                                                                        $('#to_timings-4').val(to_time);
+                                                                        $('#to_timings-5').val(to_time);
+                                                                        $('#to_timings-6').val(to_time);
+                                                                        }
                                                                         });
                                                                         $("#copy_timings_dual").click(function () {
-                                                                            if ($(this).is(':checked')) {
-                                                                                var from_time = $('#from_timings_1-0').val();
-                                                                                var to_time = $('#to_timings_1-0').val();
-                                                                                $('#from_timings_1-1').val(from_time);
-                                                                                $('#from_timings_1-2').val(from_time);
-                                                                                $('#from_timings_1-3').val(from_time);
-                                                                                $('#from_timings_1-4').val(from_time);
-                                                                                $('#from_timings_1-5').val(from_time);
-                                                                                $('#from_timings_1-6').val(from_time);
-                                                                                $('#to_timings_1-1').val(to_time);
-                                                                                $('#to_timings_1-2').val(to_time);
-                                                                                $('#to_timings_1-3').val(to_time);
-                                                                                $('#to_timings_1-4').val(to_time);
-                                                                                $('#to_timings_1-5').val(to_time);
-                                                                                $('#to_timings_1-6').val(to_time);
-                                                                            }
+                                                                        if ($(this).is(':checked')) {
+                                                                        var from_time = $('#from_timings_1-0').val();
+                                                                        var to_time = $('#to_timings_1-0').val();
+                                                                        $('#from_timings_1-1').val(from_time);
+                                                                        $('#from_timings_1-2').val(from_time);
+                                                                        $('#from_timings_1-3').val(from_time);
+                                                                        $('#from_timings_1-4').val(from_time);
+                                                                        $('#from_timings_1-5').val(from_time);
+                                                                        $('#from_timings_1-6').val(from_time);
+                                                                        $('#to_timings_1-1').val(to_time);
+                                                                        $('#to_timings_1-2').val(to_time);
+                                                                        $('#to_timings_1-3').val(to_time);
+                                                                        $('#to_timings_1-4').val(to_time);
+                                                                        $('#to_timings_1-5').val(to_time);
+                                                                        $('#to_timings_1-6').val(to_time);
+                                                                        }
                                                                         });
                                                                         $('#category').change(function () {
-                                                                            var category_id = $('#category').val();
-                                                                            $.ajax({
-                                                                                url: "<?php echo base_url(); ?>reseller/subcategories/",
+                                                                        var category_id = $('#category').val();
+                                                                        $.ajax({
+                                                                        url: "<?php echo base_url(); ?>reseller/subcategories/",
                                                                                 type: "POST",
                                                                                 data: {category_id: category_id},
                                                                                 dataType: "JSON",
                                                                                 success: function (data)
                                                                                 {
-                                                                                    $('#subcategory').empty();
-                                                                                    $('#subcategory').html('<option value="">Select Subcategory</option>');
-                                                                                    $.each(data, function (index, value) {
-                                                                                        $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
-                                                                                    });
+                                                                                $('#subcategory').empty();
+                                                                                $('#subcategory').html('<option value="">Select Subcategory</option>');
+                                                                                $.each(data, function (index, value) {
+                                                                                $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                });
                                                                                 }
-                                                                            });
+                                                                        });
                                                                         });
                                                                         $('#state').change(function () {
-                                                                            var state_id = $('#state').val();
-                                                                            $.ajax({
-                                                                                url: "<?php echo base_url(); ?>reseller/cities/",
+                                                                        var state_id = $('#state').val();
+                                                                        $.ajax({
+                                                                        url: "<?php echo base_url(); ?>reseller/cities/",
                                                                                 type: "POST",
                                                                                 data: {state_id: state_id},
                                                                                 dataType: "JSON",
                                                                                 success: function (data)
                                                                                 {
-                                                                                    $('#city').empty();
-                                                                                    $('#city').html('<option value="">Select City</option>');
-                                                                                    $.each(data, function (index, value) {
-                                                                                        $('#city').append($('<option>').text(value.name).attr('value', value.id));
-                                                                                    });
+                                                                                $('#city').empty();
+                                                                                $('#city').html('<option value="">Select City</option>');
+                                                                                $.each(data, function (index, value) {
+                                                                                $('#city').append($('<option>').text(value.name).attr('value', value.id));
+                                                                                });
                                                                                 }
-                                                                            });
                                                                         });
-                                                                    });
-                                                                    function add_more_contacts() {
+                                                                        });
+                                                                        });
+                                                                        function add_more_contacts() {
                                                                         $.ajax({
-                                                                            url: "<?php echo base_url(); ?>auth/add_more_contacts/",
-                                                                            type: "POST",
-                                                                            data: {},
-                                                                            dataType: "JSON",
-                                                                            success: function (data)
-                                                                            {
+                                                                        url: "<?php echo base_url(); ?>auth/add_more_contacts/",
+                                                                                type: "POST",
+                                                                                data: {},
+                                                                                dataType: "JSON",
+                                                                                success: function (data)
+                                                                                {
                                                                                 $('#add_more_contactinfo').append(data);
-                                                                            }
+                                                                                }
                                                                         });
-                                                                    }
-                                                                    function set_closed(from_id, to_id) {
+                                                                        }
+                                                                        function set_closed(from_id, to_id) {
                                                                         $('#' + from_id).val("Closed");
                                                                         $('#' + to_id).val("Closed");
-                                                                    }
-                                                                    $(document).on('ready', function () {
+                                                                        }
+                                                                        $(document).on('ready', function () {
                                                                         $("#input-2").fileinput({
-                                                                            previewFileType: "image",
-                                                                            browseClass: "btn btn-danger",
-                                                                            browseLabel: "Pick Image",
-                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                                            removeClass: "btn btn-warning",
-                                                                            removeLabel: "Delete",
-                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                            uploadClass: "btn btn-info",
-                                                                            uploadLabel: "Upload",
-                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                                                                            minImageWidth: 800,
-                                                                            minImageHeight: 500
+                                                                        previewFileType: "image",
+                                                                                browseClass: "btn btn-danger",
+                                                                                browseLabel: "Pick Image",
+                                                                                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                                removeClass: "btn btn-warning",
+                                                                                removeLabel: "Delete",
+                                                                                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                                uploadClass: "btn btn-info",
+                                                                                uploadLabel: "Upload",
+                                                                                uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                                allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                                defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                                minImageWidth: 800,
+                                                                                minImageHeight: 500
                                                                         });
                                                                         var btnCust = '';
                                                                         $("#input-1").fileinput({
-                                                                            previewFileType: "image",
-                                                                            browseClass: "btn btn-danger",
-                                                                            browseLabel: "Pick Image",
-                                                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                                            removeClass: "btn btn-warning",
-                                                                            removeLabel: "Delete",
-                                                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                                            uploadClass: "btn btn-info",
-                                                                            uploadLabel: "Upload",
-                                                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                                                                            allowedFileExtensions: ["jpg", "png", "gif"],
-                                                                            defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                                                                            maxImageWidth: 80,
-                                                                            maxImageHeight: 80
+                                                                        previewFileType: "image",
+                                                                                browseClass: "btn btn-danger",
+                                                                                browseLabel: "Pick Image",
+                                                                                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                                                                removeClass: "btn btn-warning",
+                                                                                removeLabel: "Delete",
+                                                                                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                                                                uploadClass: "btn btn-info",
+                                                                                uploadLabel: "Upload",
+                                                                                uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                                                                                allowedFileExtensions: ["jpg", "png", "gif"],
+                                                                                defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                                                                                maxImageWidth: 80,
+                                                                                maxImageHeight: 80
                                                                         });
-                                                                    });
+                                                                        });
         </script>
         <script src="<?php echo base_url(); ?>include_files/resseller/js/zeroGravity.js" type="text/javascript"></script>     
+        <script src="<?php echo base_url(); ?>include_files/resseller/js/resseller.js"></script>   
     </body>
 </html>

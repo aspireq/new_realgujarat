@@ -126,7 +126,7 @@ class Reseller extends CI_Controller {
         redirect('reseller/account');
     }
 
-    function account() {
+    function account() {        
         if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             $this->data['states'] = $this->Common_model->select_all('states');
             if ($this->userinfo['city'] != null) {

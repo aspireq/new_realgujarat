@@ -12,7 +12,7 @@ class Admin_model extends CI_Model {
 
     function get_user_account() {
         $this->load->library('Datatables');
-        $this->datatables->select('user_accounts.reffrence_link as reffrence_link,user_accounts.uacc_active as uacc_active,user_accounts.uacc_admin_approved as uacc_admin_approved,user_accounts.earnings as earnings,user_accounts.uacc_username as uacc_username,user_accounts.uacc_group_fk as uacc_group_fk,user_accounts.uacc_email as uacc_email,user_accounts.uacc_id as uacc_id,user_accounts.uacc_ip_address as uacc_ip_address ,user_accounts.uacc_date_last_login as uacc_date_last_login,user_accounts.uacc_suspend as uacc_suspend');
+        $this->datatables->select('user_accounts.is_login as is_login,user_accounts.reffrence_link as reffrence_link,user_accounts.uacc_active as uacc_active,user_accounts.uacc_admin_approved as uacc_admin_approved,user_accounts.earnings as earnings,user_accounts.uacc_username as uacc_username,user_accounts.uacc_group_fk as uacc_group_fk,user_accounts.uacc_email as uacc_email,user_accounts.uacc_id as uacc_id,user_accounts.uacc_ip_address as uacc_ip_address ,user_accounts.uacc_date_last_login as uacc_date_last_login,user_accounts.uacc_suspend as uacc_suspend');
         $this->datatables->from('user_accounts');
         $this->datatables->where('uacc_group_fk = 2');
         return $this->datatables->generate();

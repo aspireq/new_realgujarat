@@ -42,6 +42,7 @@
                                             <th>Payments</th>
                                             <th>Status</th>
                                             <th>Suspended</th>
+                                            <th>Remove Session</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -403,12 +404,47 @@
                                                             return html;
                                                         }
                                                     }
+                                                },
+                                                {
+                                                    mData: '',
+                                                    aTargets: [10],
+                                                    mRender: function (data, type, full)
+                                                    {
+                                                        if (full['is_login'] == 0) {
+                                                            var html = '<span class="label label-success font-weight-100">No Active Login</span>'
+                                                            return html;
+                                                        } else {
+                                                            var html = '<div class="onoffswitch2"><input type="checkbox" onClick="user_sessions(' + full['uacc_id'] + ')" name="pending' + full['uacc_id'] + '" class="onoffswitch2-checkbox" id="pending' + full['uacc_id'] + '"><label class="onoffswitch2-label" for="pending' + full['uacc_id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                            return html;
+                                                        }
+                                                    }
                                                 }
                                             ]
                                         });
                                     });
                                     function reload_table() {
                                         myTable.ajax.reload(null, false);
+                                    }
+                                    function user_sessions(id) {
+                                        var x;
+                                        if (confirm("Are you sure you want remove previous session for this user") == true) {
+                                            x = "ok";
+                                        } else {
+                                            x = "cancel";
+                                        }
+                                        if (x == "ok") {
+                                            $.ajax({
+                                                url: "<?php echo base_url(); ?>auth_admin/user_session/",
+                                                type: "POST",
+                                                data: {id: id},
+                                                dataType: "JSON",
+                                                success: function (data)
+                                                {
+                                                    alert('Session Removed successfully!');
+                                                }
+                                            });
+                                        }
+                                        reload_table();
                                     }
                                     function approve_user() {
                                         var user_id = $('#approving_user').val();

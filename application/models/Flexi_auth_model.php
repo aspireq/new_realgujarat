@@ -1396,7 +1396,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
             $this->auth->tbl_col_user_account['last_login_date'],
             $this->auth->tbl_col_user_account['failed_logins'],
             $this->auth->tbl_col_user_account['uacc_admin_approved'],
-            $this->auth->tbl_col_user_account['ip_address']
+            $this->auth->tbl_col_user_account['ip_address']            
         );
 
         $sql_where = array($this->auth->primary_identity_col => $identity);
@@ -1413,8 +1413,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
         if ($query->num_rows() == 1) {
 
             $user = $query->row();
-            $get_previous_login = $this->select_where_row('user_accounts', array('is_login' => 1, 'uacc_id' => $user->uacc_id));
-            if (!empty($get_previous_login)) {                
+            $get_previous_login = $this->select_where_row('user_accounts', array('is_login' => 1, 'uacc_id' => $user->uacc_id));            
+            //if (!empty($get_previous_login) && $_SERVER['REMOTE_ADDR'] != $user->uacc_ip_address) {      
+            if (!empty($get_previous_login) && $_SERVER['REMOTE_ADDR'] != $user->uacc_ip_address && $user->uacc_group_fk == 2) {
                 $this->set_error_message('multiple_login_confg', 'config');
                 return FALSE;
             }

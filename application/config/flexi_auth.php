@@ -379,7 +379,7 @@
 	 *
 	 * Note: Only used when $config['security']['validate_login_onload'] = TRUE
 	*/
-	$config['security']['extend_login_session'] = TRUE;
+	$config['security']['extend_login_session'] = false;
 	
 	/**
 	 * Set whether a user is logged out as soon as the browser is closed.
@@ -390,7 +390,7 @@
 	 * Note: Only used when $config['security']['validate_login_onload'] = TRUE
 	 * !IMPORTANT: 'logout_user_onclose' will also void any 'Remember me' cookies and so both features should not be used together.
 	*/
-	$config['security']['logout_user_onclose'] = TRUE;
+	$config['security']['logout_user_onclose'] = FALSE;
 
 	/**
 	 * Set whether a user has their 'logged in via password' status removed as soon as the browser is closed.
