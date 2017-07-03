@@ -53,7 +53,7 @@
                                     </div>
                                     <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($keyword_info) && isset($keyword_info['id'])) ? $keyword_info['id'] : "" ?>">                                    
                                     <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
-                                    <button type="button" class="btn btn-inverse waves-effect waves-light" onclick="window.location.href = '<?php echo base_url(); ?>auth_admin/categories'">Cancel</button>
+                                    <button type="button" class="btn btn-inverse waves-effect waves-light" onclick="window.location.href = '<?php echo base_url(); ?>auth_admin/keywords'">Cancel</button>
                                 </form>
                             </div>
                         </div>

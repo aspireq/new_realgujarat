@@ -64,7 +64,7 @@
                                     <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($category_info) && isset($category_info['id'])) ? $category_info['id'] : "" ?>">
                                     <input type="hidden" name="old_image" id="old_image" value="<?php echo (!empty($category_info) && isset($category_info['image'])) ? $category_info['image'] : "" ?>">
                                     <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
-                                    <button type="button" class="btn btn-inverse waves-effect waves-light" onclick="window.location.href = '<?php echo base_url(); ?>auth_admin/keywords'">Cancel</button>
+                                    <button type="button" class="btn btn-inverse waves-effect waves-light" onclick="window.location.href = '<?php echo base_url(); ?>auth_admin/categories'">Cancel</button>
                                 </form>
                             </div>
                         </div>

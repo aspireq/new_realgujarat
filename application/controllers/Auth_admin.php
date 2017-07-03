@@ -230,7 +230,7 @@ class Auth_admin extends CI_Controller {
         $this->load->view('admin/add_subcategories', $this->data);
     }
 
-    function add_keyword($keyword_id = null) {
+    function add_keyword($keyword_id = null) { 
         if ($this->input->post()) {
             $error = "";
             $this->load->library('form_validation');
