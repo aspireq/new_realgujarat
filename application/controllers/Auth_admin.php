@@ -188,7 +188,6 @@ class Auth_admin extends CI_Controller {
     }
 
     function add_subcategories($subcategory_id = null) {
-
         if ($this->input->post()) {
             $error = "";
             $this->load->library('form_validation');
@@ -231,6 +230,50 @@ class Auth_admin extends CI_Controller {
         $this->load->view('admin/add_subcategories', $this->data);
     }
 
+    function add_keyword($keyword_id = null) {
+        if ($this->input->post()) {
+            $error = "";
+            $this->load->library('form_validation');
+            $this->load->helper('file');
+            $this->form_validation->set_rules('name', 'Keyword Name', 'required');
+            if ($this->form_validation->run() == true) {
+                $categorydata  = array(
+                    "name" => $this->input->post('name'),
+                    "description" => $this->input->post('description'));
+                
+                if ($this->input->post('edit_id')) {                   
+                    $result = $this->Common_model->select_update('keywords', $categorydata, array('id' => $this->input->post('edit_id')));
+                } else {
+                    $result = $this->Common_model->insert('keywords', $categorydata);
+                }
+                $this->session->set_flashdata('message', "Information saved successfully");
+                redirect('auth_admin/keywords');
+            } else {
+                $this->data['keyword_info'] = array(
+                    'name' => $this->input->post('name'),
+                    'description' => $this->input->post('description')
+                );
+                $this->data['message'] = (validation_errors() != "") ? validation_errors('<p class="error_msg">', '</p>') : $this->upload->display_errors();
+            }
+        }
+        if ($keyword_id != "") {
+            $this->data['keyword_info'] = (array) $this->Common_model->select_where_row('keywords', array('id' => $keyword_id));
+        }
+        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+        $this->data = $this->include_files();
+        $this->load->view('admin/add_keyword', $this->data);
+    }
+
+    function keywords() {
+        if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 3) {
+            $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
+            $this->data = $this->include_files();
+            $this->load->view('admin/keywords', $this->data);
+        } else {
+            redirect('admin');
+        }
+    }
+
     function logout() {
         $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $this->user_id));
         $this->flexi_auth->logout(TRUE);
@@ -268,6 +311,11 @@ class Auth_admin extends CI_Controller {
 
     function get_categories() {
         $data = $this->Admin_model->get_categories();
+        die($data);
+    }
+
+    function get_keywords() {
+        $data = $this->Admin_model->get_keywords();
         die($data);
     }
 
@@ -518,7 +566,7 @@ class Auth_admin extends CI_Controller {
                 if ($this->input->post('contact_person_name')) {
                     $business_data['contact_person_name'] = $this->input->post('contact_person_name');
                 }
-                
+
                 if ($this->input->post('other_locations')) {
                     $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
                 }

@@ -34,6 +34,14 @@ class Admin_model extends CI_Model {
         return $this->datatables->generate();
     }
 
+    function get_keywords() {
+        $this->load->library('Datatables');
+        $this->datatables->select('keywords.id as id,keywords.name as name,keywords.description as description,keywords.created_date as created_date,keywords.status as status');
+        $this->datatables->from('keywords');
+        $this->datatables->where('keywords.status = 1');
+        return $this->datatables->generate();
+    }
+
     function get_subcategories() {
         $this->load->library('Datatables');
         $this->datatables->select('categories.name as category_name,subcategories.id as id,subcategories.category_id as category_id,subcategories.name as name,subcategories.description as description,subcategories.created_date as created_date,categories.status as status');
