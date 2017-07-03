@@ -1822,6 +1822,16 @@ h4.form-title{
     margin: 2px auto;
     color: #fff;
 }
+.rejected-text{
+    padding: 2px;
+    text-align: center;
+    background: red;
+    border: 1px solid #099568;
+    width: 100%;
+    font-size: 12px;
+    margin: 2px auto;
+    color: #fff;
+}
 .btn-edit{
    padding: 2px 14px;
 }

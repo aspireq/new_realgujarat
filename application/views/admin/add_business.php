@@ -253,6 +253,18 @@
                                                 <input type="checkbox" class="" id="establishmentyear_verified" name="establishmentyear_verified" value="1">
                                             </div>
                                         <?php } ?>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-user-secret"></i></div>
+                                                <input type="text" class="form-control" placeholder="Contact Person" name="contact_person_name" id="contact_person_name" value="<?php echo (!empty($businessinfo) && $businessinfo['contact_person_name'] != "") ? $businessinfo['contact_person_name'] : '' ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <div class="input-group">
+                                                <div class="input-group-addon"><i class="fa fa-info-circle"></i></div>
+                                                <input type="text" class="form-control" placeholder="Website" name="website" id="website" value="<?php echo (!empty($businessinfo) && $businessinfo['website'] != "") ? $businessinfo['website'] : '' ?>">
+                                            </div>
+                                        </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <button class="btn btn-danger nextBtn btn-lg pull-right" type="button" id="btn-step-1" name="btn-step-1" onclick="calculateTotal()">Next</button>
                                         </div>

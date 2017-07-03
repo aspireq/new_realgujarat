@@ -87,9 +87,32 @@ class Common_model extends CI_Model {
     }
 
     function get_duplicate_business($landline_no, $mobile_no, $other_no) {
-        $query = $this->db->query("SELECT `businesses`.*
-                FROM `businesses`
-                WHERE `businesses`.`mobile_no` = '$mobile_no'");
+        //$query = $this->db->query("SELECT `businesses`.*
+        //      FROM `businesses`
+        //    WHERE `businesses`.`mobile_no` = '$mobile_no'");
+
+        if ($mobile_no != "") {
+            $this->db->where('businesses.mobile_no', $mobile_no);
+            $this->db->or_where('businesses.landline_no', $mobile_no);
+            $this->db->or_where('businesses.other_no', $mobile_no);
+        }
+        if ($landline_no != "") {
+            $this->db->where('businesses.mobile_no', $landline_no);
+            $this->db->or_where('businesses.landline_no', $landline_no);
+            $this->db->or_where('businesses.other_no', $landline_no);
+        }
+        if ($other_no != "") {
+            $this->db->where('businesses.mobile_no', $other_no);
+            $this->db->or_where('businesses.landline_no', $other_no);
+            $this->db->or_where('businesses.other_no', $other_no);
+        }
+
+        $query = $this->db->get('businesses');
+//        $query = $this->db->query("SELECT `businesses`.* "
+//                . "FROM `businesses` "
+//                . "WHERE `businesses`.`mobile_no` = '$mobile_no' or landline_no = '$mobile_no' or other_no = '$mobile_no' "
+//                . "OR `businesses`.`mobile_no` = '$landline_no' or landline_no = '$landline_no' or other_no = '$landline_no' OR `businesses`.`mobile_no` = '$other_no' or landline_no = '$other_no' or other_no = '$other_no'");
+        //echo $this->db->last_query();
         return $query->result();
     }
 
@@ -141,14 +164,14 @@ WHERE `businesses`.`id` = $business_id");
             $this->db->where('businesses.category_id', $search_category_id);
         }
         if ($search_key != null) {
-            //$this->db->like('businesses.name', $search_key);
+            //$this->db->where('businesses.name', $search_key);
             $search_val = strtolower($search_key);
             $this->db->where("FIND_IN_SET('$search_val',businesses.keywords) !=", 0);
         }
         if ($search_city != null) {
             $this->db->like('businesses.city', $search_city);
         }
-        $query = $this->db->get('businesses');        
+        $query = $this->db->get('businesses');
         if ($query->num_rows() > 0) {
             $final_data = array();
             foreach ($query->result() as $key => $row) {

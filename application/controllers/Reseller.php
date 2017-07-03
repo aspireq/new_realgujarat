@@ -41,6 +41,35 @@ class Reseller extends CI_Controller {
         redirect('reseller/home');
     }
 
+    public function c_ip() {
+        $mainIp = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $mainIp = getenv('HTTP_CLIENT_IP');
+        else if (getenv('HTTP_X_FORWARDED_FOR'))
+            $mainIp = getenv('HTTP_X_FORWARDED_FOR');
+        else if (getenv('HTTP_X_FORWARDED'))
+            $mainIp = getenv('HTTP_X_FORWARDED');
+        else if (getenv('HTTP_FORWARDED_FOR'))
+            $mainIp = getenv('HTTP_FORWARDED_FOR');
+        else if (getenv('HTTP_FORWARDED'))
+            $mainIp = getenv('HTTP_FORWARDED');
+        else if (getenv('REMOTE_ADDR'))
+            $mainIp = getenv('REMOTE_ADDR');
+        else
+            $mainIp = 'UNKNOWN';
+        return $mainIp;
+    }
+
+    function get_client_ip() {
+        //$c_info = new Users_info;
+        //echo $ttt->c_ip();
+        // echo $ttt->c_OS();
+        // echo $ttt->c_Browser();
+        //$c_info = new Users_info;
+        echo $this->c_ip();
+        die();
+    }
+
     function include_files() {
         $this->data['header'] = $this->load->view('resseller/header', $this->data, TRUE);
         $this->data['common'] = $this->load->view('resseller/common', $this->data, TRUE);
@@ -126,7 +155,7 @@ class Reseller extends CI_Controller {
         redirect('reseller/account');
     }
 
-    function account() {        
+    function account() {
         if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
             $this->data['states'] = $this->Common_model->select_all('states');
             if ($this->userinfo['city'] != null) {
@@ -294,6 +323,9 @@ class Reseller extends CI_Controller {
                         'to_timings_2' => $to_timings_2,
                         'year_establishment' => $this->input->post('year_establishment')
                     );
+                    if ($this->input->post('website')) {
+                        $business_data['website'] = $this->input->post('website');
+                    }
                     if ($this->input->post('contact_person_name')) {
                         $business_data['contact_person_name'] = $this->input->post('contact_person_name');
                     }

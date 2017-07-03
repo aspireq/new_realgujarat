@@ -14,7 +14,7 @@
                             <h3><i class="fa fa-user"></i>&nbsp;&nbsp;Update your profile</h3>
                             <hr class="form-hr" />
                             <?php if ($message != "") { ?>
-                                <div class="alert <?php echo ($this->session->flashdata('alert_class')) ? $this->session->flashdata('alert_class') :  'alert-danger';?> alert-dismissable">
+                                <div class="alert <?php echo ($this->session->flashdata('alert_class')) ? $this->session->flashdata('alert_class') : 'alert-danger'; ?> alert-dismissable">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                     <?php echo $message; ?>
                                 </div>
@@ -68,6 +68,13 @@
                                         <input type="email" class="form-control" placeholder="Email" required name="email" id="email" readonly="" value="<?php echo (!empty($userinfo['uacc_email'])) ? $userinfo['uacc_email'] : '' ?>">
                                     </div>
                                 </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-link"></i></div>
+                                        <input type="text" class="form-control" placeholder="Reffrence Link" required name="reffrence_link" id="reffrence_link" readonly="" value="<?php echo (!empty($userinfo['reffrence_link'])) ? $userinfo['reffrence_link'] : '' ?>">
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                     <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>

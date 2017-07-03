@@ -355,7 +355,7 @@
 	 * TRUE = Login credentials are validated against the database everytime a page is loaded, invalid users are logged out automatically.
 	 * FALSE = Login credentials are validated only once at time of login and will not expire until CI sessions expire (Defined via CI config file).
 	*/
-	$config['security']['validate_login_onload'] = TRUE;
+	$config['security']['validate_login_onload'] = FALSE;
 	
 	/**
 	 * Set the lifetime of a user login session in seconds.
@@ -371,7 +371,7 @@
 	 *   There are then functions within the library to check whether a user is logged in via entering a password, or via a cookie - typically sensitive data should 
 	 *   only be available to users logged in via a password, and less sensitive data to users logged in via 'Remember me' cookies.
 	*/
-	$config['security']['login_session_expire'] = 60*60*3;
+	$config['security']['login_session_expire'] = 60*60*24;
 	
 	/**
 	 * Set whether a users login time is extended when their session token is validated (On every page load).
@@ -379,7 +379,7 @@
 	 *
 	 * Note: Only used when $config['security']['validate_login_onload'] = TRUE
 	*/
-	$config['security']['extend_login_session'] = false;
+	$config['security']['extend_login_session'] = TRUE;
 	
 	/**
 	 * Set whether a user is logged out as soon as the browser is closed.

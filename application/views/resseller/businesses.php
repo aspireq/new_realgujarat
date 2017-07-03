@@ -22,7 +22,9 @@
                                     <div class="row adlist">
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <img src="<?php echo base_url(); ?>include_files/logo/<?php echo ($data->logo != "" && (file_exists(FCPATH . 'include_files/logo/' . $data->logo))) ? $data->logo : 'noimage.jpg' ?>" alt="" class="img-responsive img-thumbnail" />                                            
-                                            <?php echo ($data->is_approved == 1) ? '<p class="pending-text">Pending</p>' : '<p class="approved-text">Approved</p>'; ?>                                            
+                                            <?php echo ($data->is_approved == 0) ? '<p class="pending-text">Pending</p>' : ''; ?>
+                                            <?php echo ($data->is_approved == 1) ? '<p class="approved-text">Approved</p>' : ''; ?>
+                                            <?php echo ($data->is_approved == 2) ? '<p class="rejected-text">Rejected</p>' : ''; ?>
                                         </div>
                                         <div class="col-md-8 col-sm-6 col-xs-12">
                                             <h4><?php echo $data->name; ?></h4>
@@ -33,7 +35,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
-                                            <?php if ($data->is_approved != 1) { ?>
+                                            <?php if ($data->is_approved == 0) { ?>
                                                 <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>                                            
                                             <?php } ?>
                                         </div>

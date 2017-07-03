@@ -16,7 +16,7 @@
                         <?php
                         if ($message != "") {
                             ?>
-                            <div class="alert alert-success alert-dismissable">
+                            <div class="alert alert-danger alert-dismissable">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <?php echo $message; ?>
                             </div>
@@ -47,16 +47,6 @@
                                 <button class="btn btn-black btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
                             </div>
                         </div>
-<!--                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social"><a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip"  title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a> <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip"  title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a> </div>
-                            </div>
-                        </div>
-                        <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                <p>Don't have an account? <a href="register.html" class="text-primary m-l-5"><b>Sign Up</b></a></p>
-                            </div>
-                        </div>-->
                     </form>
                     <form class="form-horizontal" id="recoverform" action="http://eliteadmin.themedesigner.in/demos/eliteadmin-ecommerce/index.html">
                         <div class="form-group ">

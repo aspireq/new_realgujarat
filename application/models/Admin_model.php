@@ -12,17 +12,17 @@ class Admin_model extends CI_Model {
 
     function get_user_account() {
         $this->load->library('Datatables');
-        $this->datatables->select('user_accounts.is_login as is_login,user_accounts.reffrence_link as reffrence_link,user_accounts.uacc_active as uacc_active,user_accounts.uacc_admin_approved as uacc_admin_approved,user_accounts.earnings as earnings,user_accounts.uacc_username as uacc_username,user_accounts.uacc_group_fk as uacc_group_fk,user_accounts.uacc_email as uacc_email,user_accounts.uacc_id as uacc_id,user_accounts.uacc_ip_address as uacc_ip_address ,user_accounts.uacc_date_last_login as uacc_date_last_login,user_accounts.uacc_suspend as uacc_suspend');
+        $this->datatables->select('demo_user_profiles.mobile_no as mobile_no,user_accounts.is_login as is_login,user_accounts.reffrence_link as reffrence_link,user_accounts.uacc_active as uacc_active,user_accounts.uacc_admin_approved as uacc_admin_approved,user_accounts.earnings as earnings,user_accounts.uacc_username as uacc_username,user_accounts.uacc_group_fk as uacc_group_fk,user_accounts.uacc_email as uacc_email,user_accounts.uacc_id as uacc_id,user_accounts.uacc_ip_address as uacc_ip_address ,user_accounts.uacc_date_last_login as uacc_date_last_login,user_accounts.uacc_suspend as uacc_suspend');
         $this->datatables->from('user_accounts');
         $this->datatables->where('uacc_group_fk = 2');
+        $this->datatables->join('demo_user_profiles', 'demo_user_profiles.upro_uacc_fk  = user_accounts.uacc_id', 'inner');
         return $this->datatables->generate();
     }
 
     function get_business() {
         $this->load->library('Datatables');
-        $this->datatables->select('businesses.id as id,businesses.name as name,businesses.email as email,businesses.mobile_no as mobile_no,businesses.other_no as other_no,businesses.created_date as created_date,businesses.is_approved as is_approved');
+        $this->datatables->select('businesses.id as id,businesses.website as website,businesses.contact_person_name as contact_person_name,businesses.name as name,businesses.email as email,businesses.mobile_no as mobile_no,businesses.other_no as other_no,businesses.created_date as created_date,businesses.is_approved as is_approved');
         $this->datatables->from('businesses');
-        //$this->datatables->where('uacc_group_fk = 1');
         return $this->datatables->generate();
     }
 
@@ -48,7 +48,7 @@ class Admin_model extends CI_Model {
         $this->datatables->select('reseller_payments.id as id,reseller_payments.netamount as netamount,reseller_payments.tax as tax,reseller_payments.date as date,reseller_payments.payment_method as payment_method,reseller_payments.id as id,reseller_payments.created_date as created_date,reseller_payments.status as status,reseller_payments.amount as amount,reseller_payments.transaction_id as transaction_id,reseller_payments.bank_transaction_id as bank_transaction_id,reseller_payments.chequeno as chequeno');
         $this->datatables->from('reseller_payments');
         $this->datatables->where('reseller_payments.status = 1');
-        $this->datatables->where('reseller_payments.user_id',$user_id);        
+        $this->datatables->where('reseller_payments.user_id', $user_id);
         return $this->datatables->generate();
     }
 

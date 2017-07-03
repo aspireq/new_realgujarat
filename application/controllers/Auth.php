@@ -12,8 +12,8 @@ class Auth extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('form');
         $this->auth = new stdClass;
-
         $this->load->library('flexi_auth');
+
         if ($this->flexi_auth->is_logged_in_via_password() && uri_string() != 'auth/logout') {
             if ($this->session->flashdata('message')) {
                 $this->session->keep_flashdata('message');
@@ -306,6 +306,13 @@ class Auth extends CI_Controller {
                     'visitor_id' => $this->input->post('visitor_id')
                 );
 
+                if ($this->input->post('website')) {
+                    $business_data['website'] = $this->input->post('website');
+                }
+                if ($this->input->post('contact_person_name')) {
+                    $business_data['contact_person_name'] = $this->input->post('contact_person_name');
+                }
+
                 if ($this->input->post('landline_no') && $this->input->post('landline_code')) {
                     $business_data['landline_no'] = $this->input->post('landline_no');
                     $business_data['landline_code'] = $this->input->post('landline_code');
@@ -410,6 +417,7 @@ class Auth extends CI_Controller {
             $this->load->model('demo_auth_model');
             $result = $this->demo_auth_model->login();
         }
+        $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         $this->data['common'] = $this->load->view('admin/common', $this->data, TRUE);
         $this->load->view('admin/login', $this->data);
     }

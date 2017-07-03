@@ -34,6 +34,7 @@
                                         <tr>                                            
                                             <th>Username</th>
                                             <th>Email</th>
+                                            <th>Mobile No.</th>
                                             <th>Earnings</th>
                                             <th>IP Address</th>
                                             <th>Last Login</th>
@@ -329,20 +330,24 @@
                                                     aTargets: [1]
                                                 },
                                                 {
-                                                    mData: 'earnings',
+                                                    mData: 'mobile_no',
                                                     aTargets: [2]
                                                 },
                                                 {
-                                                    mData: 'uacc_ip_address',
+                                                    mData: 'earnings',
                                                     aTargets: [3]
                                                 },
                                                 {
-                                                    mData: 'uacc_date_last_login',
+                                                    mData: 'uacc_ip_address',
                                                     aTargets: [4]
                                                 },
                                                 {
+                                                    mData: 'uacc_date_last_login',
+                                                    aTargets: [5]
+                                                },
+                                                {
                                                     mData: '',
-                                                    aTargets: [5],
+                                                    aTargets: [6],
                                                     mRender: function (data, type, full)
                                                     {
                                                         if (full['uacc_active'] !== '0') {
@@ -356,7 +361,7 @@
                                                 },
                                                 {
                                                     mData: '',
-                                                    aTargets: [6],
+                                                    aTargets: [7],
                                                     mRender: function (data, type, full)
                                                     {
                                                         if (full['earnings'] != null) {
@@ -370,7 +375,7 @@
                                                 },
                                                 {
                                                     mData: '',
-                                                    aTargets: [7],
+                                                    aTargets: [8],
                                                     mRender: function (data, type, full)
                                                     {
                                                         var html = '<a onClick="payment_history(' + full['uacc_id'] + ')" class="btn btn-info fcbtn btn-outline btn-1d">Payment History</a>';
@@ -379,7 +384,7 @@
                                                 },
                                                 {
                                                     mData: '',
-                                                    aTargets: [8],
+                                                    aTargets: [9],
                                                     mRender: function (data, type, full)
                                                     {
                                                         if (full['uacc_admin_approved'] == 1) {
@@ -393,7 +398,7 @@
                                                 },
                                                 {
                                                     mData: '',
-                                                    aTargets: [9],
+                                                    aTargets: [10],
                                                     mRender: function (data, type, full)
                                                     {
                                                         if (full['uacc_suspend'] == 1) {
@@ -407,7 +412,7 @@
                                                 },
                                                 {
                                                     mData: '',
-                                                    aTargets: [10],
+                                                    aTargets: [11],
                                                     mRender: function (data, type, full)
                                                     {
                                                         if (full['is_login'] == 0) {

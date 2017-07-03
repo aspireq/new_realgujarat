@@ -333,6 +333,12 @@ class Auth_admin extends CI_Controller {
         die($result);
     }
 
+    function reject_status() {
+        $status = 2;
+        $result = $this->Common_model->select_update('businesses', array('is_approved' => $status), array('id' => $this->input->post('id')));
+        die($result);
+    }
+
     function delete_record() {
         $table_name = $this->input->post('table_name');
         $table_coloum_name = $this->input->post('table_coloum');
@@ -506,6 +512,13 @@ class Auth_admin extends CI_Controller {
                     'year_establishment' => $this->input->post('year_establishment')
                 );
 
+                if ($this->input->post('website')) {
+                    $business_data['website'] = $this->input->post('website');
+                }
+                if ($this->input->post('contact_person_name')) {
+                    $business_data['contact_person_name'] = $this->input->post('contact_person_name');
+                }
+                
                 if ($this->input->post('other_locations')) {
                     $business_data['other_locations'] = implode(',', $this->input->post('other_locations'));
                 }
@@ -673,6 +686,12 @@ class Auth_admin extends CI_Controller {
         $user_id = $this->input->post('id');
         $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $user_id));
         echo $this->db->last_query();
+        die(json_encode(true));
+    }
+
+    function delete_business() {
+        $id = $this->input->post('id');
+        $this->Common_model->delete_where('businesses', array('id' => $id));
         die(json_encode(true));
     }
 

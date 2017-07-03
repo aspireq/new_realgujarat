@@ -63,7 +63,7 @@
                                         <input type="text" class="form-control" data-placeholder="Confimration Code" name="confirmation_code" id="confirmation_code">
                                     </div>   
                                 </div>
-                                <input type="text" name="code" id="code" value="<?php echo $confirmation_code; ?>">
+                                <input type="hidden" name="code" id="code" value="<?php echo $confirmation_code; ?>">
                                 <div class="col-md-12 col-sm-12 col-xs-12">                                
                                     <button class="btn btn-success pull-right" type="submit" name="verified" id="verified" value="verified">Submit Ad&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
                                 </div>

@@ -33,8 +33,11 @@
                                             <th>Email</th>
                                             <th>Mobile No.</th>
                                             <th>Other No.</th>
+                                            <th>Contact Person</th>
+                                            <th>Website</th>
                                             <th>Addded Date</th>
                                             <th>Is Approved</th>
+                                            <th>Is Rejected</th>
                                             <th>Detail ?</th>
                                             <th>Action</th>
                                         </tr>
@@ -97,17 +100,27 @@
                                                 aTargets: [3]
                                             },
                                             {
-                                                mData: 'created_date',
+                                                mData: 'contact_person_name',
                                                 aTargets: [4]
                                             },
                                             {
+                                                mData: 'website',
+                                                aTargets: [5]
+                                            },
+                                            {
+                                                mData: 'created_date',
+                                                aTargets: [6]
+                                            },
+                                            {
                                                 mData: '',
-                                                aTargets: [5],
+                                                aTargets: [7],
                                                 mRender: function (data, type, full)
                                                 {
                                                     if (full['is_approved'] == 1) {
-                                                        //var html = '<div class="onoffswitch2"><input type="checkbox" name="approved' + full['id'] + '" class="onoffswitch2-checkbox" id="approved' + full['id'] + '" checked><label class="onoffswitch2-label" for="approved' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
                                                         var html = '<span class="label label-success font-weight-100">Approved</span>'
+                                                        return html;
+                                                    } else if (full['is_approved'] == 2) {
+                                                        var html = '<span class="label label-success font-weight-100">Rejected</span>'
                                                         return html;
                                                     } else {
                                                         var html = '<div class="onoffswitch2"><input type="checkbox" onClick="business_status(' + full['id'] + ')" name="pending' + full['id'] + '" class="onoffswitch2-checkbox" id="pending' + full['id'] + '"><label class="onoffswitch2-label" for="pending' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
@@ -117,7 +130,24 @@
                                             },
                                             {
                                                 mData: '',
-                                                aTargets: [6],
+                                                aTargets: [8],
+                                                mRender: function (data, type, full)
+                                                {
+                                                    if (full['is_approved'] == 2) {
+                                                        var html = '<span class="label label-success font-weight-100">Rejected</span>'
+                                                        return html;
+                                                    } else if (full['is_approved'] == 1) {
+                                                        var html = '<span class="label label-success font-weight-100">Approved</span>'
+                                                        return html;
+                                                    } else if (full['is_approved'] == 0) {
+                                                        var html = '<div class="onoffswitch2"><input type="checkbox" onClick="reject_status(' + full['id'] + ')" name="pending1' + full['id'] + '" class="onoffswitch2-checkbox" id="pending1' + full['id'] + '"><label class="onoffswitch2-label" for="pending1' + full['id'] + '"><span class="onoffswitch2-inner"></span><span class="onoffswitch2-switch"></span></label></div>';
+                                                        return html;
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                mData: '',
+                                                aTargets: [9],
                                                 mRender: function (data, type, full)
                                                 {
                                                     var html = '<a href="<?php echo base_url(); ?>auth_admin/business_detail/' + full['id'] + '" class="btn btn-info fcbtn btn-outline btn-1d">View More</a>';
@@ -126,10 +156,11 @@
                                             },
                                             {
                                                 mData: '',
-                                                aTargets: [7],
+                                                aTargets: [10],
                                                 mRender: function (data, type, full)
                                                 {
-                                                    var html = '<a href="<?php echo base_url(); ?>auth_admin/add_business/' + full['id'] + '" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a>'
+                                                    var html = '<a href="<?php echo base_url(); ?>auth_admin/add_business/' + full['id'] + '" class="text-inverse p-r-10" data-toggle="tooltip" title="Edit"><i class="ti-marker-alt"></i></a>      ';
+                                                    html += '<a onClick="delete_business(' + full['id'] + ')" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="ti-trash"></i></a>';
                                                     return html;
                                                 }
                                             }
@@ -174,6 +205,48 @@
                                             success: function (data)
                                             {
                                                 alert('Business approved successfully!');
+                                            }
+                                        });
+                                    }
+                                    reload_table();
+                                }
+                                function reject_status(id) {
+                                    var x;
+                                    if (confirm("Are you sure you want reject this business") == true) {
+                                        x = "ok";
+                                    } else {
+                                        x = "cancel";
+                                    }
+                                    if (x == "ok") {
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth_admin/reject_status/",
+                                            type: "POST",
+                                            data: {id: id},
+                                            dataType: "JSON",
+                                            success: function (data)
+                                            {
+                                                alert('Business approved successfully!');
+                                            }
+                                        });
+                                    }
+                                    reload_table();
+                                }
+                                function delete_business(id) {
+                                    var x;
+                                    if (confirm("Are you sure you want delete this business") == true) {
+                                        x = "ok";
+                                    } else {
+                                        x = "cancel";
+                                    }
+                                    if (x == "ok") {
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth_admin/delete_business/",
+                                            type: "POST",
+                                            data: {id: id},
+                                            dataType: "JSON",
+                                            success: function (data)
+                                            {
+                                                alert('Business deleted successfully!');
                                             }
                                         });
                                     }
