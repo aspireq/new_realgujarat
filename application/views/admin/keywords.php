@@ -1,7 +1,7 @@
 <!DOCTYPE html>  
 <html lang="en">
     <head>
-        <?php echo $common; ?> 
+        <?php echo $common; ?>  
     </head>
     <body>
         <div class="preloader">

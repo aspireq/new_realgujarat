@@ -153,10 +153,6 @@ WHERE `businesses`.`id` = $business_id");
         }
         $this->db->where('businesses.status', 1);
         $this->db->where('businesses.is_approved', 1);
-//        if ($category_id != null || $search_category_id != null) {
-//            $final_category = ($category_id != null) ? $category_id : $search_category_id;
-//            $this->db->where('businesses.category_id', $final_category);
-//        }
         if ($category_id != null) {
             $this->db->where('businesses.category_id', $category_id);
         }
@@ -164,9 +160,10 @@ WHERE `businesses`.`id` = $business_id");
             $this->db->where('businesses.category_id', $search_category_id);
         }
         if ($search_key != null) {
-            //$this->db->where('businesses.name', $search_key);
-            $search_val = strtolower($search_key);
-            $this->db->where("FIND_IN_SET('$search_val',businesses.keywords) !=", 0);
+            $keyword = $this->db->query("select * from keywords where name = '" . $search_key . "'")->row();
+            if (!empty($keyword)) {
+                $this->db->where("FIND_IN_SET('$keyword->id',businesses.keywords) !=", 0);
+            }
         }
         if ($search_city != null) {
             $this->db->like('businesses.city', $search_city);

@@ -230,21 +230,21 @@ class Auth_admin extends CI_Controller {
         $this->load->view('admin/add_subcategories', $this->data);
     }
 
-    function add_keyword($keyword_id = null) { 
+    function add_keyword($keyword_id = null) {
         if ($this->input->post()) {
             $error = "";
             $this->load->library('form_validation');
             $this->load->helper('file');
             $this->form_validation->set_rules('name', 'Keyword Name', 'required');
             if ($this->form_validation->run() == true) {
-                $categorydata  = array(
+                $keyworddata = array(
                     "name" => $this->input->post('name'),
                     "description" => $this->input->post('description'));
-                
-                if ($this->input->post('edit_id')) {                   
-                    $result = $this->Common_model->select_update('keywords', $categorydata, array('id' => $this->input->post('edit_id')));
+
+                if ($this->input->post('edit_id')) {
+                    $result = $this->Common_model->select_update('keywords', $keyworddata, array('id' => $this->input->post('edit_id')));
                 } else {
-                    $result = $this->Common_model->insert('keywords', $categorydata);
+                    $result = $this->Common_model->insert('keywords', $keyworddata);
                 }
                 $this->session->set_flashdata('message', "Information saved successfully");
                 redirect('auth_admin/keywords');
@@ -688,11 +688,12 @@ class Auth_admin extends CI_Controller {
             }
         }
         if ($edit_business_id != "") {
-            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
+            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);            
             $this->data['contact_info'] = $this->Common_model->select_where('business_contacts', array('business_id' => $edit_business_id));
         }
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
+        $this->data['keywordinfo'] = $this->Common_model->select_where('keywords', array('status' => 1));
         $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
         $this->data = $this->include_files();
         $this->load->view('admin/add_business', $this->data);

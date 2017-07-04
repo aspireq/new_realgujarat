@@ -328,22 +328,20 @@
                                                 <label for="otherlocation_verified">Locations Verified ? </label>
                                                 <input type="checkbox" class="" id="otherlocation_verified" name="otherlocation_verified" value="1">
                                             </div>
-                                        <?php } ?>
+                                        <?php } ?>                                        
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Keywords :</h4>
                                         </div>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                            <select multiple data-role="tagsinput" class="form-control" name="keywords[]" id="keywords">
-                                                <?php
-                                                if (!empty($businessinfo) && $businessinfo['keywords'] != "") {
-                                                    $keywords = explode(',', $businessinfo['keywords']);
-                                                    foreach ($keywords as $keywords) {
-                                                        echo '<option value="' . $keywords . '">' . $keywords . '</option>';
-                                                    }
+                                            <select class="form-control select2" multiple="multiple" data-placeholder="Select Keywords" style="width: 100%" name="keywords[]" id="keywords">                                                
+                                                <?php foreach ($keywordinfo as $keywordval) { ?>
+                                                    <option value="<?php echo $keywordval->id; ?>" <?php echo (!empty($businessinfo) && in_array($keywordval->id, explode(',', $businessinfo['keywords']))) ? 'selected' : '' ?>><?php echo $keywordval->name; ?></option>
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
                                         </div>
+
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h4 class="form-title">Hours Of Operation :</h4>
                                         </div>
@@ -748,247 +746,247 @@
             <script type="text/javascript" src="<?php echo base_url(); ?>include_files/admin/plugins/taginput/js/bootstrap-tagsinput.js"></script>
             <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
             <script>
-                                                                    $(".select2").select2();
-                                                                    $(document).ready(function () {
-                                                                        var navListItems = $('div.setup-panel div a'),
-                                                                                allWells = $('.setup-content'),
-                                                                                allNextBtn = $('.nextBtn'),
-                                                                                allPrevBtn = $('.prevBtn');
+                $(".select2").select2();
+                $(document).ready(function () {
+                var navListItems = $('div.setup-panel div a'),
+                allWells = $('.setup-content'),
+                allNextBtn = $('.nextBtn'),
+                allPrevBtn = $('.prevBtn');
 
 
 
-                                                                        navListItems.click(function (e) {
-                                                                            e.preventDefault();
-                                                                            var $target = $($(this).attr('href')),
-                                                                                    $item = $(this);
+                navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                $item = $(this);
 
-                                                                            if (!$item.hasClass('disabled')) {
-                                                                                navListItems.removeClass('btn-danger').addClass('btn-default');
-                                                                                $item.addClass('btn-primary').removeClass('btn-default');
-                                                                                allWells.hide();
-                                                                                $target.show();
-                                                                                $target.find('input:eq(0)').focus();
-                                                                            }
-                                                                        });
+                if (!$item.hasClass('disabled')) {
+                navListItems.removeClass('btn-danger').addClass('btn-default');
+                $item.addClass('btn-primary').removeClass('btn-default');
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+                }
+                });
 
-                                                                        allPrevBtn.click(function () {
-                                                                            var curStep = $(this).closest(".setup-content"),
-                                                                                    curStepBtn = curStep.attr("id"),
-                                                                                    prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+                allPrevBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
-                                                                            prevStepWizard.removeAttr('disabled').trigger('click');
-                                                                        });
+                prevStepWizard.removeAttr('disabled').trigger('click');
+                });
 
-                                                                        allNextBtn.click(function () {
-                                                                            var curStep = $(this).closest(".setup-content"),
-                                                                                    curStepBtn = curStep.attr("id"),
-                                                                                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                                                                                    curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
-                                                                                    isValid = true;
+                allNextBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url'],input[type='email'],textarea[type='text'],select[name='category']"),
+                isValid = true;
 
-                                                                            $(".form-group").removeClass("has-error");
-                                                                            for (var i = 0; i < curInputs.length; i++) {
-                                                                                if (!curInputs[i].validity.valid) {
-                                                                                    isValid = false;
-                                                                                    $(curInputs[i]).closest(".form-group").addClass("has-error");
-                                                                                }
-                                                                            }
+                $(".form-group").removeClass("has-error");
+                for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+                }
+                }
 
-                                                                            if (isValid)
-                                                                                nextStepWizard.removeClass('disabled').trigger('click');
-                                                                        });
+                if (isValid)
+                nextStepWizard.removeClass('disabled').trigger('click');
+                });
 
-                                                                        $('div.setup-panel div a.btn-danger').trigger('click');
-                                                                    });
+                $('div.setup-panel div a.btn-danger').trigger('click');
+                });
 
             </script>
             <script type="text/javascript">
                 $(document).on('ready', function () {
-                    var total_earning = 0;
-                    var business_id = $('#edit_id').val();
-                    $('.close').click(function () {
-                        $(this).parents('.oldimage .col-md-3').remove();
-                        $(this).closest('input').remove();
-                    });
-                    var dual_timings = $('#dual_timings').is(':checked');
-                    $("#input-3").fileinput({
-                        uploadUrl: '/file-upload-batch/2',
-                        uploadAsync: false,
-                        overwriteInitial: false,
-                        initialPreviewAsData: true,
-                        purifyHtml: true,
-                        maxFilePreviewSize: 10240,
-                        allowedFileExtensions: ["jpg", "png", "gif"],
-                        previewFileType: "image",
-                        removeClass: "btn btn-warning",
-                        removeLabel: "Delete",
-                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                        browseClass: "btn btn-danger",
-                        browseLabel: "Pick Image",
-                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                    });
-                    if (dual_timings === true) {
-                        $('#dual_timings_check').show();
-                    } else {
-                        $('#dual_timings_check').hide();
-                    }
-                    $(".select2").select2();
-                    $('#find_duplicates').hide();
-                    $('#pincode, #mobile_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
-                        var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
-                        sanitized = sanitized.replace(/(.)-+/g, '$1');
-                        sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
-                        $(this).val(sanitized);
-                    });
-                    $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {
-                        var landline_no = $("#landline_no").val();
-                        var mobile_no = $("#mobile_no").val();
-                        var other_no = $("#other_no").val();
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>reseller/check_duplicates/",
-                            type: "POST",
-                            data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
-                            dataType: "JSON",
-                            success: function (data)
-                            {
-                                if (data > 0) {
-                                    $('#btn-step-1').attr('disabled', true);
-                                    $('#find_duplicates').show();
-                                } else {
-                                    $('#btn-step-1').attr('disabled', false);
-                                    $('#find_duplicates').hide();
-                                }
-                            }
-                        });
-                    });
-                    $('#dual_timings').change(function () {
-                        if ($(this).is(':checked')) {
-                            $('#dual_timings_check').show();
-                        } else {
-                            $('#dual_timings_check').hide();
-                        }
-                    });
-                    $("#copy_timings").click(function () {
-                        if ($(this).is(':checked')) {
-                            var from_time = $('#from_timings-0').val();
-                            var to_time = $('#to_timings-0').val();
-                            $('#from_timings-1').val(from_time);
-                            $('#from_timings-2').val(from_time);
-                            $('#from_timings-3').val(from_time);
-                            $('#from_timings-4').val(from_time);
-                            $('#from_timings-5').val(from_time);
-                            $('#from_timings-6').val(from_time);
-                            $('#to_timings-1').val(to_time);
-                            $('#to_timings-2').val(to_time);
-                            $('#to_timings-3').val(to_time);
-                            $('#to_timings-4').val(to_time);
-                            $('#to_timings-5').val(to_time);
-                            $('#to_timings-6').val(to_time);
-                        }
-                    });
-                    $("#copy_timings_dual").click(function () {
-                        if ($(this).is(':checked')) {
-                            var from_time = $('#from_timings_1-0').val();
-                            var to_time = $('#to_timings_1-0').val();
-                            $('#from_timings_1-1').val(from_time);
-                            $('#from_timings_1-2').val(from_time);
-                            $('#from_timings_1-3').val(from_time);
-                            $('#from_timings_1-4').val(from_time);
-                            $('#from_timings_1-5').val(from_time);
-                            $('#from_timings_1-6').val(from_time);
-                            $('#to_timings_1-1').val(to_time);
-                            $('#to_timings_1-2').val(to_time);
-                            $('#to_timings_1-3').val(to_time);
-                            $('#to_timings_1-4').val(to_time);
-                            $('#to_timings_1-5').val(to_time);
-                            $('#to_timings_1-6').val(to_time);
-                        }
-                    });
-                    $('#category').change(function () {
-                        var category_id = $('#category').val();
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>reseller/subcategories/",
-                            type: "POST",
-                            data: {category_id: category_id},
-                            dataType: "JSON",
-                            success: function (data)
-                            {
-                                $('#subcategory').empty();
-                                $('#subcategory').html('<option value="">Select Subcategory</option>');
-                                $.each(data, function (index, value) {
-                                    $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
-                                });
-                            }
-                        });
-                    });
-                    $('#state').change(function () {
-                        var state_id = $('#state').val();
-                        $.ajax({
-                            url: "<?php echo base_url(); ?>reseller/cities/",
-                            type: "POST",
-                            data: {state_id: state_id},
-                            dataType: "JSON",
-                            success: function (data)
-                            {
-                                $('#city').empty();
-                                $('#city').html('<option value="">Select City</option>');
-                                $.each(data, function (index, value) {
-                                    $('#city').append($('<option>').text(value.name).attr('value', value.id));
-                                });
-                            }
-                        });
-                    });
+                var total_earning = 0;
+                var business_id = $('#edit_id').val();
+                $('.close').click(function () {
+                $(this).parents('.oldimage .col-md-3').remove();
+                $(this).closest('input').remove();
+                });
+                var dual_timings = $('#dual_timings').is(':checked');
+                $("#input-3").fileinput({
+                uploadUrl: '/file-upload-batch/2',
+                uploadAsync: false,
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                purifyHtml: true,
+                maxFilePreviewSize: 10240,
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                previewFileType: "image",
+                removeClass: "btn btn-warning",
+                removeLabel: "Delete",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                browseClass: "btn btn-danger",
+                browseLabel: "Pick Image",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                });
+                if (dual_timings === true) {
+                $('#dual_timings_check').show();
+                } else {
+                $('#dual_timings_check').hide();
+                }
+                $(".select2").select2();
+                $('#find_duplicates').hide();
+                $('#pincode, #mobile_no, #other_no, #year_establishment, #landline_code, #mobile_code, #other_code').on('change keyup', function () {
+                var sanitized = $(this).val().replace(/[^-.0-9]/g, '');
+                sanitized = sanitized.replace(/(.)-+/g, '$1');
+                sanitized = sanitized.replace(/\.(?=.*\.)/g, '');
+                $(this).val(sanitized);
+                });
+                $("#landline_no, #mobile_no, #other_no").on('change paste keyup input', function () {
+                var landline_no = $("#landline_no").val();
+                var mobile_no = $("#mobile_no").val();
+                var other_no = $("#other_no").val();
+                $.ajax({
+                url: "<?php echo base_url(); ?>reseller/check_duplicates/",
+                type: "POST",
+                data: {landline_no: landline_no, mobile_no: mobile_no, other_no: other_no},
+                dataType: "JSON",
+                success: function (data)
+                {
+                if (data > 0) {
+                $('#btn-step-1').attr('disabled', true);
+                $('#find_duplicates').show();
+                } else {
+                $('#btn-step-1').attr('disabled', false);
+                $('#find_duplicates').hide();
+                }
+                }
+                });
+                });
+                $('#dual_timings').change(function () {
+                if ($(this).is(':checked')) {
+                $('#dual_timings_check').show();
+                } else {
+                $('#dual_timings_check').hide();
+                }
+                });
+                $("#copy_timings").click(function () {
+                if ($(this).is(':checked')) {
+                var from_time = $('#from_timings-0').val();
+                var to_time = $('#to_timings-0').val();
+                $('#from_timings-1').val(from_time);
+                $('#from_timings-2').val(from_time);
+                $('#from_timings-3').val(from_time);
+                $('#from_timings-4').val(from_time);
+                $('#from_timings-5').val(from_time);
+                $('#from_timings-6').val(from_time);
+                $('#to_timings-1').val(to_time);
+                $('#to_timings-2').val(to_time);
+                $('#to_timings-3').val(to_time);
+                $('#to_timings-4').val(to_time);
+                $('#to_timings-5').val(to_time);
+                $('#to_timings-6').val(to_time);
+                }
+                });
+                $("#copy_timings_dual").click(function () {
+                if ($(this).is(':checked')) {
+                var from_time = $('#from_timings_1-0').val();
+                var to_time = $('#to_timings_1-0').val();
+                $('#from_timings_1-1').val(from_time);
+                $('#from_timings_1-2').val(from_time);
+                $('#from_timings_1-3').val(from_time);
+                $('#from_timings_1-4').val(from_time);
+                $('#from_timings_1-5').val(from_time);
+                $('#from_timings_1-6').val(from_time);
+                $('#to_timings_1-1').val(to_time);
+                $('#to_timings_1-2').val(to_time);
+                $('#to_timings_1-3').val(to_time);
+                $('#to_timings_1-4').val(to_time);
+                $('#to_timings_1-5').val(to_time);
+                $('#to_timings_1-6').val(to_time);
+                }
+                });
+                $('#category').change(function () {
+                var category_id = $('#category').val();
+                $.ajax({
+                url: "<?php echo base_url(); ?>reseller/subcategories/",
+                type: "POST",
+                data: {category_id: category_id},
+                dataType: "JSON",
+                success: function (data)
+                {
+                $('#subcategory').empty();
+                $('#subcategory').html('<option value="">Select Subcategory</option>');
+                $.each(data, function (index, value) {
+                $('#subcategory').append($('<option>').text(value.name).attr('value', value.id));
+                });
+                }
+                });
+                });
+                $('#state').change(function () {
+                var state_id = $('#state').val();
+                $.ajax({
+                url: "<?php echo base_url(); ?>reseller/cities/",
+                type: "POST",
+                data: {state_id: state_id},
+                dataType: "JSON",
+                success: function (data)
+                {
+                $('#city').empty();
+                $('#city').html('<option value="">Select City</option>');
+                $.each(data, function (index, value) {
+                $('#city').append($('<option>').text(value.name).attr('value', value.id));
+                });
+                }
+                });
+                });
                 });
                 function add_more_contacts() {
-                    $.ajax({
-                        url: "<?php echo base_url(); ?>auth/add_more_contacts/",
-                        type: "POST",
-                        data: {},
-                        dataType: "JSON",
-                        success: function (data)
-                        {
-                            $('#add_more_contactinfo').append(data);
-                        }
-                    });
+                $.ajax({
+                url: "<?php echo base_url(); ?>auth/add_more_contacts/",
+                type: "POST",
+                data: {},
+                dataType: "JSON",
+                success: function (data)
+                {
+                $('#add_more_contactinfo').append(data);
+                }
+                });
                 }
                 function set_closed(from_id, to_id) {
-                    $('#' + from_id).val("Closed");
-                    $('#' + to_id).val("Closed");
+                $('#' + from_id).val("Closed");
+                $('#' + to_id).val("Closed");
                 }
                 $(document).on('ready', function () {
-                    $("#input-2").fileinput({
-                        previewFileType: "image",
-                        browseClass: "btn btn-danger",
-                        browseLabel: "Pick Image",
-                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                        removeClass: "btn btn-warning",
-                        removeLabel: "Delete",
-                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                        uploadClass: "btn btn-info",
-                        uploadLabel: "Upload",
-                        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                        allowedFileExtensions: ["jpg", "png", "gif"],
-                        defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                        minImageWidth: 800,
-                        minImageHeight: 500
-                    });
-                    var btnCust = '';
-                    $("#input-1").fileinput({
-                        previewFileType: "image",
-                        browseClass: "btn btn-danger",
-                        browseLabel: "Pick Image",
-                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                        removeClass: "btn btn-warning",
-                        removeLabel: "Delete",
-                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                        uploadClass: "btn btn-info",
-                        uploadLabel: "Upload",
-                        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
-                        allowedFileExtensions: ["jpg", "png", "gif"],
-                        defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
-                        maxImageWidth: 80,
-                        maxImageHeight: 80
-                    });
+                $("#input-2").fileinput({
+                previewFileType: "image",
+                browseClass: "btn btn-danger",
+                browseLabel: "Pick Image",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-warning",
+                removeLabel: "Delete",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                uploadLabel: "Upload",
+                uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'banners/' . $businessinfo['banner'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                minImageWidth: 800,
+                minImageHeight: 500
+                });
+                var btnCust = '';
+                $("#input-1").fileinput({
+                previewFileType: "image",
+                browseClass: "btn btn-danger",
+                browseLabel: "Pick Image",
+                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                removeClass: "btn btn-warning",
+                removeLabel: "Delete",
+                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                uploadClass: "btn btn-info",
+                uploadLabel: "Upload",
+                uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+                allowedFileExtensions: ["jpg", "png", "gif"],
+                defaultPreviewContent: '<img src="<?php echo base_url(); ?>include_files/<?php echo (!empty($businessinfo)) ? 'logo/' . $businessinfo['logo'] . '' : 'resseller/plugin/imageupload/img/noimage.jpg' ?>" alt="Your Avatar" style="width:160px;margin:0 auto;display:block">',
+                maxImageWidth: 80,
+                maxImageHeight: 80
+                });
                 });
             </script>
     </body>

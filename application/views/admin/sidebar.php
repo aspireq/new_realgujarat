@@ -1,6 +1,6 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
-        <!--        <div class="user-profile"> 
+        <!--        <div class="user-profile">  
                     <div class="dropdown user-pro-body">               
                         <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $admininfo['uacc_username']; ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu animated flipInY">
