@@ -57,8 +57,12 @@ class Common_model extends CI_Model {
         if ($query->num_rows() > 0) {
             $final_data = array();
             foreach ($query->result() as $key => $row) {
+                $earningsdata = $this->db->query("select * from  business_earnings where business_id = '" . $row->id . "'")->row();
                 $data[] = $row;
                 $final_data[$key] = $row;
+                if (!empty($earningsdata)) {
+                    $final_data[$key]->transaction_id = $earningsdata->transaction_id;
+                }
             }
             $final_data['counts'] = $query->num_rows();
             return $final_data;

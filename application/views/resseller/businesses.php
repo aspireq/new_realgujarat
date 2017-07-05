@@ -31,6 +31,9 @@
                                             <ul class="list">
                                                 <li><i class="fa fa-map-marker"></i> <?php echo $data->address; ?></li>
                                                 <li><i class="fa fa-phone"></i> <?php echo $data->mobile_code . $data->mobile_no; ?></li>
+                                                <?php if ($data->transaction_id) { ?>
+                                                    <li>Transaction Id :  <?php echo $data->transaction_id; ?></li>
+                                                <?php } ?>
         <!--                                                <li><i class="fa fa-star"></i> Rating</li>-->
                                             </ul>
                                         </div>
@@ -39,9 +42,11 @@
                                                 <a href="<?php echo base_url(); ?>reseller/add_business/<?php echo $data->id; ?>"><button class="btn btn-danger">Edit <i class="fa fa-edit"></i></button></a>
                                             <?php } ?>
                                         </div>
+                                        <?php if ($data->transaction_id) { ?>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <a onClick="earning_history('<?php echo $data->id; ?>')"><button class="btn btn-danger">Earnings <i class="fa fa-money"></i></button></a>
-                                        </div>                                        
+                                        </div>
+                                        <?php } ?>
                                     </div>
                                     <?php
                                     $i++;
