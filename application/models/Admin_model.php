@@ -21,8 +21,9 @@ class Admin_model extends CI_Model {
 
     function get_business() {
         $this->load->library('Datatables');
-        $this->datatables->select('businesses.id as id,businesses.website as website,businesses.contact_person_name as contact_person_name,businesses.name as name,businesses.email as email,businesses.mobile_no as mobile_no,businesses.other_no as other_no,businesses.created_date as created_date,businesses.is_approved as is_approved');
+        $this->datatables->select('business_earnings.transaction_id as transaction_id,businesses.id as id,businesses.website as website,businesses.contact_person_name as contact_person_name,businesses.name as name,businesses.email as email,businesses.mobile_no as mobile_no,businesses.other_no as other_no,businesses.created_date as created_date,businesses.is_approved as is_approved');
         $this->datatables->from('businesses');
+        $this->datatables->join('business_earnings', 'business_earnings.business_id  = businesses.id', 'left');
         return $this->datatables->generate();
     }
 

@@ -108,5 +108,6 @@
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/js/dashboard1.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+        
     </body>
 </html>

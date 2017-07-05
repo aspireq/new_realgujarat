@@ -540,4 +540,14 @@ class Auth extends CI_Controller {
         die(json_encode($data));
     }
 
+    function get_businessinfo() {
+        $id = $this->input->post('id');
+        $data = $this->Common_model->select_where_row('business_earnings', array('business_id' => $id));
+        if (empty($data)) {
+            die(json_encode(array('status' => false)));
+        } else {
+            die(json_encode(array('status' => true, 'earninginfo' => $data)));
+        }
+    }
+
 }

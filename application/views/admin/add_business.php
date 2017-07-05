@@ -68,7 +68,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                                 <label for="company_name_verified">Company Name Verified ? </label>
-                                                <input type="checkbox" class="" id="company_name_verified" name="company_name_verified" value="1">
+                                                <input type="checkbox" class="" id="company_name_verified" name="company_name_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->company_name == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <input type="hidden" name="edit_id" id="edit_id" value="<?php echo (!empty($businessinfo && isset($businessinfo['id']))) ? $businessinfo['id'] : '' ?>">
@@ -90,7 +90,6 @@
                                                 <div class="input-group-addon"><i class="fa fa-cube"></i></div>
                                                 <select class="form-control" name="subcategory" id="subcategory">
                                                     <option value="">Select Subcategory</option>
-
                                                     <?php
                                                     if (!empty($businessinfo) && $businessinfo['subcategory_id'] != "") {
                                                         $subcategoryin = $this->db->query('select * from subcategories where id = ' . $businessinfo['subcategory_id'] . '');
@@ -103,7 +102,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="category_subcategory_verifed">Category & Subcategory Verified ? </label>
-                                                <input type="checkbox" class="" id="category_subcategory_verifed" name="category_subcategory_verifed" value="1">
+                                                <input type="checkbox" class="" id="category_subcategory_verifed" name="category_subcategory_verifed" value="1" <?php echo (!empty($earninghistory) && $earninghistory->category_subcategory == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -146,7 +145,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="company_address_verifed">Company Location Information (Address,City,State) Verified ? </label>
-                                                <input type="checkbox" class="" id="company_address_verifed" name="company_address_verifed" value="1">
+                                                <input type="checkbox" class="" id="company_address_verifed" name="company_address_verifed" value="1" <?php echo (!empty($earninghistory) && $earninghistory->address == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -158,7 +157,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="email_verified">Email Address Verified ? </label>
-                                                <input type="checkbox" class="" id="email_verified" name="email_verified" value="1">
+                                                <input type="checkbox" class="" id="email_verified" name="email_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->email == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12" id="find_duplicates">
@@ -198,11 +197,11 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="landline_verified">Landline No. Verified ? </label>
-                                                <input type="checkbox" class="" id="landline_verified" name="landline_verified" value="1">
+                                                <input type="checkbox" class="" id="landline_verified" name="landline_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->landline == 1) ? 'checked' : ''; ?> >
                                             </div>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="mobileno_verified">Mobile No. Verified ? </label>
-                                                <input type="checkbox" class="" id="mobileno_verified" name="mobileno_verified" value="1">
+                                                <input type="checkbox" class="" id="mobileno_verified" name="mobileno_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->mobile == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
 
@@ -250,7 +249,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="establishmentyear_verified">Estabishment Year Verified ? </label>
-                                                <input type="checkbox" class="" id="establishmentyear_verified" name="establishmentyear_verified" value="1">
+                                                <input type="checkbox" class="" id="establishmentyear_verified" name="establishmentyear_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->establishment_year == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -284,7 +283,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="aboutbusiness_verified">Business Information Verified ? </label>
-                                                <input type="checkbox" class="" id="aboutbusiness_verified" name="aboutbusiness_verified" value="1">
+                                                <input type="checkbox" class="" id="aboutbusiness_verified" name="aboutbusiness_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->aboutus == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -305,7 +304,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="services_verified">Services Information Verified ? </label>
-                                                <input type="checkbox" class="" id="services_verified" name="services_verified" value="1">
+                                                <input type="checkbox" class="" id="services_verified" name="services_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->services == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -326,7 +325,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="otherlocation_verified">Locations Verified ? </label>
-                                                <input type="checkbox" class="" id="otherlocation_verified" name="otherlocation_verified" value="1">
+                                                <input type="checkbox" class="" id="otherlocation_verified" name="otherlocation_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->otherlocation == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>                                        
                                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -502,7 +501,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="hours_verified">Working Hours Verified ? </label>
-                                                <input type="checkbox" class="" id="hours_verified" name="hours_verified" value="1">
+                                                <input type="checkbox" class="" id="hours_verified" name="hours_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->hours == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div id="dual_timings_check">
@@ -711,7 +710,7 @@
                                         <?php if (!empty($businessinfo && isset($businessinfo['id']) && $businessinfo['id'] && $businessinfo['is_approved'] != 1) && $businessinfo['user_id'] != 0) { ?>                                            
                                             <div class="form-group col-md-12 col-sm-12 col-xs-12">                                            
                                                 <label for="photologo_verified">Photos & Logos Verified ? </label>
-                                                <input type="checkbox" class="" id="photologo_verified" name="photologo_verified" value="1">
+                                                <input type="checkbox" class="" id="photologo_verified" name="photologo_verified" value="1" <?php echo (!empty($earninghistory) && $earninghistory->photos == 1) ? 'checked' : ''; ?>>
                                             </div>
                                         <?php } ?>
                                         <div class="col-md-12 col-sm-12 col-xs-12">

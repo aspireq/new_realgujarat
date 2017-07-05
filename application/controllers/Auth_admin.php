@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Auth_admin extends CI_Controller {
 
-    function __construct() {
+    function __construct() { 
         parent::__construct();
 
         $this->load->database();
@@ -479,16 +479,17 @@ class Auth_admin extends CI_Controller {
             $otherlocation_verified = $this->input->post('otherlocation_verified');
             $hours_verified = $this->input->post('hours_verified');
             $photologo_verified = $this->input->post('photologo_verified');
-
+            $business_earnings = array();
             if ($company_name_verified == 1 && $category_subcategory_verifed == 1 && $company_address_verifed == 1 && $landline_verified == 1 && $mobileno_verified == 1) {
                 $extra_incentive = 5;
+                $business_earnings['extra_incentive'] = 1;
             } else {
                 $extra_incentive = 0;
+                $business_earnings['extra_incentive'] = 0;
             }
 
             $business_income = ($company_name_verified == 1) ? 1 : 0;
-            $business_income = ($email_verified == 1) ? 1 : 0;
-            $business_income += ($category_subcategory_verifed == 1) ? 1 : 0;
+            $business_income += ($email_verified == 1) ? 1 : 0;
             $business_income += ($category_subcategory_verifed == 1) ? 1 : 0;
             $business_income += ($company_address_verifed == 1) ? 1 : 0;
             $business_income += ($landline_verified == 1) ? 1 : 0;
@@ -499,6 +500,7 @@ class Auth_admin extends CI_Controller {
             $business_income += ($otherlocation_verified == 1) ? 1 : 0;
             $business_income += ($hours_verified == 1) ? 2 : 0;
             $business_income += ($photologo_verified == 1) ? 7 : 0;
+
 
             $total_income = $extra_incentive + $business_income;
 
@@ -611,7 +613,28 @@ class Auth_admin extends CI_Controller {
                             $this->Common_model->delete_where('company_images', array('business_id' => $edit_business_id, 'image' => $row_image));
                         }
                     }
-                    $business_data['earnings'] = $total_income;
+
+                    // Detailed Entry Infomration                    
+                    $business_earnings['company_name'] = ($company_name_verified == 1) ? 1 : 0;
+                    $business_earnings['email'] = ($email_verified == 1) ? 1 : 0;
+                    $business_earnings['category_subcategory'] = ($category_subcategory_verifed == 1) ? 1 : 0;
+                    $business_earnings['address'] = ($company_address_verifed == 1) ? 1 : 0;
+                    $business_earnings['landline'] = ($landline_verified == 1) ? 1 : 0;
+                    $business_earnings['mobile'] = ($mobileno_verified == 1) ? 1 : 0;
+                    $business_earnings['establishment_year'] += ($establishmentyear_verified == 1) ? 1 : 0;
+                    $business_earnings['aboutus'] = ($aboutbusiness_verified == 1) ? 1 : 0;
+                    $business_earnings['services'] = ($services_verified == 1) ? 1 : 0;
+                    $business_earnings['otherlocation'] = ($otherlocation_verified == 1) ? 1 : 0;
+                    $business_earnings['hours'] = ($hours_verified == 1) ? 1 : 0;
+                    $business_earnings['photos'] = ($photologo_verified == 1) ? 1 : 0;
+                    $business_earnings_data = $this->Common_model->select_where_row('business_earnings', array('business_id' => $edit_business_id));
+                    $business_earnings['business_id'] = $edit_business_id;
+                    if (empty($business_earnings_data)) {
+                        $business_earnings['transaction_id'] = mt_rand();             
+                        $this->Common_model->inserted_id('business_earnings', $business_earnings);
+                    } else {
+                        $this->Common_model->select_update('business_earnings', $business_earnings, array('business_id' => $edit_business_id));
+                    }
                     $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
                     $business_id = $edit_business_id;
                 } else {
@@ -688,8 +711,9 @@ class Auth_admin extends CI_Controller {
             }
         }
         if ($edit_business_id != "") {
-            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);            
+            $this->data['businessinfo'] = (array) $this->Common_model->get_business($edit_business_id);
             $this->data['contact_info'] = $this->Common_model->select_where('business_contacts', array('business_id' => $edit_business_id));
+            $this->data['earninghistory'] = $this->Common_model->select_where_row('business_earnings', array('business_id' => $edit_business_id));
         }
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
@@ -743,5 +767,6 @@ class Auth_admin extends CI_Controller {
         $this->Common_model->delete_where('businesses', array('id' => $id));
         die(json_encode(true));
     }
+
 
 }
