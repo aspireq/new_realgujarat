@@ -7,7 +7,6 @@ class Auth_admin extends CI_Controller {
 
     function __construct() { 
         parent::__construct();
-
         $this->load->database();
         $this->load->library('session');
         $this->load->helper('url');
@@ -762,7 +761,7 @@ class Auth_admin extends CI_Controller {
         die(json_encode(true));
     }
 
-    function delete_business() { 
+    function delete_business() {  
         $id = $this->input->post('id');
         $this->Common_model->delete_where('businesses', array('id' => $id));
         die(json_encode(true));

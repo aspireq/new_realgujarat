@@ -185,7 +185,7 @@ class Reseller extends CI_Controller {
             $config['num_links'] = $total_row['counts'];
             $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $this->data["results"] = $this->Common_model->businesses($config["per_page"], $page, $this->user_id);
-
+ 
             $this->pagination->initialize($config);
             $str_links = $this->pagination->create_links();
             $this->data["links"] = explode('&nbsp;', $str_links);

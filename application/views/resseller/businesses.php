@@ -35,7 +35,7 @@
                                                     <li>Transaction Id :  <?php echo $data->transaction_id; ?></li>
                                                 <?php } ?>
         <!--                                                <li><i class="fa fa-star"></i> Rating</li>-->
-                                            </ul>
+                                            </ul> 
                                         </div>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <?php if ($data->is_approved == 0) { ?>

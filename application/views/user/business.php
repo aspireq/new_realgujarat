@@ -121,7 +121,7 @@
                                         <div class="input-group-addon codeinput">
                                             <input type="text" placeholder="Code" class="form-control" name="mobile_code" id="mobile_code" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_code'] != "") ? $businessinfo['mobile_code'] : '' ?>">
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Mobile No." required name="mobile_no" id="mobile_no" maxlength="10" value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_no'] != "") ? $businessinfo['mobile_no'] : '' ?>">
+                                        <input type="text" class="form-control" placeholder="Mobile No." required name="mobile_no" id="mobile_no" maxlength="10" minlength="10"  value="<?php echo (!empty($businessinfo) && $businessinfo['mobile_no'] != "") ? $businessinfo['mobile_no'] : '' ?>">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-12 col-xs-12">
@@ -158,7 +158,7 @@
                                                     <div class="input-group-addon codeinput">
                                                         <input type="text" placeholder="Code" class="form-control" name="more_mobile_code[]" id="more_mobile_code" value="<?php echo (!empty($contact) && $contact->mobile_no_code != "") ? $contact->mobile_no_code : '' ?>">
                                                     </div>
-                                                    <input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10" value="<?php echo (!empty($contact) && $contact->mobile_number != "") ? $contact->mobile_number : '' ?>">
+                                                    <input type="text" class="form-control" placeholder="Mobile No." name="more_mobile_no[]" id="more_mobile_no" maxlength="10"value="<?php echo (!empty($contact) && $contact->mobile_number != "") ? $contact->mobile_number : '' ?>">
                                                 </div>
                                             </div>
                                         </div>

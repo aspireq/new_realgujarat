@@ -20,9 +20,19 @@ class Admin_model extends CI_Model {
     }
 
     function get_business() {
+        $search_data = $this->input->post();
         $this->load->library('Datatables');
         $this->datatables->select('business_earnings.transaction_id as transaction_id,businesses.id as id,businesses.website as website,businesses.contact_person_name as contact_person_name,businesses.name as name,businesses.email as email,businesses.mobile_no as mobile_no,businesses.other_no as other_no,businesses.created_date as created_date,businesses.is_approved as is_approved');
         $this->datatables->from('businesses');
+        if ($search_data['approved_business'] == 1) {
+            $this->datatables->where('is_approved = 1');
+        }
+        if ($search_data['rejected_business'] == 1) {
+            $this->datatables->where('is_approved = 2');
+        }
+        if ($search_data['pending_business'] == 1) {
+            $this->datatables->where('is_approved = 0');
+        }
         $this->datatables->join('business_earnings', 'business_earnings.business_id  = businesses.id', 'left');
         return $this->datatables->generate();
     }

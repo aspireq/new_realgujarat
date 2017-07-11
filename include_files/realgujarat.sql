@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2017 at 01:04 PM
+-- Generation Time: Jul 11, 2017 at 12:37 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -36,6 +36,8 @@ CREATE TABLE `businesses` (
   `subcategory_id` int(11) DEFAULT NULL,
   `address` text NOT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `contact_person_name` varchar(255) DEFAULT NULL,
   `landline_code` varchar(255) DEFAULT NULL,
   `mobile_code` varchar(255) DEFAULT NULL,
   `other_code` varchar(255) DEFAULT NULL,
@@ -68,34 +70,101 @@ CREATE TABLE `businesses` (
 -- Dumping data for table `businesses`
 --
 
-INSERT INTO `businesses` (`id`, `user_id`, `visitor_id`, `name`, `keywords`, `category_id`, `subcategory_id`, `address`, `email`, `landline_code`, `mobile_code`, `other_code`, `landline_no`, `mobile_no`, `other_no`, `pincode`, `city`, `state`, `business_description`, `services`, `other_locations`, `payment_methods`, `min_price_range`, `max_price_range`, `year_establishment`, `logo`, `banner`, `from_timings_1`, `to_timings_1`, `from_timings_2`, `to_timings_2`, `is_approved`, `earnings`, `created_date`, `status`) VALUES
-(1, 1, NULL, 'Balaji Enterprises', NULL, 1, 35, 'ISKCON Temple, Satellite, Ahmedabad', 'balagi@enterprize.com', '079', '91', '91', 8789797979, 9789789797, 8979797977, 400028, 783, 12, 'A company description is a summary of important information related to a business and its operations. It is commonly used to present the company to the rest of the world. The description should clearly identify the objectives, goals and purpose of a business.A company overview (also known as company information or a company summary) is an essential part of a business plan. Your company overview should be exactly what it sounds like: an overview containing all of the most important points about your company. It usually appears after the executive summaryCognizant is a large scale service provider MNC. It is an American multinational corporation that provides custom information technology, consulting, and business process outsourcing services.Cognizant is listed in the NASDAQ-100 and the S&P 500 indices.', 'Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation', NULL, 'Cash,Cheque', '0.00', '0.00', '', '6d81859b74b574e644993ac30cc49a46.png', '10318912e5bd43f676f505884e7139cc.jpg', '08:30,08:30,08:30,08:30,08:30,08:30,08:30', '16:00,16:00,16:00,16:00,16:00,16:00,16:00', NULL, NULL, 1, '0.00', '2017-04-13 07:33:54', 1),
-(2, 2, NULL, 'Sample Company', NULL, 1, 35, 'company address abcd', 'newcompany@gmail.com', NULL, NULL, NULL, 1111111111, 2222222222, 3333333333, 380026, 783, 12, 'about company description', 'website development,design projects,new ideas,asfsafaf', NULL, 'Cash,Visa Card,Cheque', '12000.00', '13000.00', NULL, 'e0741faba69b8f7cc01149cd3809e2bb.png', 'cedc40752747959514f39d9bd0145b36.jpg', '00:00,02:00,08:00,06:00,Closed,Closed,Closed', '01:00,02:30,08:30,09:00,Closed,Closed,Closed', NULL, NULL, 1, '0.00', '2017-04-13 09:55:13', 1),
-(3, 0, 7, 'Pleasure Trove', NULL, 3, 9, 'Anandnagar Road,Prahladnagar', 'pleasuretrove@gmail.com', NULL, NULL, NULL, 79456456, 4654564654, 4654654654, 380022, 783, 12, NULL, 'web ,php,tdl,android', NULL, 'Cash,Master Card,Financing Available', '0.00', '0.00', NULL, '14f65321521f54c77439a9321f451b9a.png', '41209108d44ae2735a7023a4118c4f0a.png', '03:00,03:00,03:00,03:00,03:00,03:00,03:00', '13:00,13:00,13:00,13:00,13:00,13:00,13:00', NULL, NULL, 1, '0.00', '2017-04-13 10:11:36', 1),
-(4, 2, NULL, 'Walfare Technologies Changed12323', NULL, 5, 19, 'Adarsh Apparment,Opp Police Line Part 2', 'walfare@gmail.com', NULL, NULL, NULL, 5468979878, 5616541897, 6516565749, 380021, 783, 12, 'company details', 'web,php,android', NULL, 'Cash,Master Card,Money Order', '1000.00', '2000.00', NULL, '22e4e32a9f5f9106b97d6aa8147eff0f.jpg', '68073a48be0f1e2b90a58b6fd044db27.jpg', '01:00,05:00,01:00,01:00,01:00,01:00,01:00', '05:00,05:00,05:00,05:00,05:00,05:00,05:00', '00:00,02:00,08:00,06:00,Closed,Closed,15:00', '01:00,02:30,08:30,09:00,Closed,Closed,15:30', 1, '0.00', '2017-04-14 05:08:26', 1),
-(5, 2, NULL, 'asfsaf', NULL, 2, 0, 'asfsaf', 'asfasf@gmail.com', NULL, NULL, NULL, 2315556346, 4636747578, 5685863463, 380022, 783, 12, 'asfasfasf', 'web', NULL, NULL, '0.00', '0.00', NULL, 'f289bae116a1d0f7a4f88ccc84bd6bad.jpg', '411b9502083756a2f98e2efe68ac0c9e.png', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 09:18:48', 1),
-(6, 0, 10, 'asfsaf', NULL, 1, 35, 'asas', 'asfasf@gmail.com', NULL, NULL, NULL, 2325263463, 3562351322, 1241251251, 380026, 783, 12, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, 'ebdf05d902142fafcca34fbbaf69444c.png', '9d011526fb83d275cdd07e3170b95ab1.png', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 10:29:09', 1),
-(7, 0, 11, 'asfasfa', NULL, 2, 6, 'asasf', 'asfasf@gmail.com', NULL, NULL, NULL, 6416549878, 6546541651, 9878978974, 322323, 783, 12, NULL, 'qwesd', NULL, NULL, '0.00', '0.00', NULL, 'c5e0df0b0dae877d97b891f1591d1b22.png', '355fbfdabf14c1a7dabcff72d346d116.jpg', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 11:14:01', 1),
-(8, 0, 14, 'asasf', NULL, 8, 0, '', 'asfasf@gmail.com', NULL, NULL, NULL, 4234123414, 2352352352, 2352355232, 380026, 0, 0, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, 'cd25da1092183fc9979f139a9f108916.jpg', '81cafb55d3ed3261577bdf4d635d4e37.jpg', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '0.00', '2017-04-17 11:29:21', 1),
-(9, 2, NULL, 'Def Corporation Changed1112', NULL, 2, 7, 'Adarsh Appartment,Opp Police Line part 2', 'defcorporation@gmail.com', NULL, NULL, NULL, 787987987, 6545478748, 8978946546, 380026, 783, 12, 'defasfsafasfsa', 'def,php,web,android', NULL, 'Cash', '0.00', '0.00', NULL, '8c19ce135cf35b813876c384f1232cfe.png', '5eb0c1154e6e37de2e16c0fde03c2192.jpg', '00:00,00:00,00:00,00:00,00:00,00:00,00:00', '02:30,02:30,02:30,02:30,02:30,02:30,02:30', NULL, NULL, 1, '0.00', '2017-04-19 04:50:58', 1),
-(10, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, '', '', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:38:56', 1),
-(11, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:42:27', 1),
-(12, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:43:12', 1),
-(13, 2, NULL, 'App Technology', NULL, 1, 1, 'asfaf', '', NULL, NULL, NULL, 4654785487, 6545646546, 9879874864, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:43:43', 1),
-(14, 1, NULL, 'aasfasf', NULL, 1, 0, 'asfsaf', '', NULL, NULL, NULL, 6541654654, 6549879878, 6541654654, 0, 865, 12, '', 'web', NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:45:20', 1),
-(15, 0, 15, 'No Validation', NULL, 1, 1, 'asfasfasf', '', NULL, NULL, NULL, 0, 9878978978, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 06:07:02', 1),
-(16, 2, NULL, 'asfasfasf Check', NULL, 1, 1, 'Adarsh Apps.', '', NULL, NULL, NULL, 0, 7465859789, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:43:03', 1),
-(17, 2, NULL, 'PNG Solutions', NULL, 1, 2, 'adasfasfasfsaf', '', NULL, NULL, NULL, 0, 2321421421, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:45:00', 1),
-(18, 2, NULL, 'new add', NULL, 3, 0, 'asasfas', '', NULL, NULL, NULL, 0, 2352353325, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:46:12', 1),
-(19, 2, NULL, 'check balance', NULL, 4, 0, 'asfasfasf', '', NULL, NULL, NULL, 0, 7989797987, 0, 124124, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:55:19', 1),
-(20, 2, NULL, 'New M', NULL, 2, 0, 'asfsaf', '', NULL, NULL, NULL, 0, 1212412421, 0, 380026, 0, 0, '', 'web,php', 'Ahmedabad,Surat,Rajasthan,asfafsaf,Amraiwadi', NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-25 05:34:21', 1),
-(21, 2, NULL, 'asfsafasfsaf', NULL, 2, 6, 'asfaf', '', NULL, NULL, NULL, 0, 8548574987, NULL, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '5.00', '2017-04-26 07:30:31', 1),
-(22, 2, NULL, 'inter addd', NULL, 1, 0, 'asfafasf', '', '111', '222', '333', 874897878, 8888888888, 9878978978, 0, 0, 12, '', NULL, NULL, NULL, '0.00', '0.00', '2017', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '4.00', '2017-04-26 07:40:43', 1),
-(23, 1, NULL, 'Basic info', NULL, 1, 1, 'Adarsh App.', 'aaaa@gmail.com', NULL, NULL, NULL, NULL, 8888888888, NULL, 380026, 779, 12, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '0.00', '2017-04-26 08:45:33', 1),
-(24, 1, NULL, 'Admin Add', NULL, 3, 9, 'Adarsh Appartment, Jogeshwari Road, CTM Cross Roads', 'adminadd@gmail.com1', '0749', '91', '91', 8978978978, 9798789798, 9879879878, 380026, 783, 12, 'this is the introduction to the company ', 'web,php,web-services,webiste-developemtn', 'ahmedabad,surat,rajkot,manipur,kanpur', 'Cash,Visa Card,Master Card,Debit Card,Money Order,Financing Available', '15000.00', '20000.00', '2017', 'c83b61cab267c3df008d50fa19d2c9ac.png', '07b0da9279b865c9f6ef606f2bc8bd86.jpg', '00:30,00:30,00:30,00:30,00:30,00:30,00:30', '03:00,03:00,03:00,03:00,03:00,03:00,03:00', 'Closed,Closed,Closed,Closed,Closed,Closed,Closed', 'Closed,Closed,Closed,Closed,Closed,Closed,Closed', 1, '0.00', '2017-04-26 08:53:09', 1),
-(25, 2, NULL, 'Company Name Changed', 'restaurants in surat', 1, 1, 'wdafasfsafafsafasf', '', NULL, '91', NULL, NULL, 9879797979, NULL, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '2014', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-26 11:13:46', 1),
-(26, 1, 30, 'Abc Comapny Pvt Ltd New Comp', 'restaurants in ahmedabad,restaurants in surat,restauratns,restaurants in ahmedabad,restaurants in surat,rahulparmar', 1, 1, 'Prahaladnagar Road,Satelite', 'asfasfasf@gmail.com', NULL, NULL, NULL, 8789789789, 6574897489, 98748654, 380026, 783, 12, '', 'web,php', NULL, 'Cash,Visa Card,Master Card,Debit Card', '1000.00', '20000.00', '', '322193608db30bd72ee480c9914e91f7.png', 'fea7026233914951bd0fcbda2aef539f.png', '00:30,00:30,00:30,00:30,00:30,00:30,00:30', '02:00,02:00,02:00,02:00,02:00,02:00,02:00', '02:30,03:00,09:00,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', '05:30,03:30,09:00,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 1, '0.00', '2017-04-27 11:55:39', 1),
-(27, 1, NULL, 'asfasf', NULL, 2, 0, 'afasf', '', NULL, '91', NULL, NULL, 9897987988, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, '01:00,01:00,01:00,01:00,01:00,01:00,01:00', '04:00,04:00,04:00,04:00,04:00,04:00,04:00', '01:00,01:00,01:00,01:00,Closed,Closed,Closed', '06:00,06:00,06:00,06:00,Closed,Closed,Closed', 1, '0.00', '2017-04-28 06:15:34', 1);
+INSERT INTO `businesses` (`id`, `user_id`, `visitor_id`, `name`, `keywords`, `category_id`, `subcategory_id`, `address`, `email`, `website`, `contact_person_name`, `landline_code`, `mobile_code`, `other_code`, `landline_no`, `mobile_no`, `other_no`, `pincode`, `city`, `state`, `business_description`, `services`, `other_locations`, `payment_methods`, `min_price_range`, `max_price_range`, `year_establishment`, `logo`, `banner`, `from_timings_1`, `to_timings_1`, `from_timings_2`, `to_timings_2`, `is_approved`, `earnings`, `created_date`, `status`) VALUES
+(1, 1, NULL, 'Balaji Enterprises', '1,2,3', 1, 35, 'ISKCON Temple, Satellite, Ahmedabad', 'balagi@enterprize.com', NULL, NULL, '079', '91', '91', 8789797979, 9789789797, 8979797977, 400028, 783, 12, 'A company description is a summary of important information related to a business and its operations. It is commonly used to present the company to the rest of the world. The description should clearly identify the objectives, goals and purpose of a business.A company overview (also known as company information or a company summary) is an essential part of a business plan. Your company overview should be exactly what it sounds like: an overview containing all of the most important points about your company. It usually appears after the executive summaryCognizant is a large scale service provider MNC. It is an American multinational corporation that provides custom information technology, consulting, and business process outsourcing services.Cognizant is listed in the NASDAQ-100 and the S&P 500 indices.', 'Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation,Paying Guest Accommodations,Paying Guest Accommodation For Corporates,Estate Agents For Paying Guest,AC Paying Guest Accommodation', NULL, 'Cash,Cheque', '0.00', '0.00', '', '6d81859b74b574e644993ac30cc49a46.png', '10318912e5bd43f676f505884e7139cc.jpg', '08:30,08:30,08:30,08:30,08:30,08:30,08:30', '16:00,16:00,16:00,16:00,16:00,16:00,16:00', NULL, NULL, 1, '0.00', '2017-04-13 07:33:54', 1),
+(2, 2, NULL, 'Sample Company', NULL, 1, 35, 'company address abcd', 'newcompany@gmail.com', NULL, NULL, NULL, NULL, NULL, 1111111111, 2222222222, 3333333333, 380026, 783, 12, 'about company description', 'website development,design projects,new ideas,asfsafaf', NULL, 'Cash,Visa Card,Cheque', '12000.00', '13000.00', NULL, 'e0741faba69b8f7cc01149cd3809e2bb.png', 'cedc40752747959514f39d9bd0145b36.jpg', '00:00,02:00,08:00,06:00,Closed,Closed,Closed', '01:00,02:30,08:30,09:00,Closed,Closed,Closed', NULL, NULL, 1, '0.00', '2017-04-13 09:55:13', 1),
+(3, 0, 7, 'Pleasure Trove', NULL, 3, 9, 'Anandnagar Road,Prahladnagar', 'pleasuretrove@gmail.com', NULL, NULL, NULL, NULL, NULL, 79456456, 4654564654, 4654654654, 380022, 783, 12, NULL, 'web ,php,tdl,android', NULL, 'Cash,Master Card,Financing Available', '0.00', '0.00', NULL, '14f65321521f54c77439a9321f451b9a.png', '41209108d44ae2735a7023a4118c4f0a.png', '03:00,03:00,03:00,03:00,03:00,03:00,03:00', '13:00,13:00,13:00,13:00,13:00,13:00,13:00', NULL, NULL, 1, '0.00', '2017-04-13 10:11:36', 1),
+(4, 2, NULL, 'Walfare Technologies Changed12323', NULL, 5, 19, 'Adarsh Apparment,Opp Police Line Part 2', 'walfare@gmail.com', NULL, NULL, NULL, NULL, NULL, 5468979878, 5616541897, 6516565749, 380021, 783, 12, 'company details', 'web,php,android', NULL, 'Cash,Master Card,Money Order', '1000.00', '2000.00', NULL, '22e4e32a9f5f9106b97d6aa8147eff0f.jpg', '68073a48be0f1e2b90a58b6fd044db27.jpg', '01:00,05:00,01:00,01:00,01:00,01:00,01:00', '05:00,05:00,05:00,05:00,05:00,05:00,05:00', '00:00,02:00,08:00,06:00,Closed,Closed,15:00', '01:00,02:30,08:30,09:00,Closed,Closed,15:30', 1, '0.00', '2017-04-14 05:08:26', 1),
+(5, 2, NULL, 'asfsaf', NULL, 2, 0, 'asfsaf', 'asfasf@gmail.com', NULL, NULL, NULL, NULL, NULL, 2315556346, 4636747578, 5685863463, 380022, 783, 12, 'asfasfasf', 'web', NULL, NULL, '0.00', '0.00', NULL, 'f289bae116a1d0f7a4f88ccc84bd6bad.jpg', '411b9502083756a2f98e2efe68ac0c9e.png', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 09:18:48', 1),
+(6, 0, 10, 'asfsaf', '2,3', 1, 35, 'asas', 'asfasf@gmail.com', NULL, NULL, NULL, NULL, NULL, 2325263463, 3562351322, 1241251251, 380026, 783, 12, '', NULL, NULL, NULL, '0.00', '0.00', '', 'ebdf05d902142fafcca34fbbaf69444c.png', '9d011526fb83d275cdd07e3170b95ab1.png', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 10:29:09', 1),
+(7, 0, 11, 'asfasfa', NULL, 2, 6, 'asasf', 'asfasf@gmail.com', NULL, NULL, NULL, NULL, NULL, 6416549878, 6546541651, 9878978974, 322323, 783, 12, NULL, 'qwesd', NULL, NULL, '0.00', '0.00', NULL, 'c5e0df0b0dae877d97b891f1591d1b22.png', '355fbfdabf14c1a7dabcff72d346d116.jpg', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-17 11:14:01', 1),
+(8, 2, NULL, 'ASPIRE TEST', NULL, 8, 0, 'Adarsh Appartment', 'asfasf@gmail.com', NULL, NULL, NULL, NULL, NULL, 4234123414, 2352352352, 2352355232, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', 'cd25da1092183fc9979f139a9f108916.jpg', '81cafb55d3ed3261577bdf4d635d4e37.jpg', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '0.00', '2017-04-17 11:29:21', 1),
+(9, 2, NULL, 'Def Corporation Changed1112', NULL, 2, 7, 'Adarsh Appartment,Opp Police Line part 2', 'defcorporation@gmail.com', NULL, NULL, NULL, NULL, NULL, 787987987, 6545478748, 8978946546, 380026, 783, 12, 'defasfsafasfsa', 'def,php,web,android', NULL, 'Cash', '0.00', '0.00', NULL, '8c19ce135cf35b813876c384f1232cfe.png', '5eb0c1154e6e37de2e16c0fde03c2192.jpg', '00:00,00:00,00:00,00:00,00:00,00:00,00:00', '02:30,02:30,02:30,02:30,02:30,02:30,02:30', NULL, NULL, 1, '0.00', '2017-04-19 04:50:58', 1),
+(10, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, '', '', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:38:56', 1),
+(11, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:42:27', 1),
+(12, 2, NULL, 'appbits tech', NULL, 1, 2, 'adarsh appartment statelite', '', NULL, NULL, NULL, NULL, NULL, 4654897987, 6546546546, 8746546546, 0, 0, 0, 'php', 'web', NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:43:12', 1),
+(13, 2, NULL, 'App Technology', NULL, 1, 1, 'asfaf', '', NULL, NULL, NULL, NULL, NULL, 4654785487, 6545646546, 9879874864, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:43:43', 1),
+(14, 1, NULL, 'aasfasf', NULL, 1, 0, 'asfsaf', '', NULL, NULL, NULL, NULL, NULL, 6541654654, 6549879878, 6541654654, 0, 865, 12, '', 'web', NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 05:45:20', 1),
+(15, 2, 15, 'No Validation', NULL, 1, 1, 'asfasfasf', '', NULL, NULL, NULL, NULL, NULL, 0, 9878978978, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-20 06:07:02', 1),
+(16, 2, NULL, 'asfasfasf Check', NULL, 1, 1, 'Adarsh Apps.', '', NULL, NULL, NULL, NULL, NULL, 0, 7465859789, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:43:03', 1),
+(17, 2, NULL, 'PNG Solutions', NULL, 1, 2, 'adasfasfasfsaf', '', NULL, NULL, NULL, NULL, NULL, 0, 2321421421, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:45:00', 1),
+(18, 2, NULL, 'new add', NULL, 3, 0, 'asasfas', '', NULL, NULL, NULL, NULL, NULL, 0, 2352353325, 0, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:46:12', 1),
+(19, 2, NULL, 'check balance', NULL, 4, 0, 'asfasfasf', '', NULL, NULL, NULL, NULL, NULL, 0, 7989797987, 0, 124124, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-21 09:55:19', 1),
+(20, 2, NULL, 'New M', NULL, 2, 0, 'asfsaf', '', NULL, NULL, NULL, NULL, NULL, 0, 1212412421, 0, 380026, 0, 0, '', 'web,php', 'Ahmedabad,Surat,Rajasthan,asfafsaf,Amraiwadi', NULL, '0.00', '0.00', NULL, NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '5.00', '2017-04-25 05:34:21', 1),
+(21, 2, NULL, 'asfsafasfsaf', NULL, 2, 6, 'asfaf', '', 'www.google.com', 'Rahul Parmar', NULL, NULL, NULL, 0, 8548574987, NULL, 380026, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 2, '5.00', '2017-04-26 07:30:31', 1),
+(22, 1, NULL, 'inter addd', NULL, 1, 0, 'asfafasf', '', NULL, NULL, '111', '222', '333', 874897878, 8888888888, 9878978978, 0, 0, 12, '', NULL, NULL, NULL, '0.00', '0.00', '2017', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 1, '0.00', '2017-04-26 07:40:43', 1),
+(23, 2, NULL, 'Basic info', NULL, 1, 1, 'Adarsh App.', 'aaaa@gmail.com', 'www.realgujarat.com', 'Mehul Parmar', NULL, NULL, NULL, NULL, 8888888888, NULL, 380026, 779, 12, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '0.00', '2017-04-26 08:45:33', 1),
+(24, 1, NULL, 'Admin Add', NULL, 3, 9, 'Adarsh Appartment, Jogeshwari Road, CTM Cross Roads', 'adminadd@gmail.com1', NULL, NULL, '0749', '91', '91', 8978978978, 9798789798, 9879879878, 380026, 783, 12, 'this is the introduction to the company ', 'web,php,web-services,webiste-developemtn', 'ahmedabad,surat,rajkot,manipur,kanpur', 'Cash,Visa Card,Master Card,Debit Card,Money Order,Financing Available', '15000.00', '20000.00', '2017', 'c83b61cab267c3df008d50fa19d2c9ac.png', '07b0da9279b865c9f6ef606f2bc8bd86.jpg', '00:30,00:30,00:30,00:30,00:30,00:30,00:30', '03:00,03:00,03:00,03:00,03:00,03:00,03:00', 'Closed,Closed,Closed,Closed,Closed,Closed,Closed', 'Closed,Closed,Closed,Closed,Closed,Closed,Closed', 1, '0.00', '2017-04-26 08:53:09', 1),
+(26, 1, 30, 'Abc Comapny Pvt Ltd New Comp', 'restaurants in ahmedabad,restaurants in surat,restauratns,restaurants in ahmedabad,restaurants in surat,rahulparmar', 1, 1, 'Prahaladnagar Road,Satelite', 'asfasfasf@gmail.com', NULL, NULL, NULL, NULL, NULL, 8789789789, 6574897489, 98748654, 380026, 783, 12, '', 'web,php', NULL, 'Cash,Visa Card,Master Card,Debit Card', '1000.00', '20000.00', '', '322193608db30bd72ee480c9914e91f7.png', 'fea7026233914951bd0fcbda2aef539f.png', '00:30,00:30,00:30,00:30,00:30,00:30,00:30', '02:00,02:00,02:00,02:00,02:00,02:00,02:00', '02:30,03:00,09:00,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', '05:30,03:30,09:00,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 1, '0.00', '2017-04-27 11:55:39', 1),
+(28, 0, 33, 'Globla Orgnizations', NULL, 1, 1, 'Ajanta Appartment,Amraiwadi', 'mehul@gmail.com', NULL, NULL, '081', '091', '079', 787897787, 9879878978, 8748978978, 380022, 783, 12, '', 'asfasf', NULL, 'Visa Card,Debit Card', '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '0.00', '2017-06-10 08:12:23', 1),
+(29, 2, NULL, 'asfasfasf', NULL, 1, 1, 'asfasfasfasf', '', NULL, NULL, NULL, '091', NULL, NULL, 9878978979, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:35:48', 1),
+(30, 2, NULL, 'asfasfafsf', NULL, 2, 6, 'asfasfasf', '', NULL, NULL, NULL, '091', NULL, NULL, 8466545646, NULL, 0, 0, 12, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:36:03', 1),
+(31, 2, NULL, 'asfasfas', NULL, 1, 1, 'asfasfasf', '', NULL, NULL, NULL, '091', NULL, NULL, 6846545645, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:36:17', 1),
+(32, 2, NULL, 'asfasfasfsafsaf', NULL, 1, 1, 'asfsafasfasfas', '', NULL, NULL, NULL, '091', NULL, NULL, 9874897897, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:36:35', 1),
+(33, 2, NULL, 'sfasfasfasf', NULL, 1, 1, 'asfasfasfasf', '', NULL, NULL, NULL, '091', NULL, NULL, 8978977978, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:37:01', 1),
+(34, 2, NULL, 'asfsafasfasfsaf', NULL, 1, 1, 'asfasfasf', '', NULL, NULL, NULL, '091', NULL, NULL, 7987987897, NULL, 0, 0, 0, '', NULL, NULL, NULL, '0.00', '0.00', '', NULL, NULL, 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', 'Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours,Open 24 Hours', NULL, NULL, 0, '4.00', '2017-07-11 10:37:22', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_contacts`
+--
+
+CREATE TABLE `business_contacts` (
+  `id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `landline_code_number` varchar(255) DEFAULT NULL,
+  `landline_number` bigint(20) DEFAULT NULL,
+  `mobile_no_code` varchar(255) DEFAULT NULL,
+  `mobile_number` bigint(20) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_contacts`
+--
+
+INSERT INTO `business_contacts` (`id`, `business_id`, `landline_code_number`, `landline_number`, `mobile_no_code`, `mobile_number`, `status`) VALUES
+(26, 28, '014', 8748978979, '032', 6487489797, 1),
+(27, 28, '032', 8748978978, '041', 8748978978, 1),
+(28, 28, '032', 6489749878, '0232', 6548749877, 1),
+(29, 28, '7777', 7777777777, '888', 8888888888, 1),
+(46, 23, '078', 8778878798, '091', 978978979, 1),
+(47, 23, '777', 7777777777, '888', 8888888888, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_earnings`
+--
+
+CREATE TABLE `business_earnings` (
+  `id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `transaction_id` bigint(20) DEFAULT NULL,
+  `company_name` int(11) DEFAULT NULL,
+  `extra_incentive` int(11) DEFAULT NULL,
+  `email` int(11) DEFAULT NULL,
+  `category_subcategory` int(11) DEFAULT NULL,
+  `address` int(11) DEFAULT NULL,
+  `landline` int(11) DEFAULT NULL,
+  `mobile` int(11) DEFAULT NULL,
+  `establishment_year` int(11) DEFAULT NULL,
+  `aboutus` int(11) DEFAULT NULL,
+  `services` int(11) DEFAULT NULL,
+  `otherlocation` int(11) DEFAULT NULL,
+  `hours` int(11) DEFAULT NULL,
+  `photos` int(11) DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `business_earnings`
+--
+
+INSERT INTO `business_earnings` (`id`, `business_id`, `transaction_id`, `company_name`, `extra_incentive`, `email`, `category_subcategory`, `address`, `landline`, `mobile`, `establishment_year`, `aboutus`, `services`, `otherlocation`, `hours`, `photos`, `created_date`, `status`) VALUES
+(2, 8, 330766786, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, '2017-07-04 12:01:39', 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +194,11 @@ INSERT INTO `categories` (`id`, `name`, `description`, `image`, `created_date`, 
 (6, 'Car', 'description', 'f66056511087f9ec33f22a2c846e5673.png', '2017-04-13 06:30:55', 1),
 (7, 'Electronics', 'description', 'c38461c8c784766169577c255b7a0a82.png', '2017-04-13 06:31:24', 1),
 (8, 'Salon', 'description', 'ee1684957a87659b1de0872d1d9d42e6.png', '2017-04-13 06:31:36', 1),
-(9, 'Education', 'category description', 'a2035d830d8252305b7a926ea29bb27f.png', '2017-04-13 06:31:55', 1);
+(9, 'Education', 'category description', 'a2035d830d8252305b7a926ea29bb27f.png', '2017-04-13 06:31:55', 1),
+(10, 'Software Development', '', 'd03ea88d5caf5a68168938217b8e1bc2.png', '2017-06-06 09:32:11', 1),
+(11, 'Web New Services', '', '78b00dc939c7e047332805ad5ea9050a.png', '2017-06-06 09:32:23', 1),
+(12, 'Check Categorie', '', '6cc84991f9a3efbef9cab3b54b2741d5.png', '2017-06-06 09:33:07', 1),
+(13, 'nice cart', '', 'aa791f17c51133a52afd0f2d9bca7d3b.png', '2017-06-06 09:46:20', 1);
 
 -- --------------------------------------------------------
 
@@ -48906,6 +48979,29 @@ INSERT INTO `demo_user_profiles` (`upro_id`, `upro_uacc_fk`, `upro_company`, `up
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `keywords`
+--
+
+CREATE TABLE `keywords` (
+  `id` int(11) NOT NULL,
+  `name` varchar(1000) NOT NULL,
+  `description` text,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `keywords`
+--
+
+INSERT INTO `keywords` (`id`, `name`, `description`, `created_date`, `status`) VALUES
+(1, 'Resturants in Ahmedabad', NULL, '2017-07-03 11:03:15', 1),
+(2, 'Restaurants', NULL, '2017-07-03 11:53:20', 1),
+(3, 'Hotels', NULL, '2017-07-03 11:53:29', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reseller_payments`
 --
 
@@ -48932,7 +49028,8 @@ CREATE TABLE `reseller_payments` (
 
 INSERT INTO `reseller_payments` (`id`, `user_id`, `earnings`, `payment_method`, `date`, `amount`, `transaction_id`, `bank_transaction_id`, `chequeno`, `tax`, `netamount`, `description`, `created_date`, `status`) VALUES
 (1, 2, '15000.00', 'Bank Transfer', '2017-04-26', '5000.00', NULL, '124124', NULL, 0, '5000.00', 'asdasasfasfasf', '2017-04-26 06:18:36', 1),
-(2, 2, '25000.00', 'Cheque', '2017-04-27', '5000.00', NULL, NULL, '64564', 0, '5000.00', '', '2017-04-28 11:01:52', 1);
+(2, 2, '25000.00', 'Cheque', '2017-04-27', '5000.00', NULL, NULL, '64564', 0, '5000.00', '', '2017-04-28 11:01:52', 1),
+(3, 2, '30000.00', 'Cheque', '2017-06-06', '1500.00', NULL, NULL, '14124214', 0, '1500.00', 'asfasf', '2017-06-06 10:08:13', 1);
 
 -- --------------------------------------------------------
 
@@ -53200,6 +53297,7 @@ CREATE TABLE `user_accounts` (
   `uacc_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `uacc_admin_approved` int(11) NOT NULL DEFAULT '0',
   `uacc_suspend` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_login` int(11) NOT NULL DEFAULT '0',
   `uacc_fail_login_attempts` smallint(5) NOT NULL DEFAULT '0',
   `uacc_fail_login_ip_address` varchar(40) NOT NULL DEFAULT '',
   `uacc_date_fail_login_ban` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Time user is banned until due to repeated failed logins',
@@ -53211,13 +53309,9 @@ CREATE TABLE `user_accounts` (
 -- Dumping data for table `user_accounts`
 --
 
-INSERT INTO `user_accounts` (`uacc_id`, `uacc_group_fk`, `uacc_email`, `uacc_username`, `uacc_password`, `earnings`, `reffrence_link`, `reffered_by`, `uacc_ip_address`, `uacc_salt`, `uacc_activation_token`, `uacc_forgotten_password_token`, `uacc_forgotten_password_expire`, `uacc_update_email_token`, `uacc_update_email`, `uacc_active`, `uacc_admin_approved`, `uacc_suspend`, `uacc_fail_login_attempts`, `uacc_fail_login_ip_address`, `uacc_date_fail_login_ban`, `uacc_date_last_login`, `uacc_date_added`) VALUES
-(1, 3, 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', NULL, NULL, NULL, '::1', 'XKVT29q2Jr', '', '1e30025e37a60d90b39f79d4668f3945d42955d5', '2017-04-19 09:33:31', '', '', 1, 0, 0, 0, '::1', '2017-04-11 10:48:53', '2017-04-28 12:01:40', '2011-01-01 00:00:00'),
-(2, 2, 'reseller@realgujarat.com', 'reseller', '$2a$08$7UzYgEuomZIErp6QU1ovzOHvB4d2.E5awHkfp.rvRwvPdvfFNm6iC', '27500.00', 'http://localhost/new_realgujarat/reseller/signup?ref=mehulparmar', NULL, '::1', 'ZC38NNBPjF', '', '', '0000-00-00 00:00:00', '', '', 1, 1, 0, 0, '', '0000-00-00 00:00:00', '2017-04-28 10:47:56', '2011-08-04 16:49:07'),
-(9, 2, 'asfasfasf@gmail.com', 'asasf', '$2a$08$G1AIqkSeSS4Cq8qclX846ejZxbVxX9xcUDx34PD5hGVapjcs5iPJi', NULL, NULL, NULL, '::1', 'nYTFhdGq6q', '30e6f350f9f868b9df0b42e4ea755fe4721e5856', '', '0000-00-00 00:00:00', '', '', 0, 1, 0, 0, '', '0000-00-00 00:00:00', '2017-04-07 10:52:37', '2017-04-07 10:52:37'),
-(10, 2, 'newreseeler@gmail.com', 'newreseeler', '$2a$08$M6DwS9c/WCZqykx8ILtpEOhbgjkdiPo8.JGV2FQ3.p3bU.EF1QpfS', NULL, NULL, NULL, '::1', 'tsx8pVTFMQ', '8eb974310c841cb90be1734019e31df0ece96a87', '', '0000-00-00 00:00:00', '', '', 0, 1, 0, 0, '', '0000-00-00 00:00:00', '2017-04-28 11:13:11', '2017-04-28 11:13:11'),
-(11, 2, 'newresseller1@gmail.com', 'newresseller1', '$2a$08$gf758VKon/sSHgaxniwNFeSB7dB7UVFrq.MVQGN6M636UYaVfOWJ.', NULL, 'http://localhost/new_realgujarat/register?ref=newresseller1', 2, '::1', 'wsTG8hM4Z3', '632aea70e1dffb41ff209bc43d1c16e4802477cd', '', '0000-00-00 00:00:00', '', '', 1, 1, 0, 0, '', '0000-00-00 00:00:00', '2017-04-28 11:16:39', '2017-04-28 11:16:39'),
-(12, 2, 'newresseller2@gmail.com', 'newresseller2', '$2a$08$KQ.u6x2wY8RbutPTbDYlHeCiVE2IwlK92/PvvUREtAlVjN58Kh2I.', NULL, 'http://localhost/new_realgujarat/register?ref=newresseller2', 2, '::1', '226StRthWQ', 'a26bcf1fa087c2992937269d3865031e2a75eded', '', '0000-00-00 00:00:00', '', '', 1, 1, 0, 0, '', '0000-00-00 00:00:00', '2017-04-28 11:17:58', '2017-04-28 11:17:58');
+INSERT INTO `user_accounts` (`uacc_id`, `uacc_group_fk`, `uacc_email`, `uacc_username`, `uacc_password`, `earnings`, `reffrence_link`, `reffered_by`, `uacc_ip_address`, `uacc_salt`, `uacc_activation_token`, `uacc_forgotten_password_token`, `uacc_forgotten_password_expire`, `uacc_update_email_token`, `uacc_update_email`, `uacc_active`, `uacc_admin_approved`, `uacc_suspend`, `is_login`, `uacc_fail_login_attempts`, `uacc_fail_login_ip_address`, `uacc_date_fail_login_ban`, `uacc_date_last_login`, `uacc_date_added`) VALUES
+(1, 3, 'admin@admin.com', 'admin', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '0.00', NULL, NULL, '::1', 'XKVT29q2Jr', '', '1e30025e37a60d90b39f79d4668f3945d42955d5', '2017-04-19 09:33:31', '', '', 1, 0, 0, 0, 0, '::1', '2017-04-11 10:48:53', '2017-07-08 10:17:39', '2011-01-01 00:00:00'),
+(2, 2, 'reseller@realgujarat.com', 'reseller', '$2a$08$lSOQGNqwBFUEDTxm2Y.hb.mfPEAt/iiGY9kJsZsd4ekLJXLD.tCrq', '27500.00', 'http://localhost/new_realgujarat/reseller/signup?ref=mehulparmar', NULL, '::1', 'XKVT29q2Jr', '', '', '0000-00-00 00:00:00', '', '', 1, 1, 0, 1, 0, '', '0000-00-00 00:00:00', '2017-07-11 12:35:08', '2011-08-04 16:49:07');
 
 -- --------------------------------------------------------
 
@@ -53259,91 +53353,10 @@ CREATE TABLE `user_login_sessions` (
 --
 
 INSERT INTO `user_login_sessions` (`usess_uacc_fk`, `usess_series`, `usess_token`, `usess_login_date`) VALUES
-(1, '', '00436d8a83f4ea8bd1d98a9cca90f0f0300bf3a9', '2017-04-27 12:33:06'),
-(2, '', '062832a2f051bcb30ee91fb969cefdc8538dc3cc', '2017-04-22 11:55:05'),
-(1, '', '06453388c2c0995c10d86bab4e2c22b42f263bf4', '2017-04-20 07:46:37'),
-(2, '', '126a826828a29fdc783f514a38be51e10290fc4d', '2017-04-17 07:12:28'),
-(1, '', '128c64060edfb2b5d7d00efcb5d580cc66a0494d', '2017-04-25 09:42:55'),
-(1, '', '14a06dbe67d9bd99810692edefc1390d2bb54613', '2017-04-17 08:26:28'),
-(1, '', '15f6435495d0a8e85dc02a006402c65945b820ff', '2017-04-22 12:09:28'),
-(1, '', '1910520156a28f4d09cf70923b06494fc71d1c8b', '2017-04-22 08:38:11'),
-(1, '', '1c15758a505b36ebf2efee988935dc149fa1337c', '2017-04-25 09:42:03'),
-(1, '', '220d63a0e8bea1c7ee965b7e4042ea8e32700974', '2017-04-28 07:05:19'),
-(2, '', '2298775d299dcdb46023d603e838fd061bc20784', '2017-04-21 11:25:56'),
-(1, '', '2414361a645180e1406b5a0a60829a6f474d1233', '2017-04-20 08:16:25'),
-(2, '', '24cdacba86160ce20e6d80acb1c389b59b1e6e58', '2017-04-26 13:51:17'),
-(1, '', '257c065c4f3067d8cbf121dfbf2e2021b4311eb1', '2017-04-25 13:44:02'),
-(1, '', '25fb79f7527c248c319672f424aa13a2f95fd569', '2017-04-28 08:10:44'),
-(2, '', '2b29443560a5e200bce1aa491a4cc3f591cf948d', '2017-04-26 14:31:44'),
-(1, '', '2d3528c249fa91fb13950769ab2ec444ebe7e60d', '2017-04-22 13:10:48'),
-(1, '', '2ffc047259c1aa989b00fa154bd047fa7a4d4667', '2017-04-26 10:17:34'),
-(2, '', '3276572d1fac4c99b619e6c9e107ffc2eb6d3e02', '2017-04-20 07:25:42'),
-(1, '', '331f1532323d477059cda56b816b688f57c0a132', '2017-04-28 12:01:40'),
-(2, '', '34058cd6a144b7eea82595daa51b950d4f6268e3', '2017-04-25 07:20:14'),
-(2, '', '36b8b4218b22156d67822c812311385315a1c838', '2017-04-21 13:08:32'),
-(2, '', '39f040d2b5322362ca52307d5929d9cc1382dc42', '2017-04-25 07:41:54'),
-(2, '', '3a0c75fa592115774d17e16b055145e8d259c803', '2017-04-26 12:10:33'),
-(1, '', '3ea9fe79b775d26c54a4d7da0e6160b59a1e1917', '2017-04-28 11:34:33'),
-(2, '', '429ea75e97dadd8d544dac1ede03867ef2efc915', '2017-04-28 10:47:56'),
-(1, '', '45f2db6a6b394685c7079b51f63046f5fbaec2f0', '2017-04-26 06:42:53'),
-(1, '', '48bc181fb27875fe9ed52f6f5cc9563830d8ba48', '2017-04-26 13:49:46'),
-(1, '', '4a4ab635c6805f6ea8095d91127555035a113d45', '2017-04-26 08:58:24'),
-(2, '', '4c88b4944c86086601dfd5db03d7e4839f251410', '2017-04-19 06:48:03'),
-(1, '', '507320d7da5cf709d96a004d0855460f3530e8d7', '2017-04-26 13:46:12'),
-(1, '', '510111fe8e38e197a9154a65b3dd8d90065941d4', '2017-04-26 10:21:19'),
-(1, '', '51b2a492ddffd10f469217b22f5b6eab8255814b', '2017-04-28 06:58:15'),
-(2, '', '52887c103be5a8ee761917859ad4cbe6a3c8487e', '2017-04-26 09:00:06'),
-(1, '', '536600cadd2713e38d6abf821a858b10cb0d4eb9', '2017-04-25 11:04:15'),
-(2, '', '54620befd37b08ceeb42ef089d55150ade33007f', '2017-04-26 13:46:30'),
-(2, '', '57419528a2c98b9172b38db6b987fbea6808801d', '2017-04-17 11:13:31'),
-(2, '', '613837840ca44703bc7bc76c81eba6f673afc7b1', '2017-04-22 11:33:21'),
-(1, '', '652c4044f91651fdae26fedf3a2ddcaa50da40ff', '2017-04-25 06:47:45'),
-(2, '', '65c2f8ef62bfd2739bd90f38101191d8618bd366', '2017-04-25 09:40:56'),
-(2, '', '677b201244547c097a336e9fb337b13bf88d66c2', '2017-04-25 09:42:33'),
-(2, '', '6bf1296d5e49a3c531b19c6e4ac0938d43ff2f18', '2017-04-20 08:16:36'),
-(1, '', '6ff28a0d01de5c15c8da173689ae39eeef1f9984', '2017-04-21 14:17:15'),
-(2, '', '739e452d46ff5f68c8e313e00b78a9c1eecd82a3', '2017-04-22 07:07:32'),
-(2, '', '76b0a857a7f6ba484d295f425f4cce3ca52d8024', '2017-04-22 13:09:26'),
-(2, '', '796b19a150494148d1fc7c815e5a9bbbe8ccc87d', '2017-04-20 08:39:49'),
-(1, '', '7974097bb6cc2640e8606ff9a949b9eeb8a07d6a', '2017-04-22 10:00:43'),
-(1, '', '7d811546121b34124906ff46941c6b15595dcee9', '2017-04-26 10:31:13'),
-(1, '', '8583e2269422d7f1628ef8e8bc0b75f19f4b3e5d', '2017-04-27 13:56:09'),
-(1, '', '8646a1167c7b09dd4a1d792912835fff56818595', '2017-04-25 07:52:16'),
-(2, '', '8b09f544db588e6766bd89c133c4dc8923af153a', '2017-04-26 09:28:33'),
-(2, '', '984a40e1012a02cb21467b816d450626d9ce94d6', '2017-04-20 07:55:45'),
-(2, '', '9a930e957a3135bfe8480eacf3368cd2046b8040', '2017-04-28 08:25:10'),
-(2, '', '9ae5ed8f75e30d8b3d4cb2a286a5ecc07fe9daf9', '2017-04-17 11:29:45'),
-(2, '', 'a0b0e7b2c9c0ee2931cd2f507d60da456745052a', '2017-04-20 12:48:12'),
-(1, '', 'a0bad922f4d211cdfa927b01dfbc2caefa284762', '2017-04-25 10:00:57'),
-(1, '', 'a1265ed430a1dda5735a7d026bf97548f89169b8', '2017-04-26 11:49:59'),
-(1, '', 'a89009b67e87306eb6778822821412f78d5b3496', '2017-04-25 07:49:59'),
-(1, '', 'aa27156cc919601c626fb6ebebcc4decfbb27db4', '2017-04-26 14:20:30'),
-(2, '', 'ae0b19d4d79e786b6fb4d2a010c4b40b639f5c57', '2017-04-19 06:48:04'),
-(2, '', 'b41ef7fb63823567f4ba5086a3498169b134d148', '2017-04-20 14:25:47'),
-(1, '', 'b79d057f7807454b94cfa75bb084abb037711f78', '2017-04-21 11:55:51'),
-(2, '', 'b959848264a65d514539772d492c3a6be4fc5732', '2017-04-26 14:31:44'),
-(2, '', 'b98908fd9e473337de292662f86ca292c2d4d5b8', '2017-04-25 14:13:19'),
-(2, '', 'c47f0081f52a9d41ccbb57da2340e20560ffa392', '2017-04-26 08:53:50'),
-(1, '', 'c5e4bb971622fdd089eba0cb4eda79a355a952bb', '2017-04-26 06:38:20'),
-(2, '', 'c6d47ee720f8aa8700e8b65d7343bad740f5963b', '2017-04-25 07:10:08'),
-(1, '', 'ca6045e9c87fec880405b32231b2526c14db1476', '2017-04-26 13:36:57'),
-(1, '', 'cf05e0cd87906f85c8c74f55804e314256107c72', '2017-04-22 11:53:57'),
-(1, '', 'cff50d8ba65f219e4485c5f92bb3c90672ff26da', '2017-04-25 14:26:08'),
-(1, '', 'd14bdf4538da60d3529e4b305398f32d8a2e0ee3', '2017-04-25 14:13:04'),
-(2, '', 'd16ada1b3845fb64d9979c4262d9650d0de61555', '2017-04-25 09:33:12'),
-(2, '', 'd27cdc3de1aa4dfe146c8fa2b31cf8e999b2ef0a', '2017-04-25 09:46:21'),
-(1, '', 'd4ef90923e244808f00c825a41a06911465fe0e7', '2017-04-22 07:30:39'),
-(1, '', 'd8aacf9d13e5813e17534320c09a0c6a6fdc293d', '2017-04-20 08:07:37'),
-(2, '', 'db711134d92579b6e4f46f8b046bb18024643b55', '2017-04-25 13:56:55'),
-(2, '', 'de684cd3a8aae16044d9b061eb399bb9d3f7971a', '2017-04-26 13:42:19'),
-(2, '', 'e7e9b9bbc04f05d7da84166bb69e58684eb25bfe', '2017-04-26 13:42:01'),
-(1, '', 'e8a1cf0b17a1346dd2e2a68ab8306646f3a8c488', '2017-04-28 07:23:24'),
-(1, '', 'eb56465a6281d5ec94ef7125c60a86d8d662eba5', '2017-04-26 12:00:12'),
-(2, '', 'edafd7dbfc2be41b99124c1a0e09bed553a39dd1', '2017-04-21 07:55:12'),
-(1, '', 'edc58a0cef3ed60f1ce5e5a47bb27ab1ac8fc6af', '2017-04-22 10:02:17'),
-(1, '', 'f0c7f4fde5ad25e68c57952511236e2fe64ce68c', '2017-04-28 06:58:37'),
-(1, '', 'f586fbb72c9e30b303c9308f729701344af2906e', '2017-04-20 07:57:01'),
-(1, '', 'fbbd3a80186f9d4a6658dece6110b9fafd12bd6a', '2017-04-25 14:13:44');
+(2, '', '5e232a086916316b2db043d2937718540137bae3', '2017-07-10 08:23:44'),
+(1, '', '7bb77fe133f9e88a179d553cf48aac2600e34367', '2017-06-28 07:48:56'),
+(1, '', 'b75ab416ddeb23c1e9cc2c6df776bcaf7bdd888d', '2017-06-28 11:50:54'),
+(2, '', 'fd8ec5528da7cb82140533e5647e9406c753bf21', '2017-06-28 11:56:06');
 
 -- --------------------------------------------------------
 
@@ -53490,7 +53503,13 @@ INSERT INTO `visitorinfo` (`id`, `company_name`, `first_name`, `last_name`, `con
 (27, 'sfsaf', 'asfasf', 'asfasf', 9878977977, 303492, 1, 0, NULL),
 (28, 'asfsaf', 'asfasf', 'asfasf', 8789465465, 198445, 1, 0, NULL),
 (29, 'asfa', 'asf', 'asfas', 1212125125, 435698, 1, 0, NULL),
-(30, 'Abc Comapny Pvt Ltd', 'Mehul ', 'Parmar', 9878797977, 125765, 1, 1, 26);
+(30, 'Abc Comapny Pvt Ltd', 'Mehul ', 'Parmar', 9878797977, 125765, 1, 1, 26),
+(31, 'Wenn', 'Mehul', 'paramr', 9879789798, 393432, 1, 0, NULL),
+(32, 'asfasf', 'asfasf', 'asfgasf', 9878978979, 272782, 1, 0, NULL),
+(33, 'Well Knowmn', 'Mehul ', 'Parmar', 8779797987, 463391, 1, 1, 28),
+(34, 'asfsa', 'asf', 'asf', 7987797987, 481605, 0, 0, NULL),
+(35, 'asfa', 'asf', 'asf', 9878979879, 275364, 0, 0, NULL),
+(36, 'bbgsdvsdv', 'asfasf', 'fasf', 9887897989, 437428, 0, 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -53500,6 +53519,18 @@ INSERT INTO `visitorinfo` (`id`, `company_name`, `first_name`, `last_name`, `con
 -- Indexes for table `businesses`
 --
 ALTER TABLE `businesses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_contacts`
+--
+ALTER TABLE `business_contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `business_earnings`
+--
+ALTER TABLE `business_earnings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53548,6 +53579,12 @@ ALTER TABLE `demo_user_profiles`
   ADD PRIMARY KEY (`upro_id`),
   ADD UNIQUE KEY `upro_id` (`upro_id`),
   ADD KEY `upro_uacc_fk` (`upro_uacc_fk`) USING BTREE;
+
+--
+-- Indexes for table `keywords`
+--
+ALTER TABLE `keywords`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `reseller_payments`
@@ -53637,12 +53674,22 @@ ALTER TABLE `visitorinfo`
 -- AUTO_INCREMENT for table `businesses`
 --
 ALTER TABLE `businesses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT for table `business_contacts`
+--
+ALTER TABLE `business_contacts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `business_earnings`
+--
+ALTER TABLE `business_earnings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -53669,10 +53716,15 @@ ALTER TABLE `demo_user_address`
 ALTER TABLE `demo_user_profiles`
   MODIFY `upro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `keywords`
+--
+ALTER TABLE `keywords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `reseller_payments`
 --
 ALTER TABLE `reseller_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
@@ -53692,7 +53744,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  MODIFY `uacc_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `uacc_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_groups`
 --
@@ -53717,7 +53769,7 @@ ALTER TABLE `user_privilege_users`
 -- AUTO_INCREMENT for table `visitorinfo`
 --
 ALTER TABLE `visitorinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
