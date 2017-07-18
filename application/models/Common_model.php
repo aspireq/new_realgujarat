@@ -46,6 +46,30 @@ class Common_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function get_top_business($limit = null) {
+        $this->db->select('businesses.*,cities.name as city_name,categories.name as category_name');
+        $this->db->from('businesses');
+        $this->db->join('cities', 'cities.id = businesses.city', 'left');
+        $this->db->join('categories', 'categories.id = businesses.category_id', 'left');
+        $this->db->where('businesses.is_approved', 1);
+        $this->db->order_by('id desc');
+        if ($limit != null) {
+            $this->db->limit(6);
+        }
+        $qry = $this->db->get();
+        return $qry->result();
+    }
+
+    function get_business_cities() {
+        $this->db->distinct();
+        $this->db->select('city,cities.name as city_name');
+        $this->db->where('is_approved', 1);
+        $this->db->where('city !=', 0);
+        $this->db->join('cities', 'cities.id = businesses.city', 'left');
+        $query = $this->db->get('businesses');
+        return $query->result();
+    }
+
     function businesses($limit = null, $start = null, $user_id) {
         if ($limit != null || $start != null) {
             $this->db->limit($limit, $start);

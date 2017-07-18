@@ -33,6 +33,9 @@
                                                 <li><i class="fa fa-phone"></i> <?php echo $data->mobile_code . $data->mobile_no; ?></li>
                                                 <?php if ($data->transaction_id) { ?>
                                                     <li>Transaction Id :  <?php echo $data->transaction_id; ?></li>
+                                                    <?php if ($data->remarks != null) { ?>
+                                                        <li>Remarks :  <?php echo $data->remarks; ?></li>
+                                                    <?php } ?>
                                                 <?php } ?>
         <!--                                                <li><i class="fa fa-star"></i> Rating</li>-->
                                             </ul> 
@@ -43,9 +46,9 @@
                                             <?php } ?>
                                         </div>
                                         <?php if ($data->transaction_id) { ?>
-                                        <div class="col-md-2 col-sm-3 col-xs-12">
-                                            <a onClick="earning_history('<?php echo $data->id; ?>')"><button class="btn btn-danger">Earnings <i class="fa fa-money"></i></button></a>
-                                        </div>
+                                            <div class="col-md-2 col-sm-3 col-xs-12">
+                                                <a onClick="earning_history('<?php echo $data->id; ?>')"><button class="btn btn-danger">Earnings <i class="fa fa-money"></i></button></a>
+                                            </div>
                                         <?php } ?>
                                     </div>
                                     <?php
@@ -165,35 +168,35 @@
         <script src="<?php echo base_url(); ?>include_files/resseller/js/bootstrap.min.js"></script>        
         <script src="<?php echo base_url(); ?>include_files/resseller/js/resseller.js"></script>   
         <script>
-            function earning_history(id) {
-            $.ajax({
-            url: "<?php echo base_url(); ?>auth/get_businessinfo/",
-            type: "POST",
-            data: {id: id},
-            dataType: "JSON",
-            success: function (data)
-            {
-            if(data.status == true) {
-            $('#earning_history_modal').modal('show');
-            (data.earninginfo.company_name == 1) ? $('#verified_company_name').text('1') : $('#verified_company_name').text('0');
-            (data.earninginfo.address == 1) ? $('#verified_address').text('1') : $('#verified_address').text('0');
-            (data.earninginfo.email == 1) ? $('#verified_email').text('1') : $('#verified_email').text('0');
-            (data.earninginfo.category_subcategory == 1) ? $('#verified_category').text('1') : $('#verified_category').text('0');            
-            (data.earninginfo.mobile == 1) ? $('#verified_mobileno').text('1') : $('#verified_mobileno').text('0');
-            (data.earninginfo.landline == 1) ? $('#verified_landline').text('1') : $('#verified_landline').text('0');
-            (data.earninginfo.establishment_year == 1) ? $('#verified_estalishment').text('1') : $('#verified_estalishment').text('0');
-            (data.earninginfo.aboutus == 1) ? $('#verified_aboutus').text('3') : $('#verified_aboutus').text('0');
-            (data.earninginfo.services == 1) ? $('#verified_services').text('1') : $('#verified_services').text('0');
-            (data.earninginfo.otherlocation == 1) ? $('#verified_location').text('1') : $('#verified_location').text('0');
-            (data.earninginfo.hours == 1) ? $('#verified_hours').text('2') : $('#verified_hours').text('0');
-            (data.earninginfo.photos == 1) ? $('#verified_photos').text('7') : $('#verified_photos').text('0');
-            (data.earninginfo.extra_incentive == 1) ? $('#verified_incentive').text('5') : $('#verified_incentive').text('0');
-            }else {
-            alert('No Earning Information Available');
-            }
-            }
-            });
-            }
+                                        function earning_history(id) {
+                                            $.ajax({
+                                                url: "<?php echo base_url(); ?>auth/get_businessinfo/",
+                                                type: "POST",
+                                                data: {id: id},
+                                                dataType: "JSON",
+                                                success: function (data)
+                                                {
+                                                    if (data.status == true) {
+                                                        $('#earning_history_modal').modal('show');
+                                                        (data.earninginfo.company_name == 1) ? $('#verified_company_name').text('1') : $('#verified_company_name').text('0');
+                                                        (data.earninginfo.address == 1) ? $('#verified_address').text('1') : $('#verified_address').text('0');
+                                                        (data.earninginfo.email == 1) ? $('#verified_email').text('1') : $('#verified_email').text('0');
+                                                        (data.earninginfo.category_subcategory == 1) ? $('#verified_category').text('1') : $('#verified_category').text('0');
+                                                        (data.earninginfo.mobile == 1) ? $('#verified_mobileno').text('1') : $('#verified_mobileno').text('0');
+                                                        (data.earninginfo.landline == 1) ? $('#verified_landline').text('1') : $('#verified_landline').text('0');
+                                                        (data.earninginfo.establishment_year == 1) ? $('#verified_estalishment').text('1') : $('#verified_estalishment').text('0');
+                                                        (data.earninginfo.aboutus == 1) ? $('#verified_aboutus').text('3') : $('#verified_aboutus').text('0');
+                                                        (data.earninginfo.services == 1) ? $('#verified_services').text('1') : $('#verified_services').text('0');
+                                                        (data.earninginfo.otherlocation == 1) ? $('#verified_location').text('1') : $('#verified_location').text('0');
+                                                        (data.earninginfo.hours == 1) ? $('#verified_hours').text('2') : $('#verified_hours').text('0');
+                                                        (data.earninginfo.photos == 1) ? $('#verified_photos').text('7') : $('#verified_photos').text('0');
+                                                        (data.earninginfo.extra_incentive == 1) ? $('#verified_incentive').text('5') : $('#verified_incentive').text('0');
+                                                    } else {
+                                                        alert('No Earning Information Available');
+                                                    }
+                                                }
+                                            });
+                                        }
         </script>
     </body>
 </html>

@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
 
 class Auth_admin extends CI_Controller {
 
-    function __construct() { 
+    function __construct() {
         parent::__construct();
         $this->load->database();
         $this->load->library('session');
@@ -380,12 +380,6 @@ class Auth_admin extends CI_Controller {
         die($result);
     }
 
-    function reject_status() {
-        $status = 2;
-        $result = $this->Common_model->select_update('businesses', array('is_approved' => $status), array('id' => $this->input->post('id')));
-        die($result);
-    }
-
     function delete_record() {
         $table_name = $this->input->post('table_name');
         $table_coloum_name = $this->input->post('table_coloum');
@@ -629,7 +623,7 @@ class Auth_admin extends CI_Controller {
                     $business_earnings_data = $this->Common_model->select_where_row('business_earnings', array('business_id' => $edit_business_id));
                     $business_earnings['business_id'] = $edit_business_id;
                     if (empty($business_earnings_data)) {
-                        $business_earnings['transaction_id'] = mt_rand();             
+                        $business_earnings['transaction_id'] = mt_rand();
                         $this->Common_model->inserted_id('business_earnings', $business_earnings);
                     } else {
                         $this->Common_model->select_update('business_earnings', $business_earnings, array('business_id' => $edit_business_id));
@@ -761,11 +755,16 @@ class Auth_admin extends CI_Controller {
         die(json_encode(true));
     }
 
-    function delete_business() {  
+    function delete_business() {
         $id = $this->input->post('id');
         $this->Common_model->delete_where('businesses', array('id' => $id));
         die(json_encode(true));
     }
 
+    function reject_business() {
+        $status = 2;
+        $result = $this->Common_model->select_update('businesses', array('remarks' => $this->input->post('business_remarks'), 'is_approved' => $status), array('id' => $this->input->post('reject_business_id')));
+        die($result);
+    }
 
 }

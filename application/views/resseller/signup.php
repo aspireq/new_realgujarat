@@ -101,6 +101,9 @@ if ($_GET['ref'] != "") {
                     $(this).val(sanitized);
                 });
             });
+            $("#register_username").on("keydown", function (e) {
+                return e.which !== 32;
+            });
         </script>
     </body>
 </html>

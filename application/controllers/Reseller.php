@@ -41,17 +41,6 @@ class Reseller extends CI_Controller {
         redirect('reseller/home');
     }
 
-
-    function get_client_ip() {
-        //$c_info = new Users_info;
-        //echo $ttt->c_ip();
-        // echo $ttt->c_OS();
-        // echo $ttt->c_Browser();
-        //$c_info = new Users_info;
-        echo $this->c_ip();
-        die();
-    }
-
     function include_files() {
         $this->data['header'] = $this->load->view('resseller/header', $this->data, TRUE);
         $this->data['common'] = $this->load->view('resseller/common', $this->data, TRUE);

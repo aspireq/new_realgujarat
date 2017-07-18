@@ -1,13 +1,13 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 
-   
     function __construct() {
         parent::__construct();
-       
+
         $this->load->database();
         $this->load->library('session');
         $this->load->helper('url');
@@ -40,6 +40,9 @@ class Auth extends CI_Controller {
     public function home() {
         $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
         $this->data['cities'] = $this->Common_model->select_where('cities', array('state_id' => 12));
+        $this->data['top_business'] = $this->Common_model->get_top_business(8);
+        $this->data['top_all_business'] = $this->Common_model->get_top_business('');
+        $this->data['business_cities'] = $this->Common_model->get_business_cities();
         $this->data = $this->include_files();
         $this->load->view('user/home', $this->data);
     }
@@ -49,7 +52,7 @@ class Auth extends CI_Controller {
         die($category_id);
     }
 
-    public function businesses() {
+    public function businesses() {        
         if ($this->input->post('category_id_row')) {
             $this->session->unset_userdata('session_category');
             $this->session->set_userdata('session_category', $this->input->post('category_id_row'));
@@ -117,13 +120,11 @@ class Auth extends CI_Controller {
     }
 
     public function businessinfo() {
-
         if ($this->input->post('business_id_row')) {
             $this->session->unset_userdata('session_business');
             $this->session->set_userdata('session_business', $this->input->post('business_id_row'));
         }
         $business_id = $this->session->userdata('session_business');
-
         $this->data['business'] = $this->Common_model->get_business($business_id);
         $this->load->library('pagination');
         $config = array();
@@ -550,7 +551,5 @@ class Auth extends CI_Controller {
             die(json_encode(array('status' => true, 'earninginfo' => $data)));
         }
     }
-
-
 
 }

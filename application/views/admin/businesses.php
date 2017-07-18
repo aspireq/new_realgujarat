@@ -24,6 +24,7 @@
                     </div>
                     <div class="row">                                   
                         <div class="white-box">
+                            <input type="hidden" alt="alert" class="img-responsive model_img" id="business_reject">
                             <button class="fcbtn btn btn-success btn-outline btn-1d pull-right" onclick="window.location.href = '<?php echo base_url(); ?>auth_admin/add_business'" >Add Business</button>                            
                             <div class="table-responsive">
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -151,8 +152,34 @@
                 </div>
             </div>
         </div>
+
+
+        <div id="reject_business_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Reject Business</h4>
+                    </div>
+                    <form method="post" id="reject_business_form" enctype="multipart/form-data">
+                        <input type="hidden" name="reject_business_id" id="reject_business_id">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="business_remarks" class="control-label">Remarks :</label>
+                                <textarea class="form-control" id="business_remarks" name="business_remarks"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">                                
+                            <button type="submit" class="btn btn-danger waves-effect waves-light" name="new_submit_btn" id="new_submit_btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>include_files/admin/js/jquery.validate.min.js"></script>
+        <script src="<?php echo base_url(); ?>include_files/admin/js/forms.jquery.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>    
         <script src="<?php echo base_url(); ?>include_files/admin/js/jquery.slimscroll.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/js/waves.js"></script>
@@ -160,6 +187,9 @@
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+                    <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+            <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/js/jQuery.dataTables.reloadAjax.js"></script>        
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
@@ -167,6 +197,9 @@
                                 $(document).ready(function () {
                                     $(".search_business").change(function () {
                                         reload_table();
+                                    });
+                                    $('#business_reject').click(function () {
+                                        swal("", "Business rejected successfully!");
                                     });
                                 });
                                 var myTable = "";
@@ -309,6 +342,40 @@
                                 $(document).ready(function () {
                                     radioswitch.init()
                                 });
+                                $("#reject_business_form").submit(function () {
+                                }).validate({
+                                    rules: {
+                                        business_remarks: "required",
+                                    }, messages: {
+                                    },
+                                    success: function (element) {
+                                        element.closest('.form-group').removeClass('has-error');
+                                        element.closest('.form-group label').remove();
+                                    },
+                                    highlight: function (element) {
+                                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                                    },
+                                    submitHandler: function (form) {
+                                        $('#new_submit_btn').attr('disabled', true);
+                                        $('#new_submit_btn').text('Please Wait...');
+                                        $.ajax({
+                                            url: "<?php echo base_url(); ?>auth_admin/reject_business/",
+                                            type: "POST",
+                                            data: $('#reject_business_form').serialize(),
+                                            dataType: "JSON",
+                                            success: function (response)
+                                            {
+                                                alert(response);
+                                                alert('Business rejected successfully!');
+                                                $('#reject_business_modal').modal('hide');
+                                              //  $("#business_reject").trigger('click');                                                
+                                                $('#new_submit_btn').attr('disabled', false);
+                                                $('#new_submit_btn').text('Submit');
+                                                reload_table();
+                                            }
+                                        });
+                                    }
+                                });
                                 function business_status(id) {
                                     var x;
                                     if (confirm("Are you sure you want approve this business") == true) {
@@ -330,26 +397,29 @@
                                     }
                                     reload_table();
                                 }
-                                function reject_status(id) {
-                                    var x;
-                                    if (confirm("Are you sure you want reject this business") == true) {
-                                        x = "ok";
-                                    } else {
-                                        x = "cancel";
-                                    }
-                                    if (x == "ok") {
-                                        $.ajax({
-                                            url: "<?php echo base_url(); ?>auth_admin/reject_status/",
-                                            type: "POST",
-                                            data: {id: id},
-                                            dataType: "JSON",
-                                            success: function (data)
-                                            {
-                                                alert('Business approved successfully!');
-                                            }
-                                        });
-                                    }
-                                    reload_table();
+                                function reject_status(id) {                                    
+                                    $('#reject_business_form')[0].reset();
+                                    $('#reject_business_id').val(id);
+                                    $('#reject_business_modal').modal('show');
+//                                    var x;
+//                                    if (confirm("Are you sure you want reject this business") == true) {
+//                                        x = "ok";
+//                                    } else {
+//                                        x = "cancel";
+//                                    }
+//                                    if (x == "ok") {
+//                                        $.ajax({
+//                                            url: "<?php echo base_url(); ?>auth_admin/reject_status/",
+//                                            type: "POST",
+//                                            data: {id: id},
+//                                            dataType: "JSON",
+//                                            success: function (data)
+//                                            {
+//                                                alert('Business approved successfully!');
+//                                            }
+//                                        });
+//                                    }
+//                                    reload_table();
                                 }
                                 function delete_business(id) {
                                     var x;
