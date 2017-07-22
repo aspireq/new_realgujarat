@@ -1,4 +1,4 @@
-<?php //echo $header;      ?>
+<?php //echo $header;                 ?>
 <!--<div id="myCarousel" class="carousel slide">
      Indicators 
     <ol class="carousel-indicators">
@@ -39,7 +39,7 @@
                 <select class="form-control selectpicker" name="city" id="city"  data-live-search="true">
                     <option value="">Enter City</option>
 <?php foreach ($cities as $city) { ?>
-                                            <option value="<?php echo $city->id; ?>"><?php echo $city->name; ?></option>
+                                                                                        <option value="<?php echo $city->id; ?>"><?php echo $city->name; ?></option>
 <?php } ?>
                 </select>
             </div>
@@ -47,7 +47,7 @@
                 <select class="form-control selectpicker" name="category" id="category" data-live-search="true">
                     <option value="">Select Category</option>
 <?php foreach ($categories as $category) { ?>
-                                            <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                                                                        <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
 <?php } ?>
                 </select>
             </div>
@@ -70,15 +70,15 @@
 foreach ($categories as $key => $category) {
     if ($key < 11) {
         ?>
-                                                                <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
-                                                                    <div class="col-md-2 col-sm-2 col-xs-6 service">
-                                                                        <img src="<?php echo base_url(); ?>include_files/categories/<?php echo $category->image; ?>" alt="categories"/>
-                                                                        <h3><?php echo $category->name; ?></h3>
-                                                                    </div>
-                                                                </a>
-                                                                <form method="post" id="<?php echo $category->id; ?>" action="<?php echo base_url(); ?>auth/businesses">
-                                                                    <input type="hidden" name="category_id_row" id="category_id_row" value="<?php echo $category->id; ?>">                           
-                                                                </form>
+                                                                                                                                                        <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
+                                                                                                                                                            <div class="col-md-2 col-sm-2 col-xs-6 service">
+                                                                                                                                                                <img src="<?php echo base_url(); ?>include_files/categories/<?php echo $category->image; ?>" alt="categories"/>
+                                                                                                                                                                <h3><?php echo $category->name; ?></h3>
+                                                                                                                                                            </div>
+                                                                                                                                                        </a>
+                                                                                                                                                        <form method="post" id="<?php echo $category->id; ?>" action="<?php echo base_url(); ?>auth/businesses">
+                                                                                                                                                            <input type="hidden" name="category_id_row" id="category_id_row" value="<?php echo $category->id; ?>">                           
+                                                                                                                                                        </form>
         <?php
     }
 }
@@ -102,15 +102,15 @@ foreach ($categories as $key => $category) {
 foreach ($categories as $key => $category) {
     if ($key >= 11) {
         ?>
-                                                                <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
-                                                                    <div class="col-md-2 col-sm-2 col-xs-6 service">
-                                                                        <img src="<?php echo base_url(); ?>include_files/categories/<?php echo $category->image; ?>" alt="categories"/>
-                                                                        <h3><?php echo $category->name; ?></h3>
-                                                                    </div>
-                                                                </a>
-                                                                <form method="post" id="<?php echo $category->id; ?>" action="<?php echo base_url(); ?>auth/businesses">
-                                                                    <input type="hidden" name="category_id_row" id="category_id_row" value="<?php echo $category->id; ?>">                           
-                                                                </form>
+                                                                                                                                                        <a href="#" onclick="return theFunction('<?php echo $category->id; ?>');">
+                                                                                                                                                            <div class="col-md-2 col-sm-2 col-xs-6 service">
+                                                                                                                                                                <img src="<?php echo base_url(); ?>include_files/categories/<?php echo $category->image; ?>" alt="categories"/>
+                                                                                                                                                                <h3><?php echo $category->name; ?></h3>
+                                                                                                                                                            </div>
+                                                                                                                                                        </a>
+                                                                                                                                                        <form method="post" id="<?php echo $category->id; ?>" action="<?php echo base_url(); ?>auth/businesses">
+                                                                                                                                                            <input type="hidden" name="category_id_row" id="category_id_row" value="<?php echo $category->id; ?>">                           
+                                                                                                                                                        </form>
         <?php
     }
 }
@@ -350,7 +350,7 @@ foreach ($categories as $key => $category) {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>            
             <!--================================FEATURE LISTING SECTION==========================================-->
             <section class="feature-section border-top padding-bottom-100">
                 <div class="container-fluid"><!-- section container -->
@@ -417,7 +417,7 @@ foreach ($categories as $key => $category) {
                         ?>
                     </div>
                 </div><!--/container-->
-            </section>
+            </section>            
             <!--================================LISTING SECTION ==========================================-->
             <section class="listing-section padding-top-100 padding-bottom-70 bgwhite">
                 <div class="container"><!-- section container -->
@@ -549,32 +549,32 @@ foreach ($categories as $key => $category) {
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-bottom-30 text-center clearfix">
                             <div class="funfact-1 color-1  clearfix">
                                 <div class="fun-wrap">
-                                    <div class="count" id="items" data-to="160" data-speed="4000">160</div>
-                                    <div class="funfact"><p> items</p></div>
+                                    <div class="count" id="items" data-to="<?php echo $siteinfo->businesses; ?>" data-speed="4000"><?php echo $siteinfo->businesses; ?></div>
+                                    <div class="funfact"><p> Businesses</p></div>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 col -->
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-bottom-30 text-center clearfix">
                             <div class="funfact-1 color-1  clearfix">
                                 <div class="fun-wrap">
-                                    <div class="count" id="location" data-to="210" data-speed="4000">210</div>
-                                    <div class="funfact"><p> locations</p></div>
+                                    <div class="count" id="location" data-to="<?php echo $siteinfo->total_cities; ?>" data-speed="4000"><?php echo $siteinfo->total_cities; ?></div>
+                                    <div class="funfact"><p> Locations</p></div>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 col -->  				
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-bottom-30 text-center clearfix">
                             <div class="funfact-1 color-1  clearfix">
                                 <div class="fun-wrap">
-                                    <div class="count" id="projects" data-to="795" data-speed="4000">795</div>
-                                    <div class="funfact"><p> projects</p></div>
+                                    <div class="count" id="projects" data-to="<?php echo $siteinfo->total_categories; ?>" data-speed="4000"><?php echo $siteinfo->total_categories; ?></div>
+                                    <div class="funfact"><p> Categories</p></div>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 col -->
                         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-bottom-30 text-center clearfix">
                             <div class="funfact-1 color-1  clearfix">
                                 <div class="fun-wrap">
-                                    <div class="count" id="events" data-to="158" data-speed="4000">158</div>
-                                    <div class="funfact"><p> event</p></div>
+                                    <div class="count" id="events" data-to="<?php echo $siteinfo->total_users; ?>" data-speed="4000"><?php echo $siteinfo->total_users; ?></div>
+                                    <div class="funfact"><p> Users</p></div>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 col -->
@@ -1025,5 +1025,7 @@ foreach ($categories as $key => $category) {
                                                                     function search_category(business_id) {
                                                                         $('form#' + 'category_search' + business_id).submit();
                                                                     }
+
+
     </script>
 </html>

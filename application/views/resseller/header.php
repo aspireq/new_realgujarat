@@ -15,13 +15,14 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Email" required autofocus name="login_identity" id="login_identity">
                         <input type="password" class="form-control" placeholder="Password" required id="login_password" name="login_password">
+                        <input type="hidden" name="deviceid" id="deviceid">
                         <button class="btn btn-lg btn-primary btn-block" type="submit" name="login_user" id="submit">
                             Sign in</button>
                         <input type="hidden" name="valid_login_url" id="valid_login_url" value="<?php echo base_url(); ?>auth_public"/>
                                <label class="checkbox pull-left">
                             <input type="checkbox" value="remember-me">
                             Remember me
-                            </label>
+                            </label>                        
 <!--                            <a href="#forgotmodal" class="pull-right need-help" data-toggle="modal" data-dismiss="modal">Need help? </a><span class="clearfix"></span>-->
                         <a href="<?php echo base_url()?>reseller/forgotten_password" class="pull-right need-help">Forgot Password ? </a><span class="clearfix"></span>
                     </form>

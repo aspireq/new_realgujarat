@@ -35,7 +35,7 @@ class Reseller extends CI_Controller {
     }
 
     function logout() {
-        $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $this->user_id));
+        $this->Common_model->select_update('user_accounts', array('is_login' => 0, 'mac_id' => null), array('uacc_id' => $this->user_id));
         $this->flexi_auth->logout(TRUE);
         $this->session->set_flashdata('message', $this->flexi_auth->get_messages());
         redirect('reseller/home');
@@ -174,7 +174,7 @@ class Reseller extends CI_Controller {
             $config['num_links'] = $total_row['counts'];
             $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $this->data["results"] = $this->Common_model->businesses($config["per_page"], $page, $this->user_id);
- 
+
             $this->pagination->initialize($config);
             $str_links = $this->pagination->create_links();
             $this->data["links"] = explode('&nbsp;', $str_links);

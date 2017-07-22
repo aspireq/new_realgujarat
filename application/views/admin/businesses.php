@@ -187,9 +187,9 @@
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
-                    <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-            <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
-            <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/js/jQuery.dataTables.reloadAjax.js"></script>        
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js"></script>
         <script src="<?php echo base_url(); ?>include_files/admin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
@@ -365,10 +365,8 @@
                                             dataType: "JSON",
                                             success: function (response)
                                             {
-                                                alert(response);
                                                 alert('Business rejected successfully!');
                                                 $('#reject_business_modal').modal('hide');
-                                              //  $("#business_reject").trigger('click');                                                
                                                 $('#new_submit_btn').attr('disabled', false);
                                                 $('#new_submit_btn').text('Submit');
                                                 reload_table();
@@ -397,7 +395,7 @@
                                     }
                                     reload_table();
                                 }
-                                function reject_status(id) {                                    
+                                function reject_status(id) {
                                     $('#reject_business_form')[0].reset();
                                     $('#reject_business_id').val(id);
                                     $('#reject_business_modal').modal('show');

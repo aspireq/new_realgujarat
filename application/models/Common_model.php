@@ -60,6 +60,15 @@ class Common_model extends CI_Model {
         return $qry->result();
     }
 
+    function siteinfo() {
+        $query = $this->db->query("SELECT
+  (SELECT COUNT(DISTINCT(city)) FROM businesses WHERE businesses.is_approved = 1) as total_cities,
+  (SELECT COUNT(DISTINCT(category_id)) FROM businesses WHERE businesses.is_approved = 1) as total_categories,
+  (SELECT COUNT(user_accounts.uacc_id) FROM user_accounts WHERE user_accounts.uacc_group_fk = 2) as total_users,
+  (SELECT COUNT(DISTINCT(id)) FROM businesses WHERE businesses.is_approved = 1) as businesses");
+        return $query->row();
+    }
+
     function get_business_cities() {
         $this->db->distinct();
         $this->db->select('city,cities.name as city_name');

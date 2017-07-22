@@ -750,7 +750,7 @@ class Auth_admin extends CI_Controller {
 
     function user_session() {
         $user_id = $this->input->post('id');
-        $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $user_id));
+        $this->Common_model->select_update('user_accounts', array('is_login' => 0,'mac_id' => null), array('uacc_id' => $user_id));
         echo $this->db->last_query();
         die(json_encode(true));
     }

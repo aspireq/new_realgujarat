@@ -1388,6 +1388,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
         $sql_select = array(
             $this->auth->primary_identity_col,
             $this->auth->tbl_col_user_account['id'],
+            $this->auth->tbl_col_user_account['mac_id'],
             $this->auth->tbl_col_user_account['password'],
             $this->auth->tbl_col_user_account['group_id'],
             $this->auth->tbl_col_user_account['activation_token'],
@@ -1411,9 +1412,10 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
         ###+++++++++++++++++++++++++++++++++###
         // User exists, now validate credentials.
         if ($query->num_rows() == 1) {
-            $user = $query->row();
+            $user = $query->row();            
+            $mac_id = $this->input->post('deviceid');
             $get_previous_login = $this->select_where_row('user_accounts', array('is_login' => 1, 'uacc_id' => $user->uacc_id));
-            if (!empty($get_previous_login) && $_SERVER['REMOTE_ADDR'] != $user->uacc_ip_address && $user->uacc_group_fk == 2) {
+            if (!empty($get_previous_login) && $user->uacc_group_fk == 2 && $mac_id != $user->mac_id) {
                 $this->set_error_message('multiple_login_confg', 'config');
                 return FALSE;
             }
@@ -1467,7 +1469,9 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
                     else {
                         $this->flexi_auth_lite_model->delete_remember_me_cookies();
                     }
-                    $this->db->update('user_accounts', array('is_login' => 1), array('uacc_id' => $user->uacc_id));
+
+                    $mac_id = $this->input->post('deviceid');
+                    $this->db->update('user_accounts', array('is_login' => 1,'mac_id' => $mac_id), array('uacc_id' => $user->uacc_id));
                     return TRUE;
                 }
             }
@@ -1596,7 +1600,7 @@ class Flexi_auth_model extends Flexi_auth_lite_model {
         $this->update_last_login($user_id);
 
         // Set database and login session token if defined by config file.
-        if ($this->auth->auth_security['validate_login_onload'] && !$this->insert_database_login_session($user_id)) {           
+        if ($this->auth->auth_security['validate_login_onload'] && !$this->insert_database_login_session($user_id)) {
             return FALSE;
         }
 

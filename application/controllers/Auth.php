@@ -31,6 +31,25 @@ class Auth extends CI_Controller {
         $this->home();
     }
 
+    function check() {
+//        $cookie_name = "user";
+//        $cookie_value = "John Doe";
+//        unset($_COOKIE['user']);
+//        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+//        // echo $_COOKIE[$cookie_name];
+//        if (!isset($_COOKIE[$cookie_name])) {
+//            echo "Cookie named '" . $cookie_name . "' is not set!";
+//        } else {
+//            echo "Cookie '" . $cookie_name . "' is set!<br>";
+//            echo "Value is: " . $_COOKIE[$cookie_name];            
+//        }
+//        die();
+        exec("ipconfig /all", $arr, $retval);
+        $arr[14];
+        $ph = explode(":", $arr[14]);
+        echo "string" . trim($ph[1]);
+    }
+
     public function include_files() {
         $this->data['header'] = $this->load->view('user/header', $this->data, TRUE);
         $this->data['footer'] = $this->load->view('user/footer', $this->data, TRUE);
@@ -43,6 +62,7 @@ class Auth extends CI_Controller {
         $this->data['top_business'] = $this->Common_model->get_top_business(8);
         $this->data['top_all_business'] = $this->Common_model->get_top_business('');
         $this->data['business_cities'] = $this->Common_model->get_business_cities();
+        $this->data['siteinfo'] = $this->Common_model->siteinfo();
         $this->data = $this->include_files();
         $this->load->view('user/home', $this->data);
     }
@@ -52,7 +72,7 @@ class Auth extends CI_Controller {
         die($category_id);
     }
 
-    public function businesses() {        
+    public function businesses() {
         if ($this->input->post('category_id_row')) {
             $this->session->unset_userdata('session_category');
             $this->session->set_userdata('session_category', $this->input->post('category_id_row'));
@@ -549,6 +569,13 @@ class Auth extends CI_Controller {
             die(json_encode(array('status' => false)));
         } else {
             die(json_encode(array('status' => true, 'earninginfo' => $data)));
+        }
+    }
+
+    function unset_logins() {
+        $data = $this->Common_model->select_where('user_accounts', array('uacc_group_fk' => 2));
+        foreach ($data as $user) {
+            $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $user->uacc_id));
         }
     }
 
