@@ -4,6 +4,7 @@
         <p>Earnings : <span><?php echo $userinfo['earnings']; ?></span></p>
         <p>Pending Businesses : <span><?php echo $business_counts->pendingbusinesses; ?></span></p>
         <p>Approved Businesses : <span><?php echo $business_counts->approvedbusinesses; ?></span></p>
+        <p>Rejected Businesses : <span><?php echo $business_counts->rejectedbusinesses; ?></span></p>
     </div>
     <ul class="list">
         <li>

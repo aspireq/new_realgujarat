@@ -7,11 +7,36 @@
         <?php echo $header; ?>
         <div>
             <div class="container">
-                <div class="row">
+                <div class="row"> 
                     <?php echo $sidebar; ?>                    
                     <div class="col-md-9 col-sm-8 col-xs-12 p-r-0">
-                        <div class="form-container">
+                        <div class="row adlist form-container">
                             <h3><i class="fa fa-user"></i>&nbsp;&nbsp;Your Ads</h3>
+                            <hr class="form-hr" />
+                            <form role = "form" method="post">
+                                <!--                                <div class = "form-group">
+                                                                    <label for = "name">Name</label>
+                                                                    <input type = "text" class = "form-control" id = "name" placeholder = "Enter Name">
+                                                                </div>
+                                                                <div class = "form-group">
+                                                                    <label for = "inputfile">File input</label>
+                                                                    <input type = "file" id = "inputfile">
+                                                                    <p class = "help-block">Example block-level help text here.</p>
+                                                                </div>-->
+
+                                <div> 
+                                    <label class = "checkbox-inline">
+                                        <input type = "checkbox" id = "approved_business" name="approved_business" value = "1"> Approved Business
+                                    </label>
+                                    <label class = "checkbox-inline">
+                                        <input type = "checkbox" id = "pending_business" name="pending_business" value = "pending"> Pending Business
+                                    </label>
+                                    <label class = "checkbox-inline">
+                                        <input type = "checkbox" id = "rejected_business" name="rejected_business" value = "2"> Rejected Business
+                                    </label>
+                                </div>
+                                <button type = "submit" class = "btn btn-default">Search</button>
+                            </form>
                             <hr class="form-hr" />
                             <?php
                             if (!empty($results)) {

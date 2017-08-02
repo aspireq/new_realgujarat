@@ -111,7 +111,7 @@ class Reseller extends CI_Controller {
         $result = $this->Common_model->select_update('demo_user_profiles', $profiledata, array('upro_uacc_fk' => $this->user_id));
         if ($this->input->post('change_pwd') == 1) {
             $this->load->model('demo_auth_model');
-            $change_password = $this->demo_auth_model->change_password();
+            $change_password = $this->demo_auth_model->change_password();            
             $this->session->set_flashdata('message', $this->data['message']);
             if ($change_password) {
                 $this->session->set_flashdata('alert_class', 'alert-success');
@@ -144,6 +144,25 @@ class Reseller extends CI_Controller {
 
     function businesses() {
         if ($this->flexi_auth->is_logged_in() && $this->userinfo['uacc_group_fk'] == 2) {
+            $search_business_status = '';
+            if ($this->input->post()) {
+                if ($this->input->post('approved_business') && $this->input->post('approved_business') == '1') {
+                    $search_business_status = $this->input->post('approved_business');
+                }
+                if ($this->input->post('pending_business') && $this->input->post('pending_business') == 'pending') {
+                    $search_business_status = "0";
+                }
+                if ($this->input->post('rejected_business') && $this->input->post('rejected_business') == '2') {
+                    $search_business_status = $this->input->post('rejected_business');
+                }
+                if ($search_business_status != "") {
+                    $this->session->unset_userdata('search_business_new');
+                    $this->session->set_userdata('search_business_new', $search_business_status);
+                }
+            } else {
+                //echo $this->session->userdata('search_business_new');die();
+                $search_business_status = $this->session->userdata('search_business_new');
+            }
             $this->load->library('pagination');
             $config = array();
             $config["base_url"] = base_url() . "reseller/businesses";
@@ -169,11 +188,11 @@ class Reseller extends CI_Controller {
             $config['num_tag_open'] = '<li>';
             $config['num_tag_close'] = '</li>';
 
-            $total_row = $this->Common_model->businesses('', '', $this->user_id);
+            $total_row = $this->Common_model->businesses('', '', $this->user_id, $search_business_status);
             $config["total_rows"] = $total_row['counts'];
             $config['num_links'] = $total_row['counts'];
             $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-            $this->data["results"] = $this->Common_model->businesses($config["per_page"], $page, $this->user_id);
+            $this->data["results"] = $this->Common_model->businesses($config["per_page"], $page, $this->user_id, $search_business_status);
 
             $this->pagination->initialize($config);
             $str_links = $this->pagination->create_links();

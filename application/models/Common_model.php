@@ -79,12 +79,14 @@ class Common_model extends CI_Model {
         return $query->result();
     }
 
-    function businesses($limit = null, $start = null, $user_id) {
+    function businesses($limit = null, $start = null, $user_id, $search_business_status = null) {
         if ($limit != null || $start != null) {
             $this->db->limit($limit, $start);
         }
-        //$this->db->where('businesses.is_approved', 0);
         $this->db->where('businesses.user_id', $user_id);
+        if ($search_business_status != null) {
+            $this->db->where('businesses.is_approved', $search_business_status);
+        }
         $this->db->order_by('businesses.created_date desc');
         $query = $this->db->get('businesses');
         if ($query->num_rows() > 0) {
@@ -156,6 +158,7 @@ class Common_model extends CI_Model {
     function business_counts($user_id) {
         $query = $this->db->query('SELECT
   (SELECT COUNT(*) FROM businesses WHERE businesses.user_id = "' . $user_id . '" AND businesses.is_approved = 1) as approvedbusinesses, 
+  (SELECT COUNT(*) FROM businesses WHERE businesses.user_id = "' . $user_id . '" AND businesses.is_approved = 2) as rejectedbusinesses, 
   (SELECT COUNT(*) FROM businesses WHERE businesses.user_id = "' . $user_id . '" AND businesses.is_approved = 0) as pendingbusinesses');
         return $query->row();
     }

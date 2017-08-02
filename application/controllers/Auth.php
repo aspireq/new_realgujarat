@@ -20,6 +20,7 @@ class Auth extends CI_Controller {
                 $this->session->keep_flashdata('message');
             }
         }
+        
         $this->data = null;
         if ($this->flexi_auth->is_logged_in()) {
             $this->data['userinfo'] = $this->userinfo = $this->flexi_auth->get_user_by_identity_row_array();
@@ -29,25 +30,6 @@ class Auth extends CI_Controller {
 
     function index() {
         $this->home();
-    }
-
-    function check() {
-//        $cookie_name = "user";
-//        $cookie_value = "John Doe";
-//        unset($_COOKIE['user']);
-//        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-//        // echo $_COOKIE[$cookie_name];
-//        if (!isset($_COOKIE[$cookie_name])) {
-//            echo "Cookie named '" . $cookie_name . "' is not set!";
-//        } else {
-//            echo "Cookie '" . $cookie_name . "' is set!<br>";
-//            echo "Value is: " . $_COOKIE[$cookie_name];            
-//        }
-//        die();
-        exec("ipconfig /all", $arr, $retval);
-        $arr[14];
-        $ph = explode(":", $arr[14]);
-        echo "string" . trim($ph[1]);
     }
 
     public function include_files() {
@@ -578,5 +560,5 @@ class Auth extends CI_Controller {
             $this->Common_model->select_update('user_accounts', array('is_login' => 0), array('uacc_id' => $user->uacc_id));
         }
     }
-
+       
 }
