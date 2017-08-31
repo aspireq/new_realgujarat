@@ -100,7 +100,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                                 <select class="form-control" name="state" id="state">
-                                                    <option value="">Select State</option>
+<!--                                                    <option value="">Select State</option>-->
                                                     <?php foreach ($states as $state) { ?>
                                                         <option value="<?php echo $state->id; ?>" <?php echo (!empty($businessinfo) && $businessinfo['state'] != "" && $businessinfo['state'] == $state->id ) ? 'selected' : '' ?>><?php echo $state->name; ?></option>
                                                     <?php } ?>
@@ -110,13 +110,18 @@
                                         <div class="form-group col-md-4 col-sm-12 col-xs-12">
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                <select class="form-control" id="city" name="city">
-                                                    <option value="">Select City</option>
+                                                <select class="form-control" id="city" name="city">                                                    
+                                                    <?php                                                     
+                                                    foreach($cities as $city) { ?>                                                    
+                                                    <option value="<?php echo $city->id; ?>" <?php echo (!empty($businessinfo) && $businessinfo['city'] == $city->id) ? 'selected' : ''; ?> ><?php echo $city->name; ?></option>
+                                                    <?php } ?>                                                    
                                                     <?php
-                                                    if (!empty($businessinfo) && $businessinfo['city'] != "") {
-                                                        $cityinfo = $this->db->query('select * from cities where id = ' . $businessinfo['city'] . '');
-                                                        echo '<option value="' . $cityinfo->row()->id . '" selected>' . $cityinfo->row()->name . '</option>';
-                                                    }
+//                                                    if (!empty($businessinfo) && $businessinfo['city'] != "") {
+//                                                        $cityinfo = $this->db->query('select * from cities where id = ' . $businessinfo['city'] . '');
+//                                                        echo '<option value="' . $cityinfo->row()->id . '" selected>' . $cityinfo->row()->name . '</option>';
+//                                                    } else {
+//                                                        echo '<option value="' . $cityinfo->row()->id . '">' . $cityinfo->row()->name . '</option>';
+//                                                    }
                                                     ?>
                                                 </select>
                                             </div>
@@ -774,23 +779,23 @@
                                                                                 }
                                                                             });
                                                                         });
-                                                                        $('#state').change(function () {
-                                                                            var state_id = $('#state').val();
-                                                                            $.ajax({
-                                                                                url: "<?php echo base_url(); ?>reseller/cities/",
-                                                                                type: "POST",
-                                                                                data: {state_id: state_id},
-                                                                                dataType: "JSON",
-                                                                                success: function (data)
-                                                                                {
-                                                                                    $('#city').empty();
-                                                                                    $('#city').html('<option value="">Select City</option>');
-                                                                                    $.each(data, function (index, value) {
-                                                                                        $('#city').append($('<option>').text(value.name).attr('value', value.id));
-                                                                                    });
-                                                                                }
-                                                                            });
-                                                                        });
+//                                                                        $('#state').change(function () {
+//                                                                            var state_id = $('#state').val();
+//                                                                            $.ajax({
+//                                                                                url: "<?php echo base_url(); ?>reseller/cities/",
+//                                                                                type: "POST",
+//                                                                                data: {state_id: state_id},
+//                                                                                dataType: "JSON",
+//                                                                                success: function (data)
+//                                                                                {
+//                                                                                    $('#city').empty();
+//                                                                                    $('#city').html('<option value="">Select City</option>');
+//                                                                                    $.each(data, function (index, value) {
+//                                                                                        $('#city').append($('<option>').text(value.name).attr('value', value.id));
+//                                                                                    });
+//                                                                                }
+//                                                                            });
+//                                                                        });
                                                                     });
                                                                     function add_more_contacts() {
                                                                         $.ajax({

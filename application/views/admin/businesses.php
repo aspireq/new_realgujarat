@@ -206,6 +206,7 @@
                                 $(function () {
                                     myTable = $('#myTable').DataTable({
                                         "bServerSide": true,
+                                        "deferRender": true,
                                         "sAjaxSource": "<?php echo base_url(); ?>auth_admin/get_business",
                                         "sServerMethod": "POST",
                                         "info": false,

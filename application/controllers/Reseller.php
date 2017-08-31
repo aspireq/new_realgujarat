@@ -111,7 +111,7 @@ class Reseller extends CI_Controller {
         $result = $this->Common_model->select_update('demo_user_profiles', $profiledata, array('upro_uacc_fk' => $this->user_id));
         if ($this->input->post('change_pwd') == 1) {
             $this->load->model('demo_auth_model');
-            $change_password = $this->demo_auth_model->change_password();            
+            $change_password = $this->demo_auth_model->change_password();
             $this->session->set_flashdata('message', $this->data['message']);
             if ($change_password) {
                 $this->session->set_flashdata('alert_class', 'alert-success');
@@ -442,6 +442,7 @@ class Reseller extends CI_Controller {
             }
             $this->data['categories'] = $this->Common_model->select_where('categories', array('status' => 1));
             $this->data['states'] = $this->Common_model->select_where('states', array('id' => 12));
+            $this->data['cities'] = $this->Common_model->select_where('cities', array('state_id' => 12));
             $this->data['business_counts'] = $this->Common_model->business_counts($this->user_id);
             $this->data['message'] = (!isset($this->data['message'])) ? $this->session->flashdata('message') : $this->data['message'];
             $this->data = $this->include_files();
@@ -503,5 +504,6 @@ class Reseller extends CI_Controller {
         $this->data = $this->include_files();
         $this->load->view('resseller/reset_password', $this->data);
     }
-
+    
+    
 }
