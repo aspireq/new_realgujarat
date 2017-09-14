@@ -87,6 +87,9 @@ class Common_model extends CI_Model {
         if ($search_business_status != null) {
             $this->db->where('businesses.is_approved', $search_business_status);
         }
+        if ($user_id == 16 || $user_id == 17 || $user_id == 2) {
+            $this->db->where('businesses.is_approved', 2);
+        }
         $this->db->order_by('businesses.created_date desc');
         $query = $this->db->get('businesses');
         if ($query->num_rows() > 0) {

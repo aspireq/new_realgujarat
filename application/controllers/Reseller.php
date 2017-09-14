@@ -8,6 +8,7 @@ class Reseller extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->database();
+        date_default_timezone_set('Asia/Kolkata');
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->model('Admin_model');
@@ -24,6 +25,8 @@ class Reseller extends CI_Controller {
 
     function login_via_ajax() {
         if ($this->input->is_ajax_request()) {
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
             $this->load->model('demo_auth_model');
             $this->demo_auth_model->login_via_ajax();
             die(json_encode(array('message' => $this->flexi_auth->get_messages(), 'login_status' => $this->flexi_auth->is_logged_in())));
@@ -361,6 +364,7 @@ class Reseller extends CI_Controller {
                                 $this->Common_model->delete_where('company_images', array('business_id' => $edit_business_id, 'image' => $row_image));
                             }
                         }
+                        $business_data['modified_date'] = date('Y-m-d H:i:s');
                         $this->Common_model->select_update('businesses', $business_data, array('id' => $edit_business_id));
                         $business_id = $edit_business_id;
                     } else {
@@ -504,6 +508,5 @@ class Reseller extends CI_Controller {
         $this->data = $this->include_files();
         $this->load->view('resseller/reset_password', $this->data);
     }
-    
-    
+
 }
